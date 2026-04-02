@@ -7,6 +7,10 @@ import '/backend/sqlite/sqlite_manager.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 
+
+// ضيف ده
+import 'custom_code/rfid_service.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   GoRouter.optionURLReflectsImperativeAPIs = true;
@@ -15,13 +19,23 @@ void main() async {
   await SQLiteManager.initialize();
   await FlutterFlowTheme.initialize();
 
-  final appState = FFAppState(); // Initialize FFAppState
+  final appState = FFAppState();
   await appState.initializePersistedState();
 
-  runApp(ChangeNotifierProvider(
-    create: (context) => appState,
-    child: MyApp(),
-  ));
+  // listener global
+  RFIDService.setTagReadListener((tagId) {
+    print('TAG FROM ANDROID: $tagId');
+    appState.update(() {
+      appState.scannedTagId = tagId;
+    });
+  });
+
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => appState,
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
