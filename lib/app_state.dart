@@ -31,4 +31,10 @@ class FFAppState extends ChangeNotifier {
   set scannedTagId(String value) {
     _scannedTagId = value;
   }
+
+  bool _rfidConnected = false;
+  bool get rfidConnected => _rfidConnected;
+  set rfidConnected(bool value) {
+    _rfidConnected = value;
+  }
 }

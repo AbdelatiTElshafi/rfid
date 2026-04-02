@@ -456,34 +456,19 @@ class _HomeWidgetState extends State<HomeWidget> {
                                             width: 8.0,
                                             height: 8.0,
                                             decoration: BoxDecoration(
-                                              color: Colors.green,
+                                              color: FFAppState().rfidConnected
+                                                  ? FlutterFlowTheme.of(context)
+                                                      .secondary
+                                                  : FlutterFlowTheme.of(context)
+                                                      .error,
                                               borderRadius:
                                                   BorderRadius.circular(4.0),
+                                              border: Border.all(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .tertiary,
+                                              ),
                                             ),
-                                          ),
-                                          Text(
-                                            'Connected',
-                                            style: FlutterFlowTheme.of(context)
-                                                .labelSmall
-                                                .override(
-                                                  font: GoogleFonts.inter(
-                                                    fontWeight: FontWeight.w600,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .labelSmall
-                                                            .fontStyle,
-                                                  ),
-                                                  color: Colors.green,
-                                                  fontSize: 12.0,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .labelSmall
-                                                          .fontStyle,
-                                                ),
                                           ),
                                         ].divide(SizedBox(width: 6.0)),
                                       ),
