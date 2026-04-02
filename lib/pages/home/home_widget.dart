@@ -710,7 +710,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     ),
                                   ),
                                   Text(
-                                    'ISO 18000',
+                                    'ISO 18',
                                     style: FlutterFlowTheme.of(context)
                                         .bodySmall
                                         .override(
