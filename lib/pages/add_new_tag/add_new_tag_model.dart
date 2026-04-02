@@ -24,11 +24,6 @@ class AddNewTagModel extends FlutterFlowModel<AddNewTagWidget> {
   TextEditingController? serialTextFieldTextController;
   String? Function(BuildContext, String?)?
       serialTextFieldTextControllerValidator;
-  // State field(s) for TagIdTextField widget.
-  FocusNode? tagIdTextFieldFocusNode;
-  TextEditingController? tagIdTextFieldTextController;
-  String? Function(BuildContext, String?)?
-      tagIdTextFieldTextControllerValidator;
   // Stores action output result for [Backend Call - SQLite (CheckTagExists)] action in Container widget.
   List<CheckTagExistsRow>? checkTagExistsResult;
 
@@ -42,8 +37,5 @@ class AddNewTagModel extends FlutterFlowModel<AddNewTagWidget> {
 
     serialTextFieldFocusNode?.dispose();
     serialTextFieldTextController?.dispose();
-
-    tagIdTextFieldFocusNode?.dispose();
-    tagIdTextFieldTextController?.dispose();
   }
 }

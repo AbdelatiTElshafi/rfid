@@ -88,10 +88,6 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
 
     _model.serialTextFieldTextController ??= TextEditingController();
     _model.serialTextFieldFocusNode ??= FocusNode();
-
-    _model.tagIdTextFieldTextController ??=
-        TextEditingController(text: FFAppState().scannedTagId);
-    _model.tagIdTextFieldFocusNode ??= FocusNode();
   }
 
   @override
@@ -323,20 +319,7 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                 onChanged: (_) => EasyDebounce.debounce(
                                   '_model.descTextFieldTextController',
                                   Duration(milliseconds: 2000),
-                                  () async {
-                                    _model.canSave = (_model
-                                                .descTextFieldTextController
-                                                .text !=
-                                            '') &&
-                                        (_model.serialTextFieldTextController
-                                                .text !=
-                                            '') &&
-                                        (_model.tagIdTextFieldTextController
-                                                .text !=
-                                            '');
-                                    _model.saveSuccess = false;
-                                    safeSetState(() {});
-                                  },
+                                  () => safeSetState(() {}),
                                 ),
                                 autofocus: false,
                                 textCapitalization:
@@ -506,16 +489,7 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                   '_model.serialTextFieldTextController',
                                   Duration(milliseconds: 2000),
                                   () async {
-                                    _model.canSave = (_model
-                                                .descTextFieldTextController
-                                                .text !=
-                                            '') &&
-                                        (_model.serialTextFieldTextController
-                                                .text !=
-                                            '') &&
-                                        (_model.tagIdTextFieldTextController
-                                                .text !=
-                                            '');
+                                    _model.canSave = false;
                                     _model.saveSuccess = false;
                                     safeSetState(() {});
                                   },
@@ -738,108 +712,13 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                   ),
                                 ],
                               ),
-                              Stack(
-                                alignment: AlignmentDirectional(1.0, 0.0),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  TextFormField(
-                                    controller:
-                                        _model.tagIdTextFieldTextController,
-                                    focusNode: _model.tagIdTextFieldFocusNode,
-                                    onChanged: (_) => EasyDebounce.debounce(
-                                      '_model.tagIdTextFieldTextController',
-                                      Duration(milliseconds: 2000),
-                                      () async {
-                                        _model.canSave = (_model
-                                                    .descTextFieldTextController
-                                                    .text !=
-                                                '') &&
-                                            (_model.serialTextFieldTextController
-                                                    .text ==
-                                                '') &&
-                                            (_model.tagIdTextFieldTextController
-                                                    .text !=
-                                                '');
-                                        _model.saveSuccess = false;
-                                        safeSetState(() {});
-                                      },
-                                    ),
-                                    autofocus: false,
-                                    enabled: false,
-                                    textCapitalization:
-                                        TextCapitalization.characters,
-                                    textInputAction: TextInputAction.done,
-                                    readOnly: true,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      hintText: 'e.g. E2001234567890AB',
-                                      hintStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            font: GoogleFonts.inter(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
-                                            ),
-                                            color: Color(0xFFBBBBBB),
-                                            fontSize: 14.0,
-                                            letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
-                                          ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0xFFE8E8E8),
-                                          width: 1.5,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0xFFFF6B00),
-                                          width: 1.5,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
-                                      ),
-                                      errorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0xFFFF3B30),
-                                          width: 1.5,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
-                                      ),
-                                      focusedErrorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0xFFFF3B30),
-                                          width: 1.5,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
-                                      ),
-                                      filled: true,
-                                      fillColor: Color(0xFFFAFAFA),
-                                      contentPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              16.0, 14.0, 56.0, 14.0),
-                                      suffixIcon: Icon(
-                                        Icons.close_rounded,
-                                        color: Color(0xFFCCCCCC),
-                                        size: 18.0,
-                                      ),
-                                    ),
+                                  Text(
+                                    FFAppState().scannedTagId,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -865,22 +744,6 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                                   .bodyMedium
                                                   .fontStyle,
                                         ),
-                                    validator: _model
-                                        .tagIdTextFieldTextControllerValidator
-                                        .asValidator(context),
-                                    inputFormatters: [
-                                      if (!isAndroid && !isiOS)
-                                        TextInputFormatter.withFunction(
-                                            (oldValue, newValue) {
-                                          return TextEditingValue(
-                                            selection: newValue.selection,
-                                            text: newValue.text
-                                                .toCapitalization(
-                                                    TextCapitalization
-                                                        .characters),
-                                          );
-                                        }),
-                                    ],
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -1023,7 +886,7 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                     if (_model.canSave == true) {
                       _model.checkTagExistsResult =
                           await SQLiteManager.instance.checkTagExists(
-                        tagId: _model.tagIdTextFieldTextController.text,
+                        tagId: FFAppState().scannedTagId,
                       );
                       if (_model.checkTagExistsResult != null &&
                           (_model.checkTagExistsResult)!.isNotEmpty) {
@@ -1050,10 +913,7 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                             _model.serialTextFieldTextController.text,
                             'Serial',
                           ),
-                          tagId: valueOrDefault<String>(
-                            _model.tagIdTextFieldTextController.text,
-                            'ID',
-                          ),
+                          tagId: _model.scannedTagId,
                         );
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
@@ -1071,7 +931,6 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                         safeSetState(() {
                           _model.descTextFieldTextController?.clear();
                           _model.serialTextFieldTextController?.clear();
-                          _model.tagIdTextFieldTextController?.clear();
                         });
                       }
                     } else {
