@@ -1,0 +1,359 @@
+import '/backend/sqlite/sqlite_manager.dart';
+import '/components/tag_i_d_widget.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import 'package:easy_debounce/easy_debounce.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'saved_tags_model.dart';
+export 'saved_tags_model.dart';
+
+/// Design a clean “Saved Tags” page for an RFID app with black and orange
+/// branding, white/light background, rounded cards, and orange gradient
+/// action buttons.
+///
+/// Structure:
+/// - App bar with Back button, title “Saved Tags”, and Search icon
+/// - Search field below app bar
+/// - Filter chips: All, Saved, Scanned, Matched, Unmatched
+///
+/// Important layout rule:
+/// - The Saved Tags section must take the main body of the page
+/// - The Saved Tags items must be displayed in one vertical scrollable list
+/// - Only this list should scroll
+/// - Keep the search bar and filters fixed at the top
+/// - Keep bottom action buttons separate from the list
+///
+/// Each saved tag card must show:
+/// - Name or Description
+/// - Reference / Serial Number
+/// - Tag ID
+/// - Status badge
+/// - View, Edit, Delete icons
+///
+/// Bottom section:
+/// - Scan RFID Tags button
+/// - Export to CSV button
+///
+/// Use local SQLite storage with full CRUD. Highlight matched tags in green
+/// and unmatched in orange/red. Add a clean empty state when no tags exist.
+class SavedTagsWidget extends StatefulWidget {
+  const SavedTagsWidget({super.key});
+
+  static String routeName = 'SavedTags';
+  static String routePath = '/savedTags';
+
+  @override
+  State<SavedTagsWidget> createState() => _SavedTagsWidgetState();
+}
+
+class _SavedTagsWidgetState extends State<SavedTagsWidget> {
+  late SavedTagsModel _model;
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    _model = createModel(context, () => SavedTagsModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.kk123 = await SQLiteManager.instance.getAllTags();
+    });
+
+    _model.textController ??= TextEditingController();
+    _model.textFieldFocusNode ??= FocusNode();
+  }
+
+  @override
+  void dispose() {
+    _model.dispose();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: Color(0xFFF5F5F5),
+        body: SafeArea(
+          top: true,
+          child: ListView(
+            padding: EdgeInsets.zero,
+            reverse: true,
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xFF1A1A1A),
+                      borderRadius: BorderRadius.circular(24.0),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          'Saved Tags',
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                                    color: Color(0xFFFAFBFB),
+                                    fontSize: 25.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
+                        ),
+                        InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            context.safePop();
+                          },
+                          child: Icon(
+                            Icons.chevron_left,
+                            color: Color(0xFF9E9E9E),
+                            size: 50.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(16.0, 30.0, 16.0, 16.0),
+                    child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Color(0xFF1A1A1A),
+                        borderRadius: BorderRadius.circular(24.0),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Container(
+                              width: double.infinity,
+                              height: 48.0,
+                              decoration: BoxDecoration(
+                                color: Color(0xFF2C2C2C),
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    14.0, 0.0, 14.0, 0.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.search_rounded,
+                                      color: Color(0xFF9E9E9E),
+                                      size: 20.0,
+                                    ),
+                                    Expanded(
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            10.0, 0.0, 10.0, 0.0),
+                                        child: TextFormField(
+                                          controller: _model.textController,
+                                          focusNode: _model.textFieldFocusNode,
+                                          onChanged: (_) =>
+                                              EasyDebounce.debounce(
+                                            '_model.textController',
+                                            Duration(milliseconds: 2000),
+                                            () => safeSetState(() {}),
+                                          ),
+                                          autofocus: false,
+                                          obscureText: false,
+                                          decoration: InputDecoration(
+                                            isDense: true,
+                                            hintText:
+                                                'Search tags by name, ID...',
+                                            hintStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      font: GoogleFonts.inter(
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                      ),
+                                                      color: Color(0xFF9E9E9E),
+                                                      fontSize: 15.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .fontStyle,
+                                                    ),
+                                            enabledBorder: InputBorder.none,
+                                            focusedBorder: InputBorder.none,
+                                            errorBorder: InputBorder.none,
+                                            focusedErrorBorder:
+                                                InputBorder.none,
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                font: GoogleFonts.inter(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
+                                                color: Colors.white,
+                                                fontSize: 15.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
+                                          validator: _model
+                                              .textControllerValidator
+                                              .asValidator(context),
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        context.safePop();
+                                      },
+                                      child: Icon(
+                                        Icons.chevron_left,
+                                        color: Color(0xFF9E9E9E),
+                                        size: 30.0,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ].divide(SizedBox(height: 12.0)),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(4.0),
+                    child: Container(
+                      width: double.infinity,
+                      height: 605.03,
+                      decoration: BoxDecoration(
+                        color: Color(0x00BEBEBE),
+                      ),
+                      child: FutureBuilder<List<GetAllTagsRow>>(
+                        future: SQLiteManager.instance.getAllTags(),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 50.0,
+                                height: 50.0,
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    FlutterFlowTheme.of(context).primary,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+                          final listViewGetAllTagsRowList = snapshot.data!;
+
+                          return ListView.builder(
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemCount: listViewGetAllTagsRowList.length,
+                            itemBuilder: (context, listViewIndex) {
+                              final listViewGetAllTagsRow =
+                                  listViewGetAllTagsRowList[listViewIndex];
+                              return TagIDWidget(
+                                key: Key(
+                                    'Keyo8w_${listViewIndex}_of_${listViewGetAllTagsRowList.length}'),
+                                name: valueOrDefault<String>(
+                                  listViewGetAllTagsRow.nameDescription,
+                                  'Name',
+                                ),
+                                serial: valueOrDefault<String>(
+                                  listViewGetAllTagsRow.serialNumber,
+                                  'Serial',
+                                ),
+                                tagId: valueOrDefault<String>(
+                                  listViewGetAllTagsRow.tagId,
+                                  'Tag_ID',
+                                ),
+                                rebuild: () async {
+                                  safeSetState(() {});
+                                },
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -1,0 +1,34 @@
+import 'package:flutter/material.dart';
+
+class FFAppState extends ChangeNotifier {
+  static FFAppState _instance = FFAppState._internal();
+
+  factory FFAppState() {
+    return _instance;
+  }
+
+  FFAppState._internal();
+
+  static void reset() {
+    _instance = FFAppState._internal();
+  }
+
+  Future initializePersistedState() async {}
+
+  void update(VoidCallback callback) {
+    callback();
+    notifyListeners();
+  }
+
+  String _rfidStatus = 'Disconnected';
+  String get rfidStatus => _rfidStatus;
+  set rfidStatus(String value) {
+    _rfidStatus = value;
+  }
+
+  String _scannedTagId = '';
+  String get scannedTagId => _scannedTagId;
+  set scannedTagId(String value) {
+    _scannedTagId = value;
+  }
+}
