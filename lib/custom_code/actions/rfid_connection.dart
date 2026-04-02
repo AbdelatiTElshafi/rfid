@@ -7,8 +7,7 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import 'index.dart'; // Imports other custom actions
-import '/services/rfid_service.dart';
+import '/custom_code/rfid_service.dart';
 
 Future<bool> rfidConnection() async {
   try {
