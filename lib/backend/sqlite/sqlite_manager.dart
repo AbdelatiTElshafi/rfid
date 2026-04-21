@@ -22,7 +22,7 @@ class SQLiteManager {
       return;
     }
     _database = await initializeDatabaseFromDbFile(
-      'savedtags',
+      'rfiddb',
       'RFIDDB.db',
     );
   }

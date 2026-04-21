@@ -1,5 +1,4 @@
 // Automatic FlutterFlow imports
-import '/backend/supabase/supabase.dart';
 import '/backend/sqlite/sqlite_manager.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/flutter_flow_theme.dart';
