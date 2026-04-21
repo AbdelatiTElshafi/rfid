@@ -78,3 +78,21 @@ class CheckTagExistsRow extends SqliteRow {
 }
 
 /// END CHECKTAGEXISTS
+
+/// BEGIN GETALLPARTNO
+Future<List<GetAllPartNORow>> performGetAllPartNO(
+  Database database,
+) {
+  final query = '''
+SELECT * FROM Products;
+''';
+  return _readQuery(database, query, (d) => GetAllPartNORow(d));
+}
+
+class GetAllPartNORow extends SqliteRow {
+  GetAllPartNORow(Map<String, dynamic> data) : super(data);
+
+  List<String>? get partNumber => data['part_number'] as List<String>?;
+}
+
+/// END GETALLPARTNO

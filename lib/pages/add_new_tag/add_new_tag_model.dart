@@ -1,5 +1,6 @@
 import '/backend/sqlite/sqlite_manager.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/form_field_controller.dart';
 import '/index.dart';
 import 'add_new_tag_widget.dart' show AddNewTagWidget;
 import 'package:flutter/material.dart';
@@ -13,8 +14,22 @@ class AddNewTagModel extends FlutterFlowModel<AddNewTagWidget> {
 
   bool saveSuccess = false;
 
+  List<String> allPartNO = [];
+  void addToAllPartNO(String item) => allPartNO.add(item);
+  void removeFromAllPartNO(String item) => allPartNO.remove(item);
+  void removeAtIndexFromAllPartNO(int index) => allPartNO.removeAt(index);
+  void insertAtIndexInAllPartNO(int index, String item) =>
+      allPartNO.insert(index, item);
+  void updateAllPartNOAtIndex(int index, Function(String) updateFn) =>
+      allPartNO[index] = updateFn(allPartNO[index]);
+
   ///  State fields for stateful widgets in this page.
 
+  // Stores action output result for [Backend Call - SQLite (GetAllPartNO)] action in AddNewTag widget.
+  List<GetAllPartNORow>? getAllPartNO;
+  // State field(s) for DescTextField widget.
+  String? descTextFieldValue;
+  FormFieldController<String>? descTextFieldValueController;
   // State field(s) for DescTextField widget.
   FocusNode? descTextFieldFocusNode;
   TextEditingController? descTextFieldTextController;

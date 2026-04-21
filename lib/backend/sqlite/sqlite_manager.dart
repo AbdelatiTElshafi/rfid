@@ -23,7 +23,7 @@ class SQLiteManager {
     }
     _database = await initializeDatabaseFromDbFile(
       'savedtags',
-      'Test.db',
+      'RFIDDB.db',
     );
   }
 
@@ -47,6 +47,10 @@ class SQLiteManager {
       performCheckTagExists(
         _database,
         tagId: tagId,
+      );
+
+  Future<List<GetAllPartNORow>> getAllPartNO() => performGetAllPartNO(
+        _database,
       );
 
   /// END READ QUERY CALLS
