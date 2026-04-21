@@ -519,12 +519,10 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                       controller: _model
                                               .descTextFieldValueController ??=
                                           FormFieldController<String>(null),
-                                      options: [
-                                        descTextFieldGetAllPartNORowList
-                                            .firstOrNull!.partNumber!,
-                                        'Option 2',
-                                        'Option 3'
-                                      ],
+                                      options: descTextFieldGetAllPartNORowList
+                                          .map((e) => e.partNumber)
+                                          .withoutNulls
+                                          .toList(),
                                       onChanged: (val) => safeSetState(() =>
                                           _model.descTextFieldValue = val),
                                       height: 50.0,
@@ -541,6 +539,8 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                                       .bodyMedium
                                                       .fontStyle,
                                             ),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
                                             letterSpacing: 0.0,
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
@@ -558,10 +558,9 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                             .secondaryText,
                                         size: 24.0,
                                       ),
-                                      fillColor: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
+                                      fillColor: Color(0xFFFAFAFA),
                                       elevation: 2.0,
-                                      borderColor: Colors.transparent,
+                                      borderColor: Color(0xFFE8E8E8),
                                       borderWidth: 0.0,
                                       borderRadius: 8.0,
                                       margin: EdgeInsetsDirectional.fromSTEB(
