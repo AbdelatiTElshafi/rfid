@@ -96,3 +96,23 @@ class GetAllPartNORow extends SqliteRow {
 }
 
 /// END GETALLPARTNO
+
+/// BEGIN GETPARTNODESC
+Future<List<GetPartNoDescRow>> performGetPartNoDesc(
+  Database database, {
+  String? partnumber,
+}) {
+  final query = '''
+SELECT * FROM Products
+WHERE part_number = '${partnumber}';
+''';
+  return _readQuery(database, query, (d) => GetPartNoDescRow(d));
+}
+
+class GetPartNoDescRow extends SqliteRow {
+  GetPartNoDescRow(Map<String, dynamic> data) : super(data);
+
+  String? get nameDescription => data['name_description'] as String?;
+}
+
+/// END GETPARTNODESC

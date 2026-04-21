@@ -250,6 +250,8 @@ dynamic deserializeParam<T>(
             return CheckTagExistsRow(data);
           case GetAllPartNORow:
             return GetAllPartNORow(data);
+          case GetPartNoDescRow:
+            return GetPartNoDescRow(data);
           default:
             return null;
         }

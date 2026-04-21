@@ -53,6 +53,14 @@ class SQLiteManager {
         _database,
       );
 
+  Future<List<GetPartNoDescRow>> getPartNoDesc({
+    String? partnumber,
+  }) =>
+      performGetPartNoDesc(
+        _database,
+        partnumber: partnumber,
+      );
+
   /// END READ QUERY CALLS
 
   /// START UPDATE QUERY CALLS

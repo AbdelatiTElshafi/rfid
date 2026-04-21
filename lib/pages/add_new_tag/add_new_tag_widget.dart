@@ -156,6 +156,7 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
@@ -512,19 +513,35 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                         ),
                                       );
                                     }
-                                    final descTextFieldGetAllPartNORowList =
+                                    final partNODropDownGetAllPartNORowList =
                                         snapshot.data!;
 
                                     return FlutterFlowDropDown<String>(
                                       controller: _model
-                                              .descTextFieldValueController ??=
+                                              .partNODropDownValueController ??=
                                           FormFieldController<String>(null),
-                                      options: descTextFieldGetAllPartNORowList
+                                      options: partNODropDownGetAllPartNORowList
                                           .map((e) => e.partNumber)
                                           .withoutNulls
                                           .toList(),
-                                      onChanged: (val) => safeSetState(() =>
-                                          _model.descTextFieldValue = val),
+                                      onChanged: (val) async {
+                                        safeSetState(() =>
+                                            _model.partNODropDownValue = val);
+                                        _model.getPartNoDesc =
+                                            await SQLiteManager.instance
+                                                .getPartNoDesc(
+                                          partnumber:
+                                              _model.partNODropDownValue,
+                                        );
+                                        safeSetState(() {
+                                          _model.descTextFieldTextController
+                                                  ?.text =
+                                              _model.getPartNoDesc!.firstOrNull!
+                                                  .nameDescription!;
+                                        });
+
+                                        safeSetState(() {});
+                                      },
                                       height: 50.0,
                                       textStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -539,8 +556,7 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                                       .bodyMedium
                                                       .fontStyle,
                                             ),
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
+                                            color: Color(0xFF1A1A1A),
                                             letterSpacing: 0.0,
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
@@ -1027,8 +1043,21 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                         borderRadius: BorderRadius.circular(14.0),
                       ),
                       child: FFButtonWidget(
-                        onPressed: () {
-                          print('Button pressed ...');
+                        onPressed: () async {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Your RFID tag has been stored locally and is ready to use.',
+                                style: TextStyle(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                ),
+                              ),
+                              duration: Duration(milliseconds: 4000),
+                              backgroundColor:
+                                  FlutterFlowTheme.of(context).secondary,
+                            ),
+                          );
                         },
                         text: 'Button',
                         options: FFButtonOptions(
@@ -1113,109 +1142,8 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                       ),
                     ),
                   ),
-                  if (_model.saveSuccess == true)
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(
-                          20.0, 14.0, 20.0, 14.0),
-                      child: Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Color(0xFFF0FFF4),
-                          borderRadius: BorderRadius.circular(14.0),
-                          border: Border.all(
-                            color: Color(0xFF86EFAC),
-                            width: 1.0,
-                          ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(12.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Container(
-                                width: 36.0,
-                                height: 36.0,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFF22C55E),
-                                  borderRadius: BorderRadius.circular(18.0),
-                                ),
-                                child: Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
-                                  child: Icon(
-                                    Icons.check_rounded,
-                                    color: Colors.white,
-                                    size: 20.0,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Tag Saved Successfully!',
-                                      style: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .override(
-                                            font: GoogleFonts.interTight(
-                                              fontWeight: FontWeight.bold,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .fontStyle,
-                                            ),
-                                            color: Color(0xFF15803D),
-                                            fontSize: 14.0,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.bold,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .fontStyle,
-                                          ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 2.0, 0.0, 0.0),
-                                      child: Text(
-                                        'Your RFID tag has been stored locally and is ready to use.',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodySmall
-                                            .override(
-                                              font: GoogleFonts.inter(
-                                                fontWeight:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodySmall
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodySmall
-                                                        .fontStyle,
-                                              ),
-                                              color: Color(0xFF4ADE80),
-                                              fontSize: 12.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodySmall
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodySmall
-                                                      .fontStyle,
-                                            ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ].divide(SizedBox(width: 12.0)),
-                          ),
-                        ),
-                      ),
-                    ),
                 ]
+                    .divide(SizedBox(height: 10.0))
                     .addToStart(SizedBox(height: 24.0))
                     .addToEnd(SizedBox(height: 40.0)),
               ),

@@ -25,9 +25,11 @@ class AddNewTagModel extends FlutterFlowModel<AddNewTagWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  // State field(s) for DescTextField widget.
-  String? descTextFieldValue;
-  FormFieldController<String>? descTextFieldValueController;
+  // State field(s) for PartNODropDown widget.
+  String? partNODropDownValue;
+  FormFieldController<String>? partNODropDownValueController;
+  // Stores action output result for [Backend Call - SQLite (GetPartNoDesc)] action in PartNODropDown widget.
+  List<GetPartNoDescRow>? getPartNoDesc;
   // State field(s) for DescTextField widget.
   FocusNode? descTextFieldFocusNode;
   TextEditingController? descTextFieldTextController;
