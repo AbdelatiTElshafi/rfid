@@ -523,11 +523,7 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                       controller: _model
                                               .descTextFieldValueController ??=
                                           FormFieldController<String>(null),
-                                      options: [
-                                        'Option 1',
-                                        'Option 2',
-                                        'Option 3'
-                                      ],
+                                      options: _model.allPartNO,
                                       onChanged: (val) => safeSetState(() =>
                                           _model.descTextFieldValue = val),
                                       height: 50.0,
