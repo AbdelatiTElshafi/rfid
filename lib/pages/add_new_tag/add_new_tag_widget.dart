@@ -84,10 +84,6 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       safeSetState(() {});
-      _model.getAllPartNO = await SQLiteManager.instance.getAllPartNO();
-      _model.allPartNO =
-          _model.getAllPartNO!.firstOrNull!.partNumber!.toList().cast<String>();
-      safeSetState(() {});
     });
 
     _model.descTextFieldTextController ??= TextEditingController();
@@ -523,7 +519,12 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                       controller: _model
                                               .descTextFieldValueController ??=
                                           FormFieldController<String>(null),
-                                      options: _model.allPartNO,
+                                      options: [
+                                        descTextFieldGetAllPartNORowList
+                                            .firstOrNull!.partNumber!,
+                                        'Option 2',
+                                        'Option 3'
+                                      ],
                                       onChanged: (val) => safeSetState(() =>
                                           _model.descTextFieldValue = val),
                                       height: 50.0,

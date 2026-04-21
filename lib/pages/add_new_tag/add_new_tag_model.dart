@@ -25,8 +25,6 @@ class AddNewTagModel extends FlutterFlowModel<AddNewTagWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Backend Call - SQLite (GetAllPartNO)] action in AddNewTag widget.
-  List<GetAllPartNORow>? getAllPartNO;
   // State field(s) for DescTextField widget.
   String? descTextFieldValue;
   FormFieldController<String>? descTextFieldValueController;

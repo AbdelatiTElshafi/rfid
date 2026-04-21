@@ -92,7 +92,7 @@ SELECT * FROM Products;
 class GetAllPartNORow extends SqliteRow {
   GetAllPartNORow(Map<String, dynamic> data) : super(data);
 
-  List<String>? get partNumber => data['part_number'] as List<String>?;
+  String? get partNumber => data['part_number'] as String?;
 }
 
 /// END GETALLPARTNO
