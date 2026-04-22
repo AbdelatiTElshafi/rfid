@@ -77,11 +77,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: StartPageWidget.routeName,
           path: StartPageWidget.routePath,
           builder: (context, params) => StartPageWidget(),
-        ),
-        FFRoute(
-          name: SavedTagsCopyWidget.routeName,
-          path: SavedTagsCopyWidget.routePath,
-          builder: (context, params) => SavedTagsCopyWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
