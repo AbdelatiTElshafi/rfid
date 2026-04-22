@@ -63,6 +63,7 @@ class _SavedTagsWidgetState extends State<SavedTagsWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      safeSetState(() {});
       _model.allTagsData = await SQLiteManager.instance.getAllTags();
       _model.tagsID = _model.allTagsData!
           .map((e) => e.tagId)
