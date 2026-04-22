@@ -407,6 +407,7 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                                           .bodyMedium
                                                           .fontStyle,
                                                 ),
+                                            overflow: TextOverflow.ellipsis,
                                           ),
                                         ),
                                         Padding(
