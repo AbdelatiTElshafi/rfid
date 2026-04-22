@@ -147,113 +147,126 @@ class _SavedTagsWidgetState extends State<SavedTagsWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Container(
-                decoration: BoxDecoration(),
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Builder(
-                        builder: (context) {
-                          final itemAtIndex = _model.tagsID.toList();
+          child: Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Container(
+                  height: 500.0,
+                  decoration: BoxDecoration(),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Builder(
+                          builder: (context) {
+                            final itemAtIndex = _model.tagsID.toList();
 
-                          return ListView.separated(
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemCount: itemAtIndex.length,
-                            separatorBuilder: (_, __) => SizedBox(height: 10.0),
-                            itemBuilder: (context, itemAtIndexIndex) {
-                              final itemAtIndexItem =
-                                  itemAtIndex[itemAtIndexIndex];
-                              return TagIDWidget(
-                                key: Key(
-                                    'Keyg83_${itemAtIndexIndex}_of_${itemAtIndex.length}'),
-                                name: _model.name
-                                    .elementAtOrNull(itemAtIndexIndex),
-                                serial: _model.serials
-                                    .elementAtOrNull(itemAtIndexIndex),
-                                tagId: _model.tagsID
-                                    .elementAtOrNull(itemAtIndexIndex),
-                                partNo: _model.partNOs
-                                    .elementAtOrNull(itemAtIndexIndex),
-                                rebuild: () async {
-                                  safeSetState(() {});
-                                },
-                              );
-                            },
-                          );
-                        },
-                      ),
-                    ],
+                            return ListView.separated(
+                              padding: EdgeInsets.zero,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              itemCount: itemAtIndex.length,
+                              separatorBuilder: (_, __) =>
+                                  SizedBox(height: 10.0),
+                              itemBuilder: (context, itemAtIndexIndex) {
+                                final itemAtIndexItem =
+                                    itemAtIndex[itemAtIndexIndex];
+                                return TagIDWidget(
+                                  key: Key(
+                                      'Keyg83_${itemAtIndexIndex}_of_${itemAtIndex.length}'),
+                                  name: _model.name
+                                      .elementAtOrNull(itemAtIndexIndex),
+                                  serial: _model.serials
+                                      .elementAtOrNull(itemAtIndexIndex),
+                                  tagId: _model.tagsID
+                                      .elementAtOrNull(itemAtIndexIndex),
+                                  partNo: _model.partNOs
+                                      .elementAtOrNull(itemAtIndexIndex),
+                                  rebuild: () async {
+                                    safeSetState(() {});
+                                  },
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
-                child: Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Container(
-                          height: 50.0,
-                          decoration: BoxDecoration(),
-                          child: FFButtonWidget(
-                            onPressed: () async {
-                              _model.allTagsData =
-                                  await SQLiteManager.instance.getAllTags();
-                              _model.tagsID = _model.allTagsData!
-                                  .map((e) => e.tagId)
-                                  .withoutNulls
-                                  .toList()
-                                  .cast<String>();
-                              _model.serials = _model.allTagsData!
-                                  .map((e) => e.serialNumber)
-                                  .withoutNulls
-                                  .toList()
-                                  .cast<String>();
-                              _model.name = _model.allTagsData!
-                                  .map((e) => e.nameDescription)
-                                  .withoutNulls
-                                  .toList()
-                                  .cast<String>();
-                              _model.partNOs = _model.allTagsData!
-                                  .map((e) => e.partNumber)
-                                  .withoutNulls
-                                  .toList()
-                                  .cast<String>();
-                              safeSetState(() {});
-                              await actions.exportToCSV(
-                                _model.tagsID.toList(),
-                                _model.name.toList(),
-                                _model.partNOs.toList(),
-                                _model.serials.toList(),
-                              );
+                Align(
+                  alignment: AlignmentDirectional(0.0, 1.0),
+                  child: Padding(
+                    padding: EdgeInsets.all(12.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: Container(
+                            height: 50.0,
+                            decoration: BoxDecoration(),
+                            child: FFButtonWidget(
+                              onPressed: () async {
+                                _model.allTagsData =
+                                    await SQLiteManager.instance.getAllTags();
+                                _model.tagsID = _model.allTagsData!
+                                    .map((e) => e.tagId)
+                                    .withoutNulls
+                                    .toList()
+                                    .cast<String>();
+                                _model.serials = _model.allTagsData!
+                                    .map((e) => e.serialNumber)
+                                    .withoutNulls
+                                    .toList()
+                                    .cast<String>();
+                                _model.name = _model.allTagsData!
+                                    .map((e) => e.nameDescription)
+                                    .withoutNulls
+                                    .toList()
+                                    .cast<String>();
+                                _model.partNOs = _model.allTagsData!
+                                    .map((e) => e.partNumber)
+                                    .withoutNulls
+                                    .toList()
+                                    .cast<String>();
+                                safeSetState(() {});
+                                await actions.exportToCSV(
+                                  _model.tagsID.toList(),
+                                  _model.name.toList(),
+                                  _model.partNOs.toList(),
+                                  _model.serials.toList(),
+                                );
 
-                              safeSetState(() {});
-                            },
-                            text: 'Export Data',
-                            icon: Icon(
-                              Icons.upgrade_sharp,
-                              size: 25.0,
-                            ),
-                            options: FFButtonOptions(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 0.0, 16.0, 0.0),
-                              iconAlignment: IconAlignment.end,
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 0.0),
-                              color: FlutterFlowTheme.of(context).tertiary,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .titleSmall
-                                  .override(
-                                    font: GoogleFonts.interTight(
+                                safeSetState(() {});
+                              },
+                              text: 'Export Data',
+                              icon: Icon(
+                                Icons.upgrade_sharp,
+                                size: 25.0,
+                              ),
+                              options: FFButtonOptions(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    16.0, 0.0, 16.0, 0.0),
+                                iconAlignment: IconAlignment.end,
+                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                color: FlutterFlowTheme.of(context).tertiary,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .override(
+                                      font: GoogleFonts.interTight(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .fontStyle,
+                                      ),
+                                      color: Colors.white,
+                                      letterSpacing: 0.0,
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .fontWeight,
@@ -261,26 +274,18 @@ class _SavedTagsWidgetState extends State<SavedTagsWidget> {
                                           .titleSmall
                                           .fontStyle,
                                     ),
-                                    color: Colors.white,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .fontStyle,
-                                  ),
-                              elevation: 0.0,
-                              borderRadius: BorderRadius.circular(8.0),
+                                elevation: 0.0,
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
