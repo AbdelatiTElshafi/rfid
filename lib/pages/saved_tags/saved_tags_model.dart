@@ -44,7 +44,7 @@ class SavedTagsModel extends FlutterFlowModel<SavedTagsWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Backend Call - SQLite (GetAllTags)] action in SavedTags widget.
+  // Stores action output result for [Backend Call - SQLite (GetAllTags)] action in Button widget.
   List<GetAllTagsRow>? allTagsData;
 
   @override

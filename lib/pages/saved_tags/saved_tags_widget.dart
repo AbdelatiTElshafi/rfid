@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'saved_tags_model.dart';
 export 'saved_tags_model.dart';
@@ -60,58 +59,6 @@ class _SavedTagsWidgetState extends State<SavedTagsWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SavedTagsModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      safeSetState(() {});
-      _model.allTagsData = await SQLiteManager.instance.getAllTags();
-      _model.tagsID = _model.allTagsData!
-          .map((e) => e.tagId)
-          .withoutNulls
-          .toList()
-          .toList()
-          .cast<String>();
-      _model.serials = _model.allTagsData!
-          .map((e) => e.serialNumber)
-          .withoutNulls
-          .toList()
-          .toList()
-          .cast<String>();
-      _model.name = _model.allTagsData!
-          .map((e) => e.nameDescription)
-          .withoutNulls
-          .toList()
-          .toList()
-          .cast<String>();
-      _model.partNOs = _model.allTagsData!
-          .map((e) => e.partNumber)
-          .withoutNulls
-          .toList()
-          .toList()
-          .cast<String>();
-      safeSetState(() {});
-      var confirmDialogResponse = await showDialog<bool>(
-            context: context,
-            builder: (alertDialogContext) {
-              return AlertDialog(
-                title: Text(_model.allTagsData!.firstOrNull!.serialNumber!),
-                content:
-                    Text(_model.allTagsData!.firstOrNull!.nameDescription!),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(alertDialogContext, false),
-                    child: Text(_model.allTagsData!.firstOrNull!.tagId!),
-                  ),
-                  TextButton(
-                    onPressed: () => Navigator.pop(alertDialogContext, true),
-                    child: Text(_model.allTagsData!.firstOrNull!.partNumber!),
-                  ),
-                ],
-              );
-            },
-          ) ??
-          false;
-    });
   }
 
   @override
@@ -231,12 +178,37 @@ class _SavedTagsWidgetState extends State<SavedTagsWidget> {
                           decoration: BoxDecoration(),
                           child: FFButtonWidget(
                             onPressed: () async {
+                              _model.allTagsData =
+                                  await SQLiteManager.instance.getAllTags();
+                              _model.tagsID = _model.allTagsData!
+                                  .map((e) => e.tagId)
+                                  .withoutNulls
+                                  .toList()
+                                  .cast<String>();
+                              _model.serials = _model.allTagsData!
+                                  .map((e) => e.serialNumber)
+                                  .withoutNulls
+                                  .toList()
+                                  .cast<String>();
+                              _model.name = _model.allTagsData!
+                                  .map((e) => e.nameDescription)
+                                  .withoutNulls
+                                  .toList()
+                                  .cast<String>();
+                              _model.partNOs = _model.allTagsData!
+                                  .map((e) => e.partNumber)
+                                  .withoutNulls
+                                  .toList()
+                                  .cast<String>();
+                              safeSetState(() {});
                               await actions.exportToCSV(
                                 _model.tagsID.toList(),
                                 _model.name.toList(),
                                 _model.partNOs.toList(),
                                 _model.serials.toList(),
                               );
+
+                              safeSetState(() {});
                             },
                             text: 'Export Data',
                             icon: Icon(
