@@ -63,14 +63,38 @@ class _SavedTagsWidgetState extends State<SavedTagsWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.alltags = await SQLiteManager.instance.getAllTags();
-      _model.tagsID = _model.alltags!
+      _model.allTagsDataPage = await SQLiteManager.instance.getAllTags();
+      _model.tagsID = _model.allTagsDataPage!
           .map((e) => e.tagId)
           .withoutNulls
           .toList()
           .toList()
           .cast<String>();
+      _model.serials = _model.allTagsDataPage!
+          .map((e) => e.serialNumber)
+          .withoutNulls
+          .toList()
+          .toList()
+          .cast<String>();
+      _model.name = _model.allTagsDataPage!
+          .map((e) => e.nameDescription)
+          .withoutNulls
+          .toList()
+          .toList()
+          .cast<String>();
+      _model.partNOs = _model.allTagsDataPage!
+          .map((e) => e.partNumber)
+          .withoutNulls
+          .toList()
+          .toList()
+          .cast<String>();
       safeSetState(() {});
+      await actions.exportToCSV(
+        _model.tagsID.toList(),
+        _model.name.toList(),
+        _model.partNOs.toList(),
+        _model.serials.toList(),
+      );
     });
   }
 
