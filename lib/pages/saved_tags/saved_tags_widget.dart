@@ -211,7 +211,8 @@ class _SavedTagsWidgetState extends State<SavedTagsWidget> {
                                         context: context,
                                         builder: (alertDialogContext) {
                                           return AlertDialog(
-                                            title: Text('test'),
+                                            title: Text(
+                                                _model.tagsID.firstOrNull!),
                                             actions: [
                                               TextButton(
                                                 onPressed: () => Navigator.pop(

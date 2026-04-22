@@ -367,78 +367,64 @@ class _HomeWidgetState extends State<HomeWidget> {
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(20.0, 4.0, 20.0, 0.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            20.0, 16.0, 20.0, 16.0),
-                        child: InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            await actions.exportToCSV(
-                              _model.test.toList(),
-                              _model.test.toList(),
-                              _model.test.toList(),
-                              _model.test.toList(),
-                            );
-                          },
-                          child: Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: Color(0xFF252525),
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: 20.0,
-                                  color: Color(0x44000000),
-                                  offset: Offset(
-                                    0.0,
-                                    6.0,
-                                  ),
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(20.0),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.all(16.0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Reader Status',
-                                            style: FlutterFlowTheme.of(context)
-                                                .titleMedium
-                                                .override(
-                                                  font: GoogleFonts.interTight(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .titleMedium
-                                                            .fontStyle,
-                                                  ),
-                                                  color: Colors.white,
-                                                  fontSize: 16.0,
-                                                  letterSpacing: 0.0,
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.all(6.0),
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          await actions.exportToCSV(
+                            _model.test.toList(),
+                            _model.test.toList(),
+                            _model.test.toList(),
+                            _model.test.toList(),
+                          );
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Color(0xFF252525),
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 20.0,
+                                color: Color(0x44000000),
+                                offset: Offset(
+                                  0.0,
+                                  6.0,
+                                ),
+                              )
+                            ],
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Reader Status',
+                                          style: FlutterFlowTheme.of(context)
+                                              .titleMedium
+                                              .override(
+                                                font: GoogleFonts.interTight(
                                                   fontWeight: FontWeight.bold,
                                                   fontStyle:
                                                       FlutterFlowTheme.of(
@@ -446,41 +432,29 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           .titleMedium
                                                           .fontStyle,
                                                 ),
-                                          ),
-                                        ],
-                                      ),
-                                      Text(
-                                        valueOrDefault<String>(
-                                          FFAppState().rfidConnected
-                                              ? 'Connected'
-                                              : 'Disconnected',
-                                          'Connected',
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              font: GoogleFonts.inter(
-                                                fontWeight:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontWeight,
+                                                color: Colors.white,
+                                                fontSize: 16.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.bold,
                                                 fontStyle:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyMedium
+                                                        .titleMedium
                                                         .fontStyle,
                                               ),
-                                              color: valueOrDefault<Color>(
-                                                FFAppState().rfidConnected
-                                                    ? FlutterFlowTheme.of(
-                                                            context)
-                                                        .success
-                                                    : FlutterFlowTheme.of(
-                                                            context)
-                                                        .error,
-                                                FlutterFlowTheme.of(context)
-                                                    .success,
-                                              ),
-                                              letterSpacing: 0.0,
+                                        ),
+                                      ],
+                                    ),
+                                    Text(
+                                      valueOrDefault<String>(
+                                        FFAppState().rfidConnected
+                                            ? 'Connected'
+                                            : 'Disconnected',
+                                        'Connected',
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            font: GoogleFonts.inter(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -490,23 +464,41 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                       .bodyMedium
                                                       .fontStyle,
                                             ),
-                                      ),
-                                    ],
-                                  ),
-                                  Divider(
-                                    height: 1.0,
-                                    thickness: 1.0,
-                                    color: Color(0x33FFFFFF),
-                                  ),
-                                ].divide(SizedBox(height: 12.0)),
-                              ),
+                                            color: valueOrDefault<Color>(
+                                              FFAppState().rfidConnected
+                                                  ? FlutterFlowTheme.of(context)
+                                                      .success
+                                                  : FlutterFlowTheme.of(context)
+                                                      .error,
+                                              FlutterFlowTheme.of(context)
+                                                  .success,
+                                            ),
+                                            letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                                Divider(
+                                  height: 1.0,
+                                  thickness: 1.0,
+                                  color: Color(0x33FFFFFF),
+                                ),
+                              ].divide(SizedBox(height: 12.0)),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ].divide(SizedBox(width: 14.0)),
-                ),
+                  ),
+                ].divide(SizedBox(width: 14.0)),
               ),
             ],
           ),
