@@ -206,6 +206,28 @@ class _SavedTagsWidgetState extends State<SavedTagsWidget> {
                           decoration: BoxDecoration(),
                           child: FFButtonWidget(
                             onPressed: () async {
+                              var confirmDialogResponse =
+                                  await showDialog<bool>(
+                                        context: context,
+                                        builder: (alertDialogContext) {
+                                          return AlertDialog(
+                                            title: Text('test'),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                    alertDialogContext, false),
+                                                child: Text('Cancel'),
+                                              ),
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                    alertDialogContext, true),
+                                                child: Text('Confirm'),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      ) ??
+                                      false;
                               await actions.exportToCSV(
                                 _model.tagsID.toList(),
                                 _model.name.toList(),
