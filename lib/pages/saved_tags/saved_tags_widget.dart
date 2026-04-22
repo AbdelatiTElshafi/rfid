@@ -89,6 +89,27 @@ class _SavedTagsWidgetState extends State<SavedTagsWidget> {
           .toList()
           .cast<String>();
       safeSetState(() {});
+      var confirmDialogResponse = await showDialog<bool>(
+            context: context,
+            builder: (alertDialogContext) {
+              return AlertDialog(
+                title: Text(_model.allTagsData!.firstOrNull!.serialNumber!),
+                content:
+                    Text(_model.allTagsData!.firstOrNull!.nameDescription!),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(alertDialogContext, false),
+                    child: Text(_model.allTagsData!.firstOrNull!.tagId!),
+                  ),
+                  TextButton(
+                    onPressed: () => Navigator.pop(alertDialogContext, true),
+                    child: Text(_model.allTagsData!.firstOrNull!.partNumber!),
+                  ),
+                ],
+              );
+            },
+          ) ??
+          false;
     });
   }
 
