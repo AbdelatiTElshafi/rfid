@@ -884,8 +884,6 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                   '_model.serialTextFieldTextController',
                                   Duration(milliseconds: 2000),
                                   () async {
-                                    _model.canSave = false;
-                                    _model.saveSuccess = false;
                                     safeSetState(() {});
                                   },
                                 ),
@@ -1005,82 +1003,20 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                   width: double.infinity,
                   height: 56.0,
                   decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 16.0,
-                        color: valueOrDefault<Color>(
-                          _model.canSave
-                              ? Color(0xFFFF4E00)
-                              : Color(0x40FF6B00),
-                          Color(0x40FF6B00),
-                        ),
-                        offset: Offset(
-                          0.0,
-                          6.0,
-                        ),
-                      )
-                    ],
                     borderRadius: BorderRadius.circular(14.0),
                   ),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      if (_model.canSave == true) {
-                        _model.checkTagExistsResult =
-                            await SQLiteManager.instance.checkTagExists(
-                          tagId: FFAppState().scannedTagId,
-                        );
-                        if (_model.checkTagExistsResult != null &&
-                            (_model.checkTagExistsResult)!.isNotEmpty) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                'Tag already assigned To another product',
-                                style: TextStyle(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                ),
-                              ),
-                              duration: Duration(milliseconds: 4000),
-                              backgroundColor:
-                                  FlutterFlowTheme.of(context).secondary,
-                            ),
-                          );
-                        } else {
-                          await SQLiteManager.instance.insertTag(
-                            nameDesc: valueOrDefault<String>(
-                              _model.descTextFieldTextController.text,
-                              'Desc',
-                            ),
-                            serialNumber: valueOrDefault<String>(
-                              _model.serialTextFieldTextController.text,
-                              'Serial',
-                            ),
-                            tagId: _model.scannedTagId,
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                'Your RFID tag has been stored locally and is ready to use.',
-                                style: TextStyle(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                ),
-                              ),
-                              duration: Duration(milliseconds: 4000),
-                              backgroundColor:
-                                  FlutterFlowTheme.of(context).secondary,
-                            ),
-                          );
-                          safeSetState(() {
-                            _model.descTextFieldTextController?.clear();
-                            _model.serialTextFieldTextController?.clear();
-                          });
-                        }
-                      } else {
+                      _model.checkTagExistsResult =
+                          await SQLiteManager.instance.checkTagExists(
+                        tagId: FFAppState().scannedTagId,
+                      );
+                      if (_model.checkTagExistsResult != null &&
+                          (_model.checkTagExistsResult)!.isNotEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
-                              'Please fill all fields',
+                              'Tag already assigned To another product',
                               style: TextStyle(
                                 color: FlutterFlowTheme.of(context).primaryText,
                               ),
@@ -1090,6 +1026,35 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                 FlutterFlowTheme.of(context).secondary,
                           ),
                         );
+                      } else {
+                        await SQLiteManager.instance.insertTag(
+                          nameDesc: valueOrDefault<String>(
+                            _model.descTextFieldTextController.text,
+                            'Desc',
+                          ),
+                          serialNumber: valueOrDefault<String>(
+                            _model.serialTextFieldTextController.text,
+                            'Serial',
+                          ),
+                          tagId: _model.scannedTagId,
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Your RFID tag has been stored locally and is ready to use.',
+                              style: TextStyle(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
+                            ),
+                            duration: Duration(milliseconds: 4000),
+                            backgroundColor:
+                                FlutterFlowTheme.of(context).secondary,
+                          ),
+                        );
+                        safeSetState(() {
+                          _model.descTextFieldTextController?.clear();
+                          _model.serialTextFieldTextController?.clear();
+                        });
                       }
 
                       safeSetState(() {});

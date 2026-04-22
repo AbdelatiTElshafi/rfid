@@ -8,20 +8,7 @@ import 'package:flutter/material.dart';
 class AddNewTagModel extends FlutterFlowModel<AddNewTagWidget> {
   ///  Local state fields for this page.
 
-  String scannedTagId = ' ';
-
-  bool canSave = false;
-
-  bool saveSuccess = false;
-
-  List<String> allPartNO = [];
-  void addToAllPartNO(String item) => allPartNO.add(item);
-  void removeFromAllPartNO(String item) => allPartNO.remove(item);
-  void removeAtIndexFromAllPartNO(int index) => allPartNO.removeAt(index);
-  void insertAtIndexInAllPartNO(int index, String item) =>
-      allPartNO.insert(index, item);
-  void updateAllPartNOAtIndex(int index, Function(String) updateFn) =>
-      allPartNO[index] = updateFn(allPartNO[index]);
+  String scannedTagId = ' test';
 
   ///  State fields for stateful widgets in this page.
 
