@@ -16,11 +16,6 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
   void updateTestAtIndex(int index, Function(String) updateFn) =>
       test[index] = updateFn(test[index]);
 
-  ///  State fields for stateful widgets in this page.
-
-  // Stores action output result for [Custom Action - exportToCSV] action in Container widget.
-  String? mmmmmmmmmm;
-
   @override
   void initState(BuildContext context) {}
 

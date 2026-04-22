@@ -11,8 +11,9 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:csv/csv.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 
-Future<String> exportToCSV(
+Future<void> exportToCSV(
   List<String> tagIds,
   List<String> names,
   List<String> partNumbers,
@@ -45,10 +46,15 @@ Future<String> exportToCSV(
   final csvString = const ListToCsvConverter().convert(rows);
 
   final dir = await getApplicationDocumentsDirectory();
-  final path = '${dir.path}/export.csv';
+  final now = DateTime.now().millisecondsSinceEpoch;
+  final path = '${dir.path}/export_$now.csv';
 
   final file = File(path);
   await file.writeAsString(csvString);
 
-  return path;
+  await Share.shareFiles(
+    [path],
+    text: 'Exported CSV',
+    subject: 'CSV Export',
+  );
 }

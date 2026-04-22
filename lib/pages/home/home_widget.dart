@@ -399,26 +399,12 @@ class _HomeWidgetState extends State<HomeWidget> {
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
-                    _model.mmmmmmmmmm = await actions.exportToCSV(
+                    await actions.exportToCSV(
                       _model.test.toList(),
                       _model.test.toList(),
                       _model.test.toList(),
                       _model.test.toList(),
                     );
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          _model.mmmmmmmmmm!,
-                          style: TextStyle(
-                            color: FlutterFlowTheme.of(context).primaryText,
-                          ),
-                        ),
-                        duration: Duration(milliseconds: 5150),
-                        backgroundColor: FlutterFlowTheme.of(context).secondary,
-                      ),
-                    );
-
-                    safeSetState(() {});
                   },
                   child: Container(
                     width: double.infinity,
