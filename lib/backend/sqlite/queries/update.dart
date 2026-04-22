@@ -6,10 +6,11 @@ Future performInsertTag(
   String? nameDesc,
   String? serialNumber,
   String? tagId,
+  String? partNo,
 }) {
   final query = '''
-INSERT INTO saved_tags (name_description,serial_number,tag_id)
- VALUES ('${nameDesc}','${serialNumber}','${tagId}');
+INSERT INTO saved_tags (name_description,serial_number,tag_id,part_number)
+ VALUES ('${nameDesc}','${serialNumber}','${tagId}','${partNo}');
 ''';
   return database.rawQuery(query);
 }

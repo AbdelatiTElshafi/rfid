@@ -534,37 +534,6 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                               _model.getPartNoDesc!.firstOrNull!
                                                   .nameDescription!;
                                         });
-                                        var confirmDialogResponse =
-                                            await showDialog<bool>(
-                                                  context: context,
-                                                  builder:
-                                                      (alertDialogContext) {
-                                                    return AlertDialog(
-                                                      title: Text(_model
-                                                          .getPartNoDesc!
-                                                          .firstOrNull!
-                                                          .nameDescription!),
-                                                      actions: [
-                                                        TextButton(
-                                                          onPressed: () =>
-                                                              Navigator.pop(
-                                                                  alertDialogContext,
-                                                                  false),
-                                                          child: Text('Cancel'),
-                                                        ),
-                                                        TextButton(
-                                                          onPressed: () =>
-                                                              Navigator.pop(
-                                                                  alertDialogContext,
-                                                                  true),
-                                                          child:
-                                                              Text('Confirm'),
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
-                                                ) ??
-                                                false;
 
                                         safeSetState(() {});
                                       },
@@ -1035,7 +1004,7 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
-                                'Tag already assigned To another product',
+                                '${FFAppState().scannedTagId}tag already assigned To another product',
                                 style: TextStyle(
                                   color:
                                       FlutterFlowTheme.of(context).primaryText,
@@ -1043,7 +1012,7 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                               ),
                               duration: Duration(milliseconds: 4000),
                               backgroundColor:
-                                  FlutterFlowTheme.of(context).secondary,
+                                  FlutterFlowTheme.of(context).error,
                             ),
                           );
                         } else {
@@ -1057,6 +1026,7 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                               'Serial',
                             ),
                             tagId: FFAppState().scannedTagId,
+                            partNo: _model.partNODropDownValue,
                           );
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
@@ -1076,6 +1046,12 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                             _model.descTextFieldTextController?.clear();
                             _model.serialTextFieldTextController?.clear();
                           });
+                          safeSetState(() {
+                            _model.partNODropDownValueController?.reset();
+                            _model.partNODropDownValue = null;
+                          });
+                          FFAppState().scannedTagId = '';
+                          safeSetState(() {});
                         }
 
                         safeSetState(() {});

@@ -1,5 +1,4 @@
 import '/backend/sqlite/sqlite_manager.dart';
-import '/components/tag_i_d_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
 import 'saved_tags_widget.dart' show SavedTagsWidget;
@@ -47,16 +46,10 @@ class SavedTagsModel extends FlutterFlowModel<SavedTagsWidget> {
 
   // Stores action output result for [Backend Call - SQLite (GetAllTags)] action in SavedTags widget.
   List<GetAllTagsRow>? allTagsData;
-  // Model for Tag_ID component.
-  late TagIDModel tagIDModel;
 
   @override
-  void initState(BuildContext context) {
-    tagIDModel = createModel(context, () => TagIDModel());
-  }
+  void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    tagIDModel.dispose();
-  }
+  void dispose() {}
 }

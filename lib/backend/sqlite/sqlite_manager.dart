@@ -69,12 +69,14 @@ class SQLiteManager {
     String? nameDesc,
     String? serialNumber,
     String? tagId,
+    String? partNo,
   }) =>
       performInsertTag(
         _database,
         nameDesc: nameDesc,
         serialNumber: serialNumber,
         tagId: tagId,
+        partNo: partNo,
       );
 
   Future updateTag({

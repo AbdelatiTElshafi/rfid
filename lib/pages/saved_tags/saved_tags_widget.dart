@@ -159,25 +159,37 @@ class _SavedTagsWidgetState extends State<SavedTagsWidget> {
                       decoration: BoxDecoration(
                         color: Color(0x00BEBEBE),
                       ),
-                      child: ListView(
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        children: [
-                          wrapWithModel(
-                            model: _model.tagIDModel,
-                            updateCallback: () => safeSetState(() {}),
-                            child: TagIDWidget(
-                              name: _model.name.elementAtOrNull(0),
-                              serial: _model.serials.elementAtOrNull(0),
-                              tagId: _model.tagsID.elementAtOrNull(0),
-                              partNo: _model.partNOs.elementAtOrNull(0),
-                              rebuild: () async {
-                                safeSetState(() {});
-                              },
-                            ),
-                          ),
-                        ].divide(SizedBox(height: 10.0)),
+                      child: Builder(
+                        builder: (context) {
+                          final itemAtIndex = _model.tagsID.toList();
+
+                          return ListView.separated(
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemCount: itemAtIndex.length,
+                            separatorBuilder: (_, __) => SizedBox(height: 10.0),
+                            itemBuilder: (context, itemAtIndexIndex) {
+                              final itemAtIndexItem =
+                                  itemAtIndex[itemAtIndexIndex];
+                              return TagIDWidget(
+                                key: Key(
+                                    'Key9cl_${itemAtIndexIndex}_of_${itemAtIndex.length}'),
+                                name: _model.name
+                                    .elementAtOrNull(itemAtIndexIndex),
+                                serial: _model.serials
+                                    .elementAtOrNull(itemAtIndexIndex),
+                                tagId: _model.tagsID
+                                    .elementAtOrNull(itemAtIndexIndex),
+                                partNo: _model.partNOs
+                                    .elementAtOrNull(itemAtIndexIndex),
+                                rebuild: () async {
+                                  safeSetState(() {});
+                                },
+                              );
+                            },
+                          );
+                        },
                       ),
                     ),
                   ),
@@ -197,29 +209,6 @@ class _SavedTagsWidgetState extends State<SavedTagsWidget> {
                           decoration: BoxDecoration(),
                           child: FFButtonWidget(
                             onPressed: () async {
-                              var confirmDialogResponse =
-                                  await showDialog<bool>(
-                                        context: context,
-                                        builder: (alertDialogContext) {
-                                          return AlertDialog(
-                                            title: Text(
-                                                _model.tagsID.firstOrNull!),
-                                            actions: [
-                                              TextButton(
-                                                onPressed: () => Navigator.pop(
-                                                    alertDialogContext, false),
-                                                child: Text('Cancel'),
-                                              ),
-                                              TextButton(
-                                                onPressed: () => Navigator.pop(
-                                                    alertDialogContext, true),
-                                                child: Text('Confirm'),
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      ) ??
-                                      false;
                               await actions.exportToCSV(
                                 _model.tagsID.toList(),
                                 _model.name.toList(),
