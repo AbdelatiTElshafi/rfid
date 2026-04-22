@@ -148,57 +148,55 @@ class _SavedTagsWidgetState extends State<SavedTagsWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: Padding(
-            padding: EdgeInsets.all(10.0),
-            child: SingleChildScrollView(
-              child: Column(
+          child: Stack(
+            children: [
+              Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(4.0),
-                        child: Container(
-                          width: double.infinity,
-                          height: 605.0,
-                          decoration: BoxDecoration(
-                            color: Color(0x00BEBEBE),
-                          ),
-                          child: Builder(
-                            builder: (context) {
-                              final itemAtIndex = _model.tagsID.toList();
+                  Padding(
+                    padding: EdgeInsets.all(4.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Color(0x00BEBEBE),
+                      ),
+                      child: Builder(
+                        builder: (context) {
+                          final itemAtIndex = _model.tagsID.toList();
 
-                              return ListView.builder(
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount: itemAtIndex.length,
-                                itemBuilder: (context, itemAtIndexIndex) {
-                                  final itemAtIndexItem =
-                                      itemAtIndex[itemAtIndexIndex];
-                                  return TagIDWidget(
-                                    key: Key(
-                                        'Key08t_${itemAtIndexIndex}_of_${itemAtIndex.length}'),
-                                    name: _model.name
-                                        .elementAtOrNull(itemAtIndexIndex),
-                                    serial: _model.serials
-                                        .elementAtOrNull(itemAtIndexIndex),
-                                    tagId: _model.tagsID
-                                        .elementAtOrNull(itemAtIndexIndex),
-                                    rebuild: () async {
-                                      safeSetState(() {});
-                                    },
-                                  );
+                          return ListView.builder(
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemCount: itemAtIndex.length,
+                            itemBuilder: (context, itemAtIndexIndex) {
+                              final itemAtIndexItem =
+                                  itemAtIndex[itemAtIndexIndex];
+                              return TagIDWidget(
+                                key: Key(
+                                    'Key2vi_${itemAtIndexIndex}_of_${itemAtIndex.length}'),
+                                name: _model.name
+                                    .elementAtOrNull(itemAtIndexIndex),
+                                serial: _model.serials
+                                    .elementAtOrNull(itemAtIndexIndex),
+                                tagId: _model.tagsID
+                                    .elementAtOrNull(itemAtIndexIndex),
+                                rebuild: () async {
+                                  safeSetState(() {});
                                 },
                               );
                             },
-                          ),
-                        ),
+                          );
+                        },
                       ),
-                    ],
+                    ),
                   ),
-                  Row(
+                ],
+              ),
+              Align(
+                alignment: AlignmentDirectional(0.0, 1.0),
+                child: Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -255,9 +253,9 @@ class _SavedTagsWidgetState extends State<SavedTagsWidget> {
                       ),
                     ],
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
         ),
       ),
