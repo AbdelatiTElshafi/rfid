@@ -42,7 +42,7 @@ Future<String> exportToCSV(
     ]);
   }
 
-  final csvString = Csv().encode(rows);
+  final csvString = const ListToCsvConverter().convert(rows);
 
   final dir = await getApplicationDocumentsDirectory();
   final path = '${dir.path}/export.csv';
