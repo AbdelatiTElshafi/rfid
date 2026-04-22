@@ -33,51 +33,13 @@ class _StartPageWidgetState extends State<StartPageWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.rfidConnected = await actions.rfidConnection();
-      if (FFAppState().rfidConnected) {
+      _model.rFIDStatus = await actions.rfidConnection();
+      if (_model.rFIDStatus!) {
         FFAppState().rfidConnected = true;
         safeSetState(() {});
-        var confirmDialogResponse = await showDialog<bool>(
-              context: context,
-              builder: (alertDialogContext) {
-                return AlertDialog(
-                  title: Text('done'),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(alertDialogContext, false),
-                      child: Text('Cancel'),
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pop(alertDialogContext, true),
-                      child: Text('Confirm'),
-                    ),
-                  ],
-                );
-              },
-            ) ??
-            false;
       } else {
-        FFAppState().rfidConnected = false;
+        FFAppState().rfidConnected = true;
         safeSetState(() {});
-        var confirmDialogResponse = await showDialog<bool>(
-              context: context,
-              builder: (alertDialogContext) {
-                return AlertDialog(
-                  title: Text('not done'),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(alertDialogContext, false),
-                      child: Text('Cancel'),
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pop(alertDialogContext, true),
-                      child: Text('Confirm'),
-                    ),
-                  ],
-                );
-              },
-            ) ??
-            false;
       }
 
       context.pushNamed(HomeWidget.routeName);

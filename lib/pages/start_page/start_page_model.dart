@@ -7,7 +7,7 @@ class StartPageModel extends FlutterFlowModel<StartPageWidget> {
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Custom Action - rfidConnection] action in StartPage widget.
-  bool? rfidConnected;
+  bool? rFIDStatus;
 
   @override
   void initState(BuildContext context) {}
