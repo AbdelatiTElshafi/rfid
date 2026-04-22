@@ -45,8 +45,6 @@ class SavedTagsModel extends FlutterFlowModel<SavedTagsWidget> {
 
   // Stores action output result for [Backend Call - SQLite (GetAllTags)] action in SavedTags widget.
   List<GetAllTagsRow>? allTagsDataPage;
-  // Stores action output result for [Backend Call - SQLite (GetAllTags)] action in Button widget.
-  List<GetAllTagsRow>? allTagsData;
 
   @override
   void initState(BuildContext context) {}
