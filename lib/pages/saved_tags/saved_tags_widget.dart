@@ -119,50 +119,53 @@ class _SavedTagsWidgetState extends State<SavedTagsWidget> {
           top: true,
           child: Stack(
             children: [
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(4.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Color(0x00BEBEBE),
-                      ),
-                      child: Builder(
-                        builder: (context) {
-                          final itemAtIndex = _model.tagsID.toList();
+              SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(4.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Color(0x00BEBEBE),
+                        ),
+                        child: Builder(
+                          builder: (context) {
+                            final itemAtIndex = _model.tagsID.toList();
 
-                          return ListView.separated(
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemCount: itemAtIndex.length,
-                            separatorBuilder: (_, __) => SizedBox(height: 10.0),
-                            itemBuilder: (context, itemAtIndexIndex) {
-                              final itemAtIndexItem =
-                                  itemAtIndex[itemAtIndexIndex];
-                              return TagIDWidget(
-                                key: Key(
-                                    'Key9cl_${itemAtIndexIndex}_of_${itemAtIndex.length}'),
-                                name: _model.name
-                                    .elementAtOrNull(itemAtIndexIndex),
-                                serial: _model.serials
-                                    .elementAtOrNull(itemAtIndexIndex),
-                                tagId: _model.tagsID
-                                    .elementAtOrNull(itemAtIndexIndex),
-                                partNo: _model.partNOs
-                                    .elementAtOrNull(itemAtIndexIndex),
-                                rebuild: () async {
-                                  safeSetState(() {});
-                                },
-                              );
-                            },
-                          );
-                        },
+                            return ListView.separated(
+                              padding: EdgeInsets.zero,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              itemCount: itemAtIndex.length,
+                              separatorBuilder: (_, __) =>
+                                  SizedBox(height: 10.0),
+                              itemBuilder: (context, itemAtIndexIndex) {
+                                final itemAtIndexItem =
+                                    itemAtIndex[itemAtIndexIndex];
+                                return TagIDWidget(
+                                  key: Key(
+                                      'Key9cl_${itemAtIndexIndex}_of_${itemAtIndex.length}'),
+                                  name: _model.name
+                                      .elementAtOrNull(itemAtIndexIndex),
+                                  serial: _model.serials
+                                      .elementAtOrNull(itemAtIndexIndex),
+                                  tagId: _model.tagsID
+                                      .elementAtOrNull(itemAtIndexIndex),
+                                  partNo: _model.partNOs
+                                      .elementAtOrNull(itemAtIndexIndex),
+                                  rebuild: () async {
+                                    safeSetState(() {});
+                                  },
+                                );
+                              },
+                            );
+                          },
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               Align(
                 alignment: AlignmentDirectional(0.0, 1.0),
