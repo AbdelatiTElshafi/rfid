@@ -159,37 +159,25 @@ class _SavedTagsWidgetState extends State<SavedTagsWidget> {
                       decoration: BoxDecoration(
                         color: Color(0x00BEBEBE),
                       ),
-                      child: Builder(
-                        builder: (context) {
-                          final itemAtIndex = _model.tagsID.toList();
-
-                          return ListView.separated(
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemCount: itemAtIndex.length,
-                            separatorBuilder: (_, __) => SizedBox(height: 10.0),
-                            itemBuilder: (context, itemAtIndexIndex) {
-                              final itemAtIndexItem =
-                                  itemAtIndex[itemAtIndexIndex];
-                              return TagIDWidget(
-                                key: Key(
-                                    'Key2vi_${itemAtIndexIndex}_of_${itemAtIndex.length}'),
-                                name: _model.name
-                                    .elementAtOrNull(itemAtIndexIndex),
-                                serial: _model.serials
-                                    .elementAtOrNull(itemAtIndexIndex),
-                                tagId: _model.tagsID
-                                    .elementAtOrNull(itemAtIndexIndex),
-                                partNo: _model.partNOs
-                                    .elementAtOrNull(itemAtIndexIndex),
-                                rebuild: () async {
-                                  safeSetState(() {});
-                                },
-                              );
-                            },
-                          );
-                        },
+                      child: ListView(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        children: [
+                          wrapWithModel(
+                            model: _model.tagIDModel,
+                            updateCallback: () => safeSetState(() {}),
+                            child: TagIDWidget(
+                              name: _model.name.elementAtOrNull(0),
+                              serial: _model.serials.elementAtOrNull(0),
+                              tagId: _model.tagsID.elementAtOrNull(0),
+                              partNo: _model.partNOs.elementAtOrNull(0),
+                              rebuild: () async {
+                                safeSetState(() {});
+                              },
+                            ),
+                          ),
+                        ].divide(SizedBox(height: 10.0)),
                       ),
                     ),
                   ),

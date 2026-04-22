@@ -1061,7 +1061,7 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
-                                'Your RFID tag has been stored locally and is ready to use.',
+                                '${FFAppState().scannedTagId} tag has been stored locally and is ready to use.',
                                 style: TextStyle(
                                   color:
                                       FlutterFlowTheme.of(context).primaryText,
