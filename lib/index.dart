@@ -5,3 +5,4 @@ export '/pages/add_new_tag/add_new_tag_widget.dart' show AddNewTagWidget;
 export '/test/test_widget.dart' show TestWidget;
 export '/splash_page/splash_page_widget.dart' show SplashPageWidget;
 export '/start_page/start_page_widget.dart' show StartPageWidget;
+export '/nnn/nnn_widget.dart' show NnnWidget;

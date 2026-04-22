@@ -87,6 +87,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: StartPageWidget.routeName,
           path: StartPageWidget.routePath,
           builder: (context, params) => StartPageWidget(),
+        ),
+        FFRoute(
+          name: NnnWidget.routeName,
+          path: NnnWidget.routePath,
+          builder: (context, params) => NnnWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

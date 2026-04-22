@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'saved_tags_model.dart';
 export 'saved_tags_model.dart';
@@ -59,6 +60,18 @@ class _SavedTagsWidgetState extends State<SavedTagsWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SavedTagsModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.alltags = await SQLiteManager.instance.getAllTags();
+      _model.tagsID = _model.alltags!
+          .map((e) => e.tagId)
+          .withoutNulls
+          .toList()
+          .toList()
+          .cast<String>();
+      safeSetState(() {});
+    });
   }
 
   @override
@@ -117,52 +130,44 @@ class _SavedTagsWidgetState extends State<SavedTagsWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: Stack(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
             children: [
               SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.all(4.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Color(0x00BEBEBE),
-                        ),
-                        child: Builder(
-                          builder: (context) {
-                            final itemAtIndex = _model.tagsID.toList();
+                    Builder(
+                      builder: (context) {
+                        final itemAtIndex = _model.tagsID.toList();
 
-                            return ListView.separated(
-                              padding: EdgeInsets.zero,
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              itemCount: itemAtIndex.length,
-                              separatorBuilder: (_, __) =>
-                                  SizedBox(height: 10.0),
-                              itemBuilder: (context, itemAtIndexIndex) {
-                                final itemAtIndexItem =
-                                    itemAtIndex[itemAtIndexIndex];
-                                return TagIDWidget(
-                                  key: Key(
-                                      'Key9cl_${itemAtIndexIndex}_of_${itemAtIndex.length}'),
-                                  name: _model.name
-                                      .elementAtOrNull(itemAtIndexIndex),
-                                  serial: _model.serials
-                                      .elementAtOrNull(itemAtIndexIndex),
-                                  tagId: _model.tagsID
-                                      .elementAtOrNull(itemAtIndexIndex),
-                                  partNo: _model.partNOs
-                                      .elementAtOrNull(itemAtIndexIndex),
-                                  rebuild: () async {
-                                    safeSetState(() {});
-                                  },
-                                );
+                        return ListView.separated(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemCount: itemAtIndex.length,
+                          separatorBuilder: (_, __) => SizedBox(height: 10.0),
+                          itemBuilder: (context, itemAtIndexIndex) {
+                            final itemAtIndexItem =
+                                itemAtIndex[itemAtIndexIndex];
+                            return TagIDWidget(
+                              key: Key(
+                                  'Key3e5_${itemAtIndexIndex}_of_${itemAtIndex.length}'),
+                              name:
+                                  _model.name.elementAtOrNull(itemAtIndexIndex),
+                              serial: _model.serials
+                                  .elementAtOrNull(itemAtIndexIndex),
+                              tagId: _model.tagsID
+                                  .elementAtOrNull(itemAtIndexIndex),
+                              partNo: _model.partNOs
+                                  .elementAtOrNull(itemAtIndexIndex),
+                              rebuild: () async {
+                                safeSetState(() {});
                               },
                             );
                           },
-                        ),
-                      ),
+                        );
+                      },
                     ),
                   ],
                 ),

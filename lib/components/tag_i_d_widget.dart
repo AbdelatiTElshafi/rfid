@@ -348,6 +348,27 @@ class _TagIDWidgetState extends State<TagIDWidget> {
                           ),
                         );
                         await widget.rebuild?.call();
+                        var confirmDialogResponse = await showDialog<bool>(
+                              context: context,
+                              builder: (alertDialogContext) {
+                                return AlertDialog(
+                                  title: Text('zx'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(
+                                          alertDialogContext, false),
+                                      child: Text('Cancel'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(
+                                          alertDialogContext, true),
+                                      child: Text('Confirm'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            ) ??
+                            false;
                       },
                       child: Container(
                         width: 36.0,
