@@ -152,57 +152,45 @@ class _SavedTagsWidgetState extends State<SavedTagsWidget> {
               children: [
                 Container(
                   decoration: BoxDecoration(),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      SingleChildScrollView(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Expanded(
-                              child: Container(
-                                decoration: BoxDecoration(),
-                                child: Builder(
-                                  builder: (context) {
-                                    final itemAtIndex = _model.tagsID.toList();
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Builder(
+                          builder: (context) {
+                            final itemAtIndex = _model.tagsID.toList();
 
-                                    return ListView.separated(
-                                      padding: EdgeInsets.zero,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      itemCount: itemAtIndex.length,
-                                      separatorBuilder: (_, __) =>
-                                          SizedBox(height: 10.0),
-                                      itemBuilder: (context, itemAtIndexIndex) {
-                                        final itemAtIndexItem =
-                                            itemAtIndex[itemAtIndexIndex];
-                                        return TagIDWidget(
-                                          key: Key(
-                                              'Keyg83_${itemAtIndexIndex}_of_${itemAtIndex.length}'),
-                                          name: _model.name.elementAtOrNull(
-                                              itemAtIndexIndex),
-                                          serial: _model.serials
-                                              .elementAtOrNull(
-                                                  itemAtIndexIndex),
-                                          tagId: _model.tagsID.elementAtOrNull(
-                                              itemAtIndexIndex),
-                                          partNo: _model.partNOs
-                                              .elementAtOrNull(
-                                                  itemAtIndexIndex),
-                                          rebuild: () async {
-                                            safeSetState(() {});
-                                          },
-                                        );
-                                      },
-                                    );
+                            return ListView.separated(
+                              padding: EdgeInsets.zero,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              itemCount: itemAtIndex.length,
+                              separatorBuilder: (_, __) =>
+                                  SizedBox(height: 10.0),
+                              itemBuilder: (context, itemAtIndexIndex) {
+                                final itemAtIndexItem =
+                                    itemAtIndex[itemAtIndexIndex];
+                                return TagIDWidget(
+                                  key: Key(
+                                      'Keyut8_${itemAtIndexIndex}_of_${itemAtIndex.length}'),
+                                  name: _model.name
+                                      .elementAtOrNull(itemAtIndexIndex),
+                                  serial: _model.serials
+                                      .elementAtOrNull(itemAtIndexIndex),
+                                  tagId: _model.tagsID
+                                      .elementAtOrNull(itemAtIndexIndex),
+                                  partNo: _model.partNOs
+                                      .elementAtOrNull(itemAtIndexIndex),
+                                  rebuild: () async {
+                                    safeSetState(() {});
                                   },
-                                ),
-                              ),
-                            ),
-                          ],
+                                );
+                              },
+                            );
+                          },
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],
