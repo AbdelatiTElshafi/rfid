@@ -24,6 +24,7 @@ class GetAllTagsRow extends SqliteRow {
   String? get nameDescription => data['name_description'] as String?;
   String? get serialNumber => data['serial_number'] as String?;
   String? get tagId => data['tag_id'] as String?;
+  String? get partNumber => data['part_number'] as String?;
 }
 
 /// END GETALLTAGS

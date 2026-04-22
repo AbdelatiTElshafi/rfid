@@ -3,6 +3,8 @@ import '/components/tag_i_d_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -61,7 +63,32 @@ class _SavedTagsWidgetState extends State<SavedTagsWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.kk123 = await SQLiteManager.instance.getAllTags();
+      _model.allTagsData = await SQLiteManager.instance.getAllTags();
+      _model.tagsID = _model.allTagsData!
+          .map((e) => e.tagId)
+          .withoutNulls
+          .toList()
+          .toList()
+          .cast<String>();
+      _model.serials = _model.allTagsData!
+          .map((e) => e.serialNumber)
+          .withoutNulls
+          .toList()
+          .toList()
+          .cast<String>();
+      _model.name = _model.allTagsData!
+          .map((e) => e.nameDescription)
+          .withoutNulls
+          .toList()
+          .toList()
+          .cast<String>();
+      _model.partNOs = _model.allTagsData!
+          .map((e) => e.partNumber)
+          .withoutNulls
+          .toList()
+          .toList()
+          .cast<String>();
+      safeSetState(() {});
     });
   }
 
@@ -121,84 +148,117 @@ class _SavedTagsWidgetState extends State<SavedTagsWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: ListView(
-            padding: EdgeInsets.zero,
-            reverse: true,
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Color(0xFF1A1A1A),
-                      borderRadius: BorderRadius.circular(24.0),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(4.0),
-                    child: Container(
-                      width: double.infinity,
-                      height: 605.03,
-                      decoration: BoxDecoration(
-                        color: Color(0x00BEBEBE),
-                      ),
-                      child: FutureBuilder<List<GetAllTagsRow>>(
-                        future: SQLiteManager.instance.getAllTags(),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50.0,
-                                height: 50.0,
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                    FlutterFlowTheme.of(context).primary,
-                                  ),
-                                ),
-                              ),
-                            );
-                          }
-                          final listViewGetAllTagsRowList = snapshot.data!;
+          child: Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(4.0),
+                      child: Container(
+                        width: double.infinity,
+                        height: 605.0,
+                        decoration: BoxDecoration(
+                          color: Color(0x00BEBEBE),
+                        ),
+                        child: Builder(
+                          builder: (context) {
+                            final itemAtIndex = _model.tagsID.toList();
 
-                          return ListView.builder(
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemCount: listViewGetAllTagsRowList.length,
-                            itemBuilder: (context, listViewIndex) {
-                              final listViewGetAllTagsRow =
-                                  listViewGetAllTagsRowList[listViewIndex];
-                              return TagIDWidget(
-                                key: Key(
-                                    'Keyo8w_${listViewIndex}_of_${listViewGetAllTagsRowList.length}'),
-                                name: valueOrDefault<String>(
-                                  listViewGetAllTagsRow.nameDescription,
-                                  'Name',
-                                ),
-                                serial: valueOrDefault<String>(
-                                  listViewGetAllTagsRow.serialNumber,
-                                  'Serial',
-                                ),
-                                tagId: valueOrDefault<String>(
-                                  listViewGetAllTagsRow.tagId,
-                                  'Tag_ID',
-                                ),
-                                rebuild: () async {
-                                  safeSetState(() {});
-                                },
-                              );
-                            },
-                          );
-                        },
+                            return ListView.builder(
+                              padding: EdgeInsets.zero,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              itemCount: itemAtIndex.length,
+                              itemBuilder: (context, itemAtIndexIndex) {
+                                final itemAtIndexItem =
+                                    itemAtIndex[itemAtIndexIndex];
+                                return TagIDWidget(
+                                  key: Key(
+                                      'Key08t_${itemAtIndexIndex}_of_${itemAtIndex.length}'),
+                                  name: _model.name
+                                      .elementAtOrNull(itemAtIndexIndex),
+                                  serial: _model.serials
+                                      .elementAtOrNull(itemAtIndexIndex),
+                                  tagId: _model.tagsID
+                                      .elementAtOrNull(itemAtIndexIndex),
+                                  rebuild: () async {
+                                    safeSetState(() {});
+                                  },
+                                );
+                              },
+                            );
+                          },
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        height: 50.0,
+                        decoration: BoxDecoration(
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                        ),
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            await actions.exportToCSV(
+                              _model.tagsID.toList(),
+                              _model.name.toList(),
+                              _model.partNOs.toList(),
+                              _model.serials.toList(),
+                            );
+                          },
+                          text: 'Export Data',
+                          icon: Icon(
+                            Icons.upgrade_sharp,
+                            size: 25.0,
+                          ),
+                          options: FFButtonOptions(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
+                            iconAlignment: IconAlignment.end,
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: FlutterFlowTheme.of(context).tertiary,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  font: GoogleFonts.interTight(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontStyle,
+                                  ),
+                                  color: Colors.white,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontStyle,
+                                ),
+                            elevation: 0.0,
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

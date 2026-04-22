@@ -40,7 +40,7 @@ class _SplashPageWidgetState extends State<SplashPageWidget> {
               context: context,
               builder: (alertDialogContext) {
                 return AlertDialog(
-                  title: Text('disc'),
+                  title: Text('RFID Connected'),
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.pop(alertDialogContext, false),
@@ -62,7 +62,7 @@ class _SplashPageWidgetState extends State<SplashPageWidget> {
               context: context,
               builder: (alertDialogContext) {
                 return AlertDialog(
-                  title: Text('conn'),
+                  title: Text('RFID DisConnected'),
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.pop(alertDialogContext, false),

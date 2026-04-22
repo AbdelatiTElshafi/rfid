@@ -546,7 +546,14 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     Container(
                                       height: 28.0,
                                       decoration: BoxDecoration(
-                                        color: Color(0x1A4CAF50),
+                                        color: valueOrDefault<Color>(
+                                          FFAppState().rfidConnected
+                                              ? FlutterFlowTheme.of(context)
+                                                  .success
+                                              : FlutterFlowTheme.of(context)
+                                                  .error,
+                                          FlutterFlowTheme.of(context).error,
+                                        ),
                                         borderRadius:
                                             BorderRadius.circular(14.0),
                                       ),
