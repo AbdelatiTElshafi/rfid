@@ -37,6 +37,25 @@ class _StartPageWidgetState extends State<StartPageWidget> {
       if (FFAppState().rfidConnected) {
         FFAppState().rfidConnected = true;
         safeSetState(() {});
+        var confirmDialogResponse = await showDialog<bool>(
+              context: context,
+              builder: (alertDialogContext) {
+                return AlertDialog(
+                  title: Text('done'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(alertDialogContext, false),
+                      child: Text('Cancel'),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pop(alertDialogContext, true),
+                      child: Text('Confirm'),
+                    ),
+                  ],
+                );
+              },
+            ) ??
+            false;
       } else {
         FFAppState().rfidConnected = false;
         safeSetState(() {});

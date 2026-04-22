@@ -74,24 +74,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: TestWidget.routeName,
-          path: TestWidget.routePath,
-          builder: (context, params) => TestWidget(),
-        ),
-        FFRoute(
-          name: SplashPageWidget.routeName,
-          path: SplashPageWidget.routePath,
-          builder: (context, params) => SplashPageWidget(),
-        ),
-        FFRoute(
           name: StartPageWidget.routeName,
           path: StartPageWidget.routePath,
           builder: (context, params) => StartPageWidget(),
-        ),
-        FFRoute(
-          name: NnnWidget.routeName,
-          path: NnnWidget.routePath,
-          builder: (context, params) => NnnWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

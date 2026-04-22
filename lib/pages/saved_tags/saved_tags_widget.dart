@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
-import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -89,12 +88,6 @@ class _SavedTagsWidgetState extends State<SavedTagsWidget> {
           .toList()
           .cast<String>();
       safeSetState(() {});
-      await actions.exportToCSV(
-        _model.tagsID.toList(),
-        _model.name.toList(),
-        _model.partNOs.toList(),
-        _model.serials.toList(),
-      );
     });
   }
 
@@ -129,7 +122,7 @@ class _SavedTagsWidgetState extends State<SavedTagsWidget> {
                 size: 24.0,
               ),
               onPressed: () async {
-                context.pushNamed(HomeWidget.routeName);
+                context.safePop();
               },
             ),
           ),
