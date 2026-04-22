@@ -34,12 +34,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
-      errorBuilder: (context, state) => SavedTagsWidget(),
+      errorBuilder: (context, state) => StartPageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => SavedTagsWidget(),
+          builder: (context, _) => StartPageWidget(),
         ),
         FFRoute(
           name: HomeWidget.routeName,
