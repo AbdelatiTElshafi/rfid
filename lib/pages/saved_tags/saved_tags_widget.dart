@@ -163,11 +163,12 @@ class _SavedTagsWidgetState extends State<SavedTagsWidget> {
                         builder: (context) {
                           final itemAtIndex = _model.tagsID.toList();
 
-                          return ListView.builder(
+                          return ListView.separated(
                             padding: EdgeInsets.zero,
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
                             itemCount: itemAtIndex.length,
+                            separatorBuilder: (_, __) => SizedBox(height: 10.0),
                             itemBuilder: (context, itemAtIndexIndex) {
                               final itemAtIndexItem =
                                   itemAtIndex[itemAtIndexIndex];
@@ -179,6 +180,8 @@ class _SavedTagsWidgetState extends State<SavedTagsWidget> {
                                 serial: _model.serials
                                     .elementAtOrNull(itemAtIndexIndex),
                                 tagId: _model.tagsID
+                                    .elementAtOrNull(itemAtIndexIndex),
+                                partNo: _model.partNOs
                                     .elementAtOrNull(itemAtIndexIndex),
                                 rebuild: () async {
                                   safeSetState(() {});

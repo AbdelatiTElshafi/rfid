@@ -13,12 +13,14 @@ class TagIDWidget extends StatefulWidget {
     this.serial,
     this.tagId,
     required this.rebuild,
+    this.partNo,
   });
 
   final String? name;
   final String? serial;
   final String? tagId;
   final Future Function()? rebuild;
+  final String? partNo;
 
   @override
   State<TagIDWidget> createState() => _TagIDWidgetState();
@@ -91,7 +93,10 @@ class _TagIDWidgetState extends State<TagIDWidget> {
                               size: 18.0,
                             ),
                             Text(
-                              widget.name!,
+                              valueOrDefault<String>(
+                                widget.name,
+                                'Name',
+                              ),
                               style: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .override(
@@ -144,7 +149,10 @@ class _TagIDWidgetState extends State<TagIDWidget> {
                                   ),
                             ),
                             Text(
-                              widget.serial!,
+                              valueOrDefault<String>(
+                                widget.serial,
+                                'Serial',
+                              ),
                               style: FlutterFlowTheme.of(context)
                                   .labelSmall
                                   .override(
@@ -194,7 +202,62 @@ class _TagIDWidgetState extends State<TagIDWidget> {
                                 ),
                           ),
                           Text(
-                            widget.tagId!,
+                            valueOrDefault<String>(
+                              widget.tagId,
+                              'Tag ID',
+                            ),
+                            style: FlutterFlowTheme.of(context)
+                                .labelSmall
+                                .override(
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelSmall
+                                        .fontStyle,
+                                  ),
+                                  color: Color(0xFF555555),
+                                  fontSize: 12.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w600,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .labelSmall
+                                      .fontStyle,
+                                ),
+                          ),
+                        ].divide(SizedBox(width: 6.0)),
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Text(
+                            'Part No:',
+                            style: FlutterFlowTheme.of(context)
+                                .labelSmall
+                                .override(
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelSmall
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelSmall
+                                        .fontStyle,
+                                  ),
+                                  color: Color(0xFF9E9E9E),
+                                  fontSize: 12.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .labelSmall
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .labelSmall
+                                      .fontStyle,
+                                ),
+                          ),
+                          Text(
+                            valueOrDefault<String>(
+                              widget.partNo,
+                              'Part No',
+                            ),
                             style: FlutterFlowTheme.of(context)
                                 .labelSmall
                                 .override(

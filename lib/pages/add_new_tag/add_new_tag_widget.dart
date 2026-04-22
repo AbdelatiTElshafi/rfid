@@ -1056,7 +1056,7 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                               _model.serialTextFieldTextController.text,
                               'Serial',
                             ),
-                            tagId: _model.scannedTagId,
+                            tagId: FFAppState().scannedTagId,
                           );
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
