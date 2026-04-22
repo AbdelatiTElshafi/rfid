@@ -150,89 +150,96 @@ class _SavedTagsWidgetState extends State<SavedTagsWidget> {
           top: true,
           child: Padding(
             padding: EdgeInsets.all(10.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(4.0),
-                      child: Container(
-                        width: double.infinity,
-                        height: 605.0,
-                        decoration: BoxDecoration(
-                          color: Color(0x00BEBEBE),
-                        ),
-                        child: Builder(
-                          builder: (context) {
-                            final itemAtIndex = _model.tagsID.toList();
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(4.0),
+                        child: Container(
+                          width: double.infinity,
+                          height: 605.0,
+                          decoration: BoxDecoration(
+                            color: Color(0x00BEBEBE),
+                          ),
+                          child: Builder(
+                            builder: (context) {
+                              final itemAtIndex = _model.tagsID.toList();
 
-                            return ListView.builder(
-                              padding: EdgeInsets.zero,
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              itemCount: itemAtIndex.length,
-                              itemBuilder: (context, itemAtIndexIndex) {
-                                final itemAtIndexItem =
-                                    itemAtIndex[itemAtIndexIndex];
-                                return TagIDWidget(
-                                  key: Key(
-                                      'Key08t_${itemAtIndexIndex}_of_${itemAtIndex.length}'),
-                                  name: _model.name
-                                      .elementAtOrNull(itemAtIndexIndex),
-                                  serial: _model.serials
-                                      .elementAtOrNull(itemAtIndexIndex),
-                                  tagId: _model.tagsID
-                                      .elementAtOrNull(itemAtIndexIndex),
-                                  rebuild: () async {
-                                    safeSetState(() {});
-                                  },
-                                );
-                              },
-                            );
-                          },
+                              return ListView.builder(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemCount: itemAtIndex.length,
+                                itemBuilder: (context, itemAtIndexIndex) {
+                                  final itemAtIndexItem =
+                                      itemAtIndex[itemAtIndexIndex];
+                                  return TagIDWidget(
+                                    key: Key(
+                                        'Key08t_${itemAtIndexIndex}_of_${itemAtIndex.length}'),
+                                    name: _model.name
+                                        .elementAtOrNull(itemAtIndexIndex),
+                                    serial: _model.serials
+                                        .elementAtOrNull(itemAtIndexIndex),
+                                    tagId: _model.tagsID
+                                        .elementAtOrNull(itemAtIndexIndex),
+                                    rebuild: () async {
+                                      safeSetState(() {});
+                                    },
+                                  );
+                                },
+                              );
+                            },
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Container(
-                        height: 50.0,
-                        decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
-                        ),
-                        child: FFButtonWidget(
-                          onPressed: () async {
-                            await actions.exportToCSV(
-                              _model.tagsID.toList(),
-                              _model.name.toList(),
-                              _model.partNOs.toList(),
-                              _model.serials.toList(),
-                            );
-                          },
-                          text: 'Export Data',
-                          icon: Icon(
-                            Icons.upgrade_sharp,
-                            size: 25.0,
-                          ),
-                          options: FFButtonOptions(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 0.0, 16.0, 0.0),
-                            iconAlignment: IconAlignment.end,
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: FlutterFlowTheme.of(context).tertiary,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
-                                  font: GoogleFonts.interTight(
+                    ],
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          height: 50.0,
+                          decoration: BoxDecoration(),
+                          child: FFButtonWidget(
+                            onPressed: () async {
+                              await actions.exportToCSV(
+                                _model.tagsID.toList(),
+                                _model.name.toList(),
+                                _model.partNOs.toList(),
+                                _model.serials.toList(),
+                              );
+                            },
+                            text: 'Export Data',
+                            icon: Icon(
+                              Icons.upgrade_sharp,
+                              size: 25.0,
+                            ),
+                            options: FFButtonOptions(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 0.0, 16.0, 0.0),
+                              iconAlignment: IconAlignment.end,
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: FlutterFlowTheme.of(context).tertiary,
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    font: GoogleFonts.interTight(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontStyle,
+                                    ),
+                                    color: Colors.white,
+                                    letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .fontWeight,
@@ -240,24 +247,16 @@ class _SavedTagsWidgetState extends State<SavedTagsWidget> {
                                         .titleSmall
                                         .fontStyle,
                                   ),
-                                  color: Colors.white,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .fontStyle,
-                                ),
-                            elevation: 0.0,
-                            borderRadius: BorderRadius.circular(8.0),
+                              elevation: 0.0,
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
