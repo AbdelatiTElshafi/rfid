@@ -38,7 +38,7 @@ class _StartPageWidgetState extends State<StartPageWidget> {
         FFAppState().rfidConnected = true;
         safeSetState(() {});
       } else {
-        FFAppState().rfidConnected = true;
+        FFAppState().rfidConnected = false;
         safeSetState(() {});
       }
 
