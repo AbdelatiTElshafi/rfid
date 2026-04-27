@@ -87,6 +87,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: CreateInventoryWidget.routeName,
           path: CreateInventoryWidget.routePath,
           builder: (context, params) => CreateInventoryWidget(),
+        ),
+        FFRoute(
+          name: RFIDScanningWidget.routeName,
+          path: RFIDScanningWidget.routePath,
+          builder: (context, params) => RFIDScanningWidget(
+            inventoryOrder: params.getParam(
+              'inventoryOrder',
+              ParamType.String,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

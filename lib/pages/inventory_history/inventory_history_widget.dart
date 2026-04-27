@@ -76,147 +76,146 @@ class _InventoryHistoryWidgetState extends State<InventoryHistoryWidget> {
                 ),
           ),
         ),
-        body: SingleChildScrollView(
-          primary: false,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Padding(
-                padding: EdgeInsets.all(24.0),
-                child: Container(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Inventory History',
-                                style: FlutterFlowTheme.of(context)
-                                    .headlineMedium
-                                    .override(
-                                      font: GoogleFonts.plusJakartaSans(
-                                        fontWeight: FontWeight.w800,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .headlineMedium
-                                            .fontStyle,
-                                      ),
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                      letterSpacing: 0.0,
+        body: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(24.0),
+              child: Container(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Inventory History',
+                              style: FlutterFlowTheme.of(context)
+                                  .headlineMedium
+                                  .override(
+                                    font: GoogleFonts.plusJakartaSans(
                                       fontWeight: FontWeight.w800,
                                       fontStyle: FlutterFlowTheme.of(context)
                                           .headlineMedium
                                           .fontStyle,
-                                      lineHeight: 1.25,
                                     ),
-                              ),
-                              Text(
-                                'Review past RFID scan sessions',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      font: GoogleFonts.inter(
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      letterSpacing: 0.0,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w800,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .headlineMedium
+                                        .fontStyle,
+                                    lineHeight: 1.25,
+                                  ),
+                            ),
+                            Text(
+                              'Review past RFID scan sessions',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    font: GoogleFonts.inter(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
                                       fontStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
-                                      lineHeight: 1.5,
                                     ),
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                    lineHeight: 1.5,
+                                  ),
+                            ),
+                          ].divide(SizedBox(height: 4.0)),
+                        ),
+                        Container(
+                          width: 48.0,
+                          height: 48.0,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).primary25,
+                            borderRadius: BorderRadius.circular(16.0),
+                            shape: BoxShape.rectangle,
+                          ),
+                          alignment: AlignmentDirectional(0.0, 0.0),
+                          child: Icon(
+                            Icons.sensors_rounded,
+                            color: Colors.white,
+                            size: 28.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: wrapWithModel(
+                            model: _model.textFieldModel,
+                            updateCallback: () => safeSetState(() {}),
+                            child: TextFieldWidget(
+                              label: false,
+                              helper: false,
+                              hint: 'Search Session ID...',
+                              value: '',
+                              leading_icon: Icon(
+                                Icons.search_rounded,
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                size: 16.0,
                               ),
-                            ].divide(SizedBox(height: 4.0)),
-                          ),
-                          Container(
-                            width: 48.0,
-                            height: 48.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context).primary25,
-                              borderRadius: BorderRadius.circular(16.0),
-                              shape: BoxShape.rectangle,
-                            ),
-                            alignment: AlignmentDirectional(0.0, 0.0),
-                            child: Icon(
-                              Icons.sensors_rounded,
-                              color: Colors.white,
-                              size: 28.0,
+                              leading_icon_present: true,
+                              trailing_icon_present: false,
+                              variant: 'filled',
+                              error: false,
                             ),
                           ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: wrapWithModel(
-                              model: _model.textFieldModel,
-                              updateCallback: () => safeSetState(() {}),
-                              child: TextFieldWidget(
-                                label: false,
-                                helper: false,
-                                hint: 'Search Session ID...',
-                                value: '',
-                                leading_icon: Icon(
-                                  Icons.search_rounded,
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  size: 16.0,
-                                ),
-                                leading_icon_present: true,
-                                trailing_icon_present: false,
-                                variant: 'filled',
-                                error: false,
-                              ),
+                        ),
+                        Container(
+                          width: 52.0,
+                          height: 52.0,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            borderRadius: BorderRadius.circular(16.0),
+                            shape: BoxShape.rectangle,
+                            border: Border.all(
+                              color: FlutterFlowTheme.of(context).alternate,
+                              width: 1.0,
                             ),
                           ),
-                          Container(
-                            width: 52.0,
-                            height: 52.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              borderRadius: BorderRadius.circular(16.0),
-                              shape: BoxShape.rectangle,
-                              border: Border.all(
-                                color: FlutterFlowTheme.of(context).alternate,
-                                width: 1.0,
-                              ),
-                            ),
-                            alignment: AlignmentDirectional(0.0, 0.0),
-                            child: Icon(
-                              Icons.tune_rounded,
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              size: 24.0,
-                            ),
+                          alignment: AlignmentDirectional(0.0, 0.0),
+                          child: Icon(
+                            Icons.tune_rounded,
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            size: 24.0,
                           ),
-                        ].divide(SizedBox(width: 16.0)),
-                      ),
-                      Column(
+                        ),
+                      ].divide(SizedBox(width: 16.0)),
+                    ),
+                    SingleChildScrollView(
+                      primary: false,
+                      child: Column(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -328,15 +327,15 @@ class _InventoryHistoryWidgetState extends State<InventoryHistoryWidget> {
                           ),
                         ],
                       ),
-                      Container(
-                        height: 80.0,
-                      ),
-                    ].divide(SizedBox(height: 24.0)),
-                  ),
+                    ),
+                    Container(
+                      height: 80.0,
+                    ),
+                  ].divide(SizedBox(height: 24.0)),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
