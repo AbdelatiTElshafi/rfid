@@ -316,13 +316,13 @@ class _InventoryHistoryWidgetState extends State<InventoryHistoryWidget> {
                                     count: '1,240',
                                     date: listViewGetInventoryOrdersRow
                                         .startTime
-                                        ?.elementAtOrNull(listViewIndex),
+                                        ?.elementAtOrNull(0),
                                     location: 'North Warehouse - Zone A',
                                     session_id: listViewGetInventoryOrdersRow
                                         .inventoryNo
-                                        ?.elementAtOrNull(listViewIndex),
+                                        ?.elementAtOrNull(0),
                                     status: listViewGetInventoryOrdersRow.status
-                                        ?.elementAtOrNull(listViewIndex),
+                                        ?.elementAtOrNull(0),
                                   );
                                 },
                               );
