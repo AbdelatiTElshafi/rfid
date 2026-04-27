@@ -38,6 +38,11 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       while (true) {
+        await Future.delayed(
+          Duration(
+            milliseconds: 20,
+          ),
+        );
         for (int loop1Index = 0;
             loop1Index < FFAppState().scannedTagList.length;
             loop1Index++) {
