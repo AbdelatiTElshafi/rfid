@@ -19,6 +19,8 @@ class RFIDScanningModel extends FlutterFlowModel<RFIDScanningWidget> {
 
   ///  State fields for stateful widgets in this page.
 
+  // Stores action output result for [Custom Action - checkStringInList] action in RFIDScanning widget.
+  bool? exist;
   // Model for StatCard.
   late StatCardModel statCardModel1;
   // Model for StatCard.

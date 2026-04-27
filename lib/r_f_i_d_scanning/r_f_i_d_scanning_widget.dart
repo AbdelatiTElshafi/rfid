@@ -2,6 +2,7 @@ import '/components/button2_widget.dart';
 import '/components/stat_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -47,9 +48,15 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
             loop1Index < FFAppState().scannedTagList.length;
             loop1Index++) {
           final currentLoop1Item = FFAppState().scannedTagList[loop1Index];
-          _model.addToOrderRFIDList(
-              FFAppState().scannedTagList.elementAtOrNull(loop1Index)!);
-          safeSetState(() {});
+          _model.exist = await actions.checkStringInList(
+            FFAppState().scannedTagList.elementAtOrNull(loop1Index)!,
+            _model.orderRFIDList.toList(),
+          );
+          if (!_model.exist!) {
+            _model.addToOrderRFIDList(
+                FFAppState().scannedTagList.elementAtOrNull(loop1Index)!);
+            safeSetState(() {});
+          }
           FFAppState().removeAtIndexFromScannedTagList(loop1Index);
           safeSetState(() {});
         }
