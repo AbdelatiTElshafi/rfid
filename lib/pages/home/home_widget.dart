@@ -479,6 +479,31 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 thickness: 1.0,
                                 color: Color(0x33FFFFFF),
                               ),
+                              Text(
+                                valueOrDefault<String>(
+                                  FFAppState().scannedTagList.firstOrNull,
+                                  '0',
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
+                                      letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                              ),
                             ].divide(SizedBox(height: 12.0)),
                           ),
                         ),
