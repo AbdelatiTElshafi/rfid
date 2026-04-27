@@ -133,9 +133,9 @@ ORDER BY id DESC;
 class GetInventoryOrdersRow extends SqliteRow {
   GetInventoryOrdersRow(Map<String, dynamic> data) : super(data);
 
-  List<String>? get inventoryNo => data['inventory_no'] as List<String>?;
-  List<String>? get startTime => data['start_time'] as List<String>?;
-  List<String>? get status => data['status'] as List<String>?;
+  String? get inventoryNo => data['inventory_no'] as String?;
+  String? get startTime => data['start_time'] as String?;
+  String? get status => data['status'] as String?;
 }
 
 /// END GETINVENTORYORDERS

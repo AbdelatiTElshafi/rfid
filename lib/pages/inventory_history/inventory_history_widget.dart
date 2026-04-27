@@ -314,15 +314,13 @@ class _InventoryHistoryWidgetState extends State<InventoryHistoryWidget> {
                                     key: Key(
                                         'Keyr54_${listViewIndex}_of_${listViewGetInventoryOrdersRowList.length}'),
                                     count: '1,240',
-                                    date: listViewGetInventoryOrdersRow
-                                        .startTime
-                                        ?.elementAtOrNull(0),
+                                    date:
+                                        listViewGetInventoryOrdersRow.startTime,
                                     location: 'North Warehouse - Zone A',
                                     session_id: listViewGetInventoryOrdersRow
-                                        .inventoryNo
-                                        ?.elementAtOrNull(0),
-                                    status: listViewGetInventoryOrdersRow.status
-                                        ?.elementAtOrNull(0),
+                                        .inventoryNo,
+                                    status:
+                                        listViewGetInventoryOrdersRow.status,
                                   );
                                 },
                               );
