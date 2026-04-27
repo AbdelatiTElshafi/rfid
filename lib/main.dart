@@ -8,10 +8,12 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 
 
+
 import 'custom_code/rfid_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   GoRouter.optionURLReflectsImperativeAPIs = true;
   usePathUrlStrategy();
 

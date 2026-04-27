@@ -28,11 +28,22 @@ class RFIDService {
     return result ?? false;
   }
 
-  static void setTagReadListener(Function(String tagId) onTagRead) {
+  static void setTagReadListener(Function(List<String> tags) onTagsRead) {
     _channel.setMethodCallHandler((call) async {
       if (call.method == 'onTagRead') {
-        final String tagId = call.arguments.toString();
-        onTagRead(tagId);
+        final args = call.arguments;
+
+        List<String> tags = [];
+
+        if (args is List) {
+          tags = args.map((e) => e.toString()).toList();
+        } else if (args is String) {
+          tags = [args];
+        } else if (args != null) {
+          tags = [args.toString()];
+        }
+
+        onTagsRead(tags);
       }
     });
   }
