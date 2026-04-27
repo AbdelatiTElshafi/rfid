@@ -8,7 +8,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 
 
-// ضيف ده
 import 'custom_code/rfid_service.dart';
 
 void main() async {
@@ -22,11 +21,12 @@ void main() async {
   final appState = FFAppState();
   await appState.initializePersistedState();
 
-  // listener global
-  RFIDService.setTagReadListener((tagId) {
-    print('TAG FROM ANDROID: $tagId');
+  RFIDService.setTagReadListener((tags) {
+    print('TAGS FROM ANDROID: $tags');
+
     appState.update(() {
-      appState.scannedTagId = tagId;
+      appState.scannedTagList = tags;
+      appState.scannedTagId = tags.isNotEmpty ? tags.first : '';
     });
   });
 

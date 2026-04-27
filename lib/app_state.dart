@@ -37,4 +37,33 @@ class FFAppState extends ChangeNotifier {
   set rfidConnected(bool value) {
     _rfidConnected = value;
   }
+
+  List<String> _scannedTagList = [];
+  List<String> get scannedTagList => _scannedTagList;
+  set scannedTagList(List<String> value) {
+    _scannedTagList = value;
+  }
+
+  void addToScannedTagList(String value) {
+    scannedTagList.add(value);
+  }
+
+  void removeFromScannedTagList(String value) {
+    scannedTagList.remove(value);
+  }
+
+  void removeAtIndexFromScannedTagList(int index) {
+    scannedTagList.removeAt(index);
+  }
+
+  void updateScannedTagListAtIndex(
+    int index,
+    String Function(String) updateFn,
+  ) {
+    scannedTagList[index] = updateFn(_scannedTagList[index]);
+  }
+
+  void insertAtIndexInScannedTagList(int index, String value) {
+    scannedTagList.insert(index, value);
+  }
 }
