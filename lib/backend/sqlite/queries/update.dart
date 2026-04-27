@@ -50,3 +50,30 @@ WHERE tag_id = '${tagId}';
 }
 
 /// END DELETETAG
+
+/// BEGIN CREATEINVENTORYORDER
+Future performCreateInventoryOrder(
+  Database database, {
+  String? inventoryno,
+  DateTime? starttime,
+}) {
+  final query = '''
+INSERT INTO inventory_orders (
+  inventory_no,
+  start_time,
+  status,
+  total_scanned,
+  notes
+)
+VALUES (
+ '${inventoryno}',
+ '${starttime}',
+  'OPEN',
+  0,
+  'notes'
+);
+''';
+  return database.rawQuery(query);
+}
+
+/// END CREATEINVENTORYORDER

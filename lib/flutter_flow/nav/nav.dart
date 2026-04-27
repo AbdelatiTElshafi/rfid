@@ -77,6 +77,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: StartPageWidget.routeName,
           path: StartPageWidget.routePath,
           builder: (context, params) => StartPageWidget(),
+        ),
+        FFRoute(
+          name: InventoryHistoryWidget.routeName,
+          path: InventoryHistoryWidget.routePath,
+          builder: (context, params) => InventoryHistoryWidget(),
+        ),
+        FFRoute(
+          name: CreateInventoryWidget.routeName,
+          path: CreateInventoryWidget.routePath,
+          builder: (context, params) => CreateInventoryWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

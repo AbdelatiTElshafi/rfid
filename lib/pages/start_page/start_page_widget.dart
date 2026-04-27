@@ -190,7 +190,7 @@ class _StartPageWidgetState extends State<StartPageWidget> {
                       'Loading resources, please wait...',
                       textAlign: TextAlign.center,
                       style: FlutterFlowTheme.of(context).labelMedium.override(
-                            font: GoogleFonts.inter(
+                            font: GoogleFonts.plusJakartaSans(
                               fontWeight: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .fontWeight,
@@ -283,7 +283,7 @@ class _StartPageWidgetState extends State<StartPageWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .labelSmall
                                   .override(
-                                    font: GoogleFonts.inter(
+                                    font: GoogleFonts.plusJakartaSans(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .labelSmall
                                           .fontWeight,
@@ -307,7 +307,7 @@ class _StartPageWidgetState extends State<StartPageWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .labelSmall
                                   .override(
-                                    font: GoogleFonts.inter(
+                                    font: GoogleFonts.plusJakartaSans(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .labelSmall
                                           .fontWeight,
@@ -331,7 +331,7 @@ class _StartPageWidgetState extends State<StartPageWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .labelSmall
                                   .override(
-                                    font: GoogleFonts.inter(
+                                    font: GoogleFonts.plusJakartaSans(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .labelSmall
                                           .fontWeight,
@@ -366,7 +366,7 @@ class _StartPageWidgetState extends State<StartPageWidget> {
                       'v1.0.0 • Powered by RetailTec',
                       textAlign: TextAlign.center,
                       style: FlutterFlowTheme.of(context).labelSmall.override(
-                            font: GoogleFonts.inter(
+                            font: GoogleFonts.plusJakartaSans(
                               fontWeight: FlutterFlowTheme.of(context)
                                   .labelSmall
                                   .fontWeight,

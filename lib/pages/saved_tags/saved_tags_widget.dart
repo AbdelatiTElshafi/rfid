@@ -1,5 +1,5 @@
 import '/backend/sqlite/sqlite_manager.dart';
-import '/components/tag_i_d_widget.dart';
+import '/components/tag_i_d/tag_i_d_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -129,7 +129,7 @@ class _SavedTagsWidgetState extends State<SavedTagsWidget> {
           title: Text(
             'Saved Tags',
             style: FlutterFlowTheme.of(context).titleLarge.override(
-                  font: GoogleFonts.interTight(
+                  font: GoogleFonts.plusJakartaSans(
                     fontWeight: FontWeight.bold,
                     fontStyle:
                         FlutterFlowTheme.of(context).titleLarge.fontStyle,

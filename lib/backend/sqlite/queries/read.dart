@@ -117,3 +117,25 @@ class GetPartNoDescRow extends SqliteRow {
 }
 
 /// END GETPARTNODESC
+
+/// BEGIN GETINVENTORYORDERS
+Future<List<GetInventoryOrdersRow>> performGetInventoryOrders(
+  Database database,
+) {
+  final query = '''
+SELECT *
+FROM inventory_orders
+ORDER BY id DESC;
+''';
+  return _readQuery(database, query, (d) => GetInventoryOrdersRow(d));
+}
+
+class GetInventoryOrdersRow extends SqliteRow {
+  GetInventoryOrdersRow(Map<String, dynamic> data) : super(data);
+
+  List<String>? get inventoryNo => data['inventory_no'] as List<String>?;
+  List<String>? get startTime => data['start_time'] as List<String>?;
+  List<String>? get status => data['status'] as List<String>?;
+}
+
+/// END GETINVENTORYORDERS

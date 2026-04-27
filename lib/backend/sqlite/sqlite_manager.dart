@@ -61,6 +61,11 @@ class SQLiteManager {
         partnumber: partnumber,
       );
 
+  Future<List<GetInventoryOrdersRow>> getInventoryOrders() =>
+      performGetInventoryOrders(
+        _database,
+      );
+
   /// END READ QUERY CALLS
 
   /// START UPDATE QUERY CALLS
@@ -97,6 +102,16 @@ class SQLiteManager {
       performDeleteTag(
         _database,
         tagId: tagId,
+      );
+
+  Future createInventoryOrder({
+    String? inventoryno,
+    DateTime? starttime,
+  }) =>
+      performCreateInventoryOrder(
+        _database,
+        inventoryno: inventoryno,
+        starttime: starttime,
       );
 
   /// END UPDATE QUERY CALLS
