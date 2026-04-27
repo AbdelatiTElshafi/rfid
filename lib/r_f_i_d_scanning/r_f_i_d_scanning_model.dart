@@ -5,6 +5,18 @@ import 'r_f_i_d_scanning_widget.dart' show RFIDScanningWidget;
 import 'package:flutter/material.dart';
 
 class RFIDScanningModel extends FlutterFlowModel<RFIDScanningWidget> {
+  ///  Local state fields for this page.
+
+  List<String> orderRFIDList = [];
+  void addToOrderRFIDList(String item) => orderRFIDList.add(item);
+  void removeFromOrderRFIDList(String item) => orderRFIDList.remove(item);
+  void removeAtIndexFromOrderRFIDList(int index) =>
+      orderRFIDList.removeAt(index);
+  void insertAtIndexInOrderRFIDList(int index, String item) =>
+      orderRFIDList.insert(index, item);
+  void updateOrderRFIDListAtIndex(int index, Function(String) updateFn) =>
+      orderRFIDList[index] = updateFn(orderRFIDList[index]);
+
   ///  State fields for stateful widgets in this page.
 
   // Model for StatCard.

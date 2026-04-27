@@ -3,6 +3,7 @@ import '/components/stat_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -33,6 +34,20 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => RFIDScanningModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      while (true) {
+        for (int loop1Index = 0;
+            loop1Index < FFAppState().scannedTagList.length;
+            loop1Index++) {
+          final currentLoop1Item = FFAppState().scannedTagList[loop1Index];
+          _model.addToOrderRFIDList(
+              FFAppState().scannedTagList.elementAtOrNull(loop1Index)!);
+          safeSetState(() {});
+        }
+      }
+    });
   }
 
   @override
@@ -241,10 +256,7 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                                     ),
                                     Text(
                                       valueOrDefault<String>(
-                                        FFAppState()
-                                            .scannedTagList
-                                            .length
-                                            .toString(),
+                                        _model.orderRFIDList.length.toString(),
                                         '8',
                                       ),
                                       style: FlutterFlowTheme.of(context)
