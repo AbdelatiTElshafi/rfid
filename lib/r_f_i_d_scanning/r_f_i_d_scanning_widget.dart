@@ -91,6 +91,25 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
           ) ??
           false;
       while (true) {
+        confirmDialogResponse = await showDialog<bool>(
+              context: context,
+              builder: (alertDialogContext) {
+                return AlertDialog(
+                  title: Text('test'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(alertDialogContext, false),
+                      child: Text('Cancel'),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pop(alertDialogContext, true),
+                      child: Text('Confirm'),
+                    ),
+                  ],
+                );
+              },
+            ) ??
+            false;
         await Future.delayed(
           Duration(
             milliseconds: 200,
@@ -105,6 +124,27 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
             _model.orderRFIDList.toList(),
           );
           if (_model.exist!) {
+            confirmDialogResponse = await showDialog<bool>(
+                  context: context,
+                  builder: (alertDialogContext) {
+                    return AlertDialog(
+                      title: Text('already exist'),
+                      actions: [
+                        TextButton(
+                          onPressed: () =>
+                              Navigator.pop(alertDialogContext, false),
+                          child: Text('Cancel'),
+                        ),
+                        TextButton(
+                          onPressed: () =>
+                              Navigator.pop(alertDialogContext, true),
+                          child: Text('Confirm'),
+                        ),
+                      ],
+                    );
+                  },
+                ) ??
+                false;
           } else {
             _model.addToOrderRFIDList(
                 FFAppState().scannedTagList.elementAtOrNull(loop1Index)!);
