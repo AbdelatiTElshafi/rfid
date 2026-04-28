@@ -1,3 +1,4 @@
+import '/backend/sqlite/sqlite_manager.dart';
 import '/components/button2_widget.dart';
 import '/components/stat_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -451,23 +452,38 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                                 ),
                               ),
                             ),
-                            wrapWithModel(
-                              model: _model.buttonModel1,
-                              updateCallback: () => safeSetState(() {}),
-                              child: Button2Widget(
-                                content: 'Complete Session',
-                                icon: Icon(
-                                  Icons.check_circle_rounded,
-                                  color: FlutterFlowTheme.of(context).onPrimary,
-                                  size: 16.0,
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                await SQLiteManager.instance
+                                    .saveTagsToInventoryOrders(
+                                  inventoryorderid: widget.inventoryOrder,
+                                  tagid: _model.orderRFIDList,
+                                  scantime: getCurrentTimestamp.toString(),
+                                );
+                              },
+                              child: wrapWithModel(
+                                model: _model.buttonModel1,
+                                updateCallback: () => safeSetState(() {}),
+                                child: Button2Widget(
+                                  content: 'Complete Session',
+                                  icon: Icon(
+                                    Icons.check_circle_rounded,
+                                    color:
+                                        FlutterFlowTheme.of(context).onPrimary,
+                                    size: 16.0,
+                                  ),
+                                  icon_present: true,
+                                  icon_end_present: false,
+                                  variant: 'primary',
+                                  size: 'large',
+                                  full_width: true,
+                                  loading: false,
+                                  disabled: false,
                                 ),
-                                icon_present: true,
-                                icon_end_present: false,
-                                variant: 'primary',
-                                size: 'large',
-                                full_width: true,
-                                loading: false,
-                                disabled: false,
                               ),
                             ),
                             wrapWithModel(

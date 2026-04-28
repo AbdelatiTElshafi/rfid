@@ -77,3 +77,20 @@ VALUES (
 }
 
 /// END CREATEINVENTORYORDER
+
+/// BEGIN SAVETAGSTOINVENTORYORDERS
+Future performSaveTagsToInventoryOrders(
+  Database database, {
+  String? inventoryorderid,
+  List<String>? tagidList,
+  String? scantime,
+}) {
+  final tagid = tagidList;
+  final query = '''
+INSERT INTO inventory_items (inventory_order_id,tag_id,tag_id,scan_time)
+ VALUES ('${inventoryorderid}','${tagid}','${scantime}');
+''';
+  return database.rawQuery(query);
+}
+
+/// END SAVETAGSTOINVENTORYORDERS

@@ -114,5 +114,17 @@ class SQLiteManager {
         starttime: starttime,
       );
 
+  Future saveTagsToInventoryOrders({
+    String? inventoryorderid,
+    List<String>? tagidList,
+    String? scantime,
+  }) =>
+      performSaveTagsToInventoryOrders(
+        _database,
+        inventoryorderid: inventoryorderid,
+        tagidList: tagidList,
+        scantime: scantime,
+      );
+
   /// END UPDATE QUERY CALLS
 }
