@@ -49,6 +49,25 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
           .toList()
           .cast<String>();
       safeSetState(() {});
+      var confirmDialogResponse = await showDialog<bool>(
+            context: context,
+            builder: (alertDialogContext) {
+              return AlertDialog(
+                title: Text(_model.orderRFIDList.firstOrNull!),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(alertDialogContext, false),
+                    child: Text('Cancel'),
+                  ),
+                  TextButton(
+                    onPressed: () => Navigator.pop(alertDialogContext, true),
+                    child: Text('Confirm'),
+                  ),
+                ],
+              );
+            },
+          ) ??
+          false;
       while (true) {
         await Future.delayed(
           Duration(
