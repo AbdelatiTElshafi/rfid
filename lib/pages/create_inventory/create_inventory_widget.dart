@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'create_inventory_model.dart';
@@ -319,6 +320,12 @@ class _CreateInventoryWidgetState extends State<CreateInventoryWidget> {
                                               controller: _model.textController,
                                               focusNode:
                                                   _model.textFieldFocusNode,
+                                              onChanged: (_) =>
+                                                  EasyDebounce.debounce(
+                                                '_model.textController',
+                                                Duration(milliseconds: 20),
+                                                () => safeSetState(() {}),
+                                              ),
                                               autofocus: false,
                                               enabled: true,
                                               obscureText: false,
@@ -432,6 +439,9 @@ class _CreateInventoryWidgetState extends State<CreateInventoryWidget> {
                                                 fillColor:
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryBackground,
+                                                prefixIcon: Icon(
+                                                  Icons.inventory_2,
+                                                ),
                                               ),
                                               style:
                                                   FlutterFlowTheme.of(context)
@@ -517,18 +527,18 @@ class _CreateInventoryWidgetState extends State<CreateInventoryWidget> {
                         ),
                       ),
                       FFButtonWidget(
-                        onPressed:
-                            (/* NOT RECOMMENDED */ _model.textController.text ==
-                                    'true')
-                                ? null
-                                : () async {
-                                    await SQLiteManager.instance
-                                        .createInventoryOrder(
-                                      inventoryno: _model.textController.text,
-                                      starttime: getCurrentTimestamp,
-                                    );
-                                    context.safePop();
-                                  },
+                        onPressed: (_model.textController.text != ''
+                                ? false
+                                : true)
+                            ? null
+                            : () async {
+                                await SQLiteManager.instance
+                                    .createInventoryOrder(
+                                  inventoryno: _model.textController.text,
+                                  starttime: getCurrentTimestamp,
+                                );
+                                context.safePop();
+                              },
                         text: 'Save To Inventory',
                         options: FFButtonOptions(
                           height: 47.19,
