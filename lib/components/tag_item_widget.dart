@@ -75,7 +75,7 @@ class _TagItemWidgetState extends State<TagItemWidget> {
                     width: 40.0,
                     height: 40.0,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).accent10,
+                      color: FlutterFlowTheme.of(context).primary25,
                       borderRadius: BorderRadius.circular(12.0),
                       shape: BoxShape.rectangle,
                     ),

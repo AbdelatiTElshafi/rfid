@@ -65,6 +65,7 @@ abstract class FlutterFlowTheme {
   late Color onPrimary6;
   late Color primary25;
   late Color success20;
+  late Color accent30;
 
   FFDesignTokens get designToken => FFDesignTokens(this);
 
@@ -180,6 +181,7 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color onPrimary6 = const Color(0x0FFFFFFF);
   late Color primary25 = const Color(0x40EE6306);
   late Color success20 = const Color(0x4D39D2C0);
+  late Color accent30 = const Color(0xFF1F9C51);
 }
 
 abstract class Typography {
@@ -386,6 +388,7 @@ class DarkModeTheme extends FlutterFlowTheme {
   late Color onPrimary6 = const Color(0x0FFFFFFF);
   late Color primary25 = const Color(0x40EE6306);
   late Color success20 = const Color(0x4D39D2C0);
+  late Color accent30 = const Color(0xFF1F9C51);
 }
 
 class FFDesignTokens {

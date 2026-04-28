@@ -298,13 +298,13 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                                     Container(
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
-                                            .accent20,
+                                            .primary25,
                                         borderRadius:
                                             BorderRadius.circular(9999.0),
                                         shape: BoxShape.rectangle,
                                         border: Border.all(
                                           color: FlutterFlowTheme.of(context)
-                                              .accent30,
+                                              .primary25,
                                           width: 1.0,
                                         ),
                                       ),
