@@ -560,8 +560,7 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                                       _model.orderRFIDList[loop1Index];
                                   await SQLiteManager.instance
                                       .saveTagsToInventoryOrders(
-                                    inventoryorderid: _model.orderRFIDList
-                                        .elementAtOrNull(loop1Index),
+                                    inventoryorderid: widget.inventoryOrder,
                                     tagid: widget.inventoryOrder,
                                     scantime: 'tttt',
                                   );
