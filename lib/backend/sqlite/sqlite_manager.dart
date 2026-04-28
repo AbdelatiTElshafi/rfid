@@ -66,6 +66,14 @@ class SQLiteManager {
         _database,
       );
 
+  Future<List<GetInventoryItemsRow>> getInventoryItems({
+    String? inventoryorderid,
+  }) =>
+      performGetInventoryItems(
+        _database,
+        inventoryorderid: inventoryorderid,
+      );
+
   /// END READ QUERY CALLS
 
   /// START UPDATE QUERY CALLS

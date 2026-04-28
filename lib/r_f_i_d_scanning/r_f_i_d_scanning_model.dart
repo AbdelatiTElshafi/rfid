@@ -1,3 +1,4 @@
+import '/backend/sqlite/sqlite_manager.dart';
 import '/components/button2_widget.dart';
 import '/components/stat_card_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -19,6 +20,8 @@ class RFIDScanningModel extends FlutterFlowModel<RFIDScanningWidget> {
 
   ///  State fields for stateful widgets in this page.
 
+  // Stores action output result for [Backend Call - SQLite (GetInventoryItems)] action in RFIDScanning widget.
+  List<GetInventoryItemsRow>? getInventoryItems;
   // Stores action output result for [Custom Action - checkStringInList] action in RFIDScanning widget.
   bool? exist;
   // Model for StatCard.

@@ -254,6 +254,8 @@ dynamic deserializeParam<T>(
             return GetPartNoDescRow(data);
           case GetInventoryOrdersRow:
             return GetInventoryOrdersRow(data);
+          case GetInventoryItemsRow:
+            return GetInventoryItemsRow(data);
           default:
             return null;
         }

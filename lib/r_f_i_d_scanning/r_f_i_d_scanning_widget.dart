@@ -39,6 +39,16 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.getInventoryItems = await SQLiteManager.instance.getInventoryItems(
+        inventoryorderid: widget.inventoryOrder,
+      );
+      _model.orderRFIDList = _model.getInventoryItems!
+          .map((e) => e.tagId)
+          .withoutNulls
+          .toList()
+          .toList()
+          .cast<String>();
+      safeSetState(() {});
       while (true) {
         await Future.delayed(
           Duration(
