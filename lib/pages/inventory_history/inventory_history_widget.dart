@@ -82,7 +82,7 @@ class _InventoryHistoryWidgetState extends State<InventoryHistoryWidget> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Padding(
-              padding: EdgeInsets.all(24.0),
+              padding: EdgeInsets.all(10.0),
               child: Container(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -274,49 +274,54 @@ class _InventoryHistoryWidgetState extends State<InventoryHistoryWidget> {
                             ],
                           ),
                         ),
-                        FutureBuilder<List<GetInventoryOrdersRow>>(
-                          future: SQLiteManager.instance.getInventoryOrders(),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 50.0,
-                                  height: 50.0,
-                                  child: CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                      FlutterFlowTheme.of(context).primary,
+                        Container(
+                          decoration: BoxDecoration(),
+                          child: FutureBuilder<List<GetInventoryOrdersRow>>(
+                            future: SQLiteManager.instance.getInventoryOrders(),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50.0,
+                                    height: 50.0,
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        FlutterFlowTheme.of(context).primary,
+                                      ),
                                     ),
                                   ),
+                                );
+                              }
+                              final columnGetInventoryOrdersRowList =
+                                  snapshot.data!;
+
+                              return SingleChildScrollView(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: List.generate(
+                                      columnGetInventoryOrdersRowList.length,
+                                      (columnIndex) {
+                                    final columnGetInventoryOrdersRow =
+                                        columnGetInventoryOrdersRowList[
+                                            columnIndex];
+                                    return SessionCardWidget(
+                                      key: Key(
+                                          'Keyr54_${columnIndex}_of_${columnGetInventoryOrdersRowList.length}'),
+                                      count: '1,240',
+                                      date:
+                                          columnGetInventoryOrdersRow.startTime,
+                                      location: 'North Warehouse - Zone A',
+                                      session_id: columnGetInventoryOrdersRow
+                                          .inventoryNo,
+                                      status:
+                                          columnGetInventoryOrdersRow.status,
+                                    );
+                                  }),
                                 ),
                               );
-                            }
-                            final columnGetInventoryOrdersRowList =
-                                snapshot.data!;
-
-                            return SingleChildScrollView(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: List.generate(
-                                    columnGetInventoryOrdersRowList.length,
-                                    (columnIndex) {
-                                  final columnGetInventoryOrdersRow =
-                                      columnGetInventoryOrdersRowList[
-                                          columnIndex];
-                                  return SessionCardWidget(
-                                    key: Key(
-                                        'Keyr54_${columnIndex}_of_${columnGetInventoryOrdersRowList.length}'),
-                                    count: '1,240',
-                                    date: columnGetInventoryOrdersRow.startTime,
-                                    location: 'North Warehouse - Zone A',
-                                    session_id:
-                                        columnGetInventoryOrdersRow.inventoryNo,
-                                    status: columnGetInventoryOrdersRow.status,
-                                  );
-                                }),
-                              ),
-                            );
-                          },
+                            },
+                          ),
                         ),
                       ],
                     ),
