@@ -29,6 +29,9 @@ class _CreateInventoryWidgetState extends State<CreateInventoryWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => CreateInventoryModel());
+
+    _model.textController ??= TextEditingController();
+    _model.textFieldFocusNode ??= FocusNode();
   }
 
   @override
@@ -312,24 +315,159 @@ class _CreateInventoryWidgetState extends State<CreateInventoryWidget> {
                                                 label: 'Inventory No',
                                               ),
                                             ),
-                                            wrapWithModel(
-                                              model: _model
-                                                  .inventoryNoTextFieldModel,
-                                              updateCallback: () =>
-                                                  safeSetState(() {}),
-                                              child: TextField2Widget(
-                                                label: false,
-                                                helper: false,
-                                                hint: 'INV-2023-0891',
-                                                value: '',
-                                                leading_icon: Icon(
-                                                  Icons.inventory_2_rounded,
+                                            TextFormField(
+                                              controller: _model.textController,
+                                              focusNode:
+                                                  _model.textFieldFocusNode,
+                                              autofocus: false,
+                                              enabled: true,
+                                              obscureText: false,
+                                              decoration: InputDecoration(
+                                                isDense: true,
+                                                labelStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .override(
+                                                          font: GoogleFonts
+                                                              .plusJakartaSans(
+                                                            fontWeight:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontStyle,
+                                                          ),
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                hintText: 'Inventory No',
+                                                hintStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .override(
+                                                          font: GoogleFonts
+                                                              .plusJakartaSans(
+                                                            fontWeight:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontStyle,
+                                                          ),
+                                                          color:
+                                                              Color(0xFF6B7A8E),
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Color(0x00000000),
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
                                                 ),
-                                                leading_icon_present: true,
-                                                trailing_icon_present: false,
-                                                variant: 'outlined',
-                                                error: false,
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Color(0x00000000),
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                errorBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .error,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                focusedErrorBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .error,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                filled: true,
+                                                fillColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
                                               ),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                      ),
+                                              cursorColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              enableInteractiveSelection: true,
+                                              validator: _model
+                                                  .textControllerValidator
+                                                  .asValidator(context),
                                             ),
                                           ],
                                         ),
@@ -379,21 +517,18 @@ class _CreateInventoryWidgetState extends State<CreateInventoryWidget> {
                         ),
                       ),
                       FFButtonWidget(
-                        onPressed: (/* NOT RECOMMENDED */ _model
-                                    .inventoryNoTextFieldModel
-                                    .inputTextController
-                                    .text ==
-                                'true')
-                            ? null
-                            : () async {
-                                await SQLiteManager.instance
-                                    .createInventoryOrder(
-                                  inventoryno: _model.inventoryNoTextFieldModel
-                                      .inputTextController.text,
-                                  starttime: getCurrentTimestamp,
-                                );
-                                context.safePop();
-                              },
+                        onPressed:
+                            (/* NOT RECOMMENDED */ _model.textController.text ==
+                                    'true')
+                                ? null
+                                : () async {
+                                    await SQLiteManager.instance
+                                        .createInventoryOrder(
+                                      inventoryno: _model.textController.text,
+                                      starttime: getCurrentTimestamp,
+                                    );
+                                    context.safePop();
+                                  },
                         text: 'Save To Inventory',
                         options: FFButtonOptions(
                           height: 47.19,
@@ -423,6 +558,9 @@ class _CreateInventoryWidgetState extends State<CreateInventoryWidget> {
                                   ),
                           elevation: 0.0,
                           borderRadius: BorderRadius.circular(16.0),
+                          disabledColor: FlutterFlowTheme.of(context).alternate,
+                          disabledTextColor:
+                              FlutterFlowTheme.of(context).primaryText,
                         ),
                       ),
                       Container(

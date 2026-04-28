@@ -9,8 +9,10 @@ class CreateInventoryModel extends FlutterFlowModel<CreateInventoryWidget> {
 
   // Model for InputLabel.
   late InputLabelModel inputLabelModel1;
-  // Model for InventoryNoTextField.
-  late TextField2Model inventoryNoTextFieldModel;
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode;
+  TextEditingController? textController;
+  String? Function(BuildContext, String?)? textControllerValidator;
   // Model for InputLabel.
   late InputLabelModel inputLabelModel2;
   // Model for NotesTextField.
@@ -19,7 +21,6 @@ class CreateInventoryModel extends FlutterFlowModel<CreateInventoryWidget> {
   @override
   void initState(BuildContext context) {
     inputLabelModel1 = createModel(context, () => InputLabelModel());
-    inventoryNoTextFieldModel = createModel(context, () => TextField2Model());
     inputLabelModel2 = createModel(context, () => InputLabelModel());
     notesTextFieldModel = createModel(context, () => TextField2Model());
   }
@@ -27,7 +28,9 @@ class CreateInventoryModel extends FlutterFlowModel<CreateInventoryWidget> {
   @override
   void dispose() {
     inputLabelModel1.dispose();
-    inventoryNoTextFieldModel.dispose();
+    textFieldFocusNode?.dispose();
+    textController?.dispose();
+
     inputLabelModel2.dispose();
     notesTextFieldModel.dispose();
   }
