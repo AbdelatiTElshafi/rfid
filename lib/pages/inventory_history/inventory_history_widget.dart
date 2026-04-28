@@ -213,120 +213,112 @@ class _InventoryHistoryWidgetState extends State<InventoryHistoryWidget> {
                         ),
                       ].divide(SizedBox(width: 16.0)),
                     ),
-                    SingleChildScrollView(
-                      primary: false,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 8.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Recent Sessions',
-                                  style: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        font: GoogleFonts.interTight(
-                                          fontWeight: FontWeight.bold,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmall
-                                                  .fontStyle,
-                                        ),
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        letterSpacing: 0.0,
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 8.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Recent Sessions',
+                                style: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .override(
+                                      font: GoogleFonts.interTight(
                                         fontWeight: FontWeight.bold,
                                         fontStyle: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .fontStyle,
                                       ),
-                                ),
-                                Text(
-                                  'See All',
-                                  style: FlutterFlowTheme.of(context)
-                                      .labelLarge
-                                      .override(
-                                        font: GoogleFonts.plusJakartaSans(
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelLarge
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelLarge
-                                                  .fontStyle,
-                                        ),
-                                        color: FlutterFlowTheme.of(context)
-                                            .tertiary,
-                                        letterSpacing: 0.0,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.bold,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontStyle,
+                                    ),
+                              ),
+                              Text(
+                                'See All',
+                                style: FlutterFlowTheme.of(context)
+                                    .labelLarge
+                                    .override(
+                                      font: GoogleFonts.plusJakartaSans(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .labelLarge
                                             .fontWeight,
                                         fontStyle: FlutterFlowTheme.of(context)
                                             .labelLarge
                                             .fontStyle,
-                                        lineHeight: 1.3,
                                       ),
-                                ),
-                              ],
-                            ),
+                                      color:
+                                          FlutterFlowTheme.of(context).tertiary,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelLarge
+                                          .fontStyle,
+                                      lineHeight: 1.3,
+                                    ),
+                              ),
+                            ],
                           ),
-                          FutureBuilder<List<GetInventoryOrdersRow>>(
-                            future: SQLiteManager.instance.getInventoryOrders(),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        FlutterFlowTheme.of(context).primary,
-                                      ),
+                        ),
+                        FutureBuilder<List<GetInventoryOrdersRow>>(
+                          future: SQLiteManager.instance.getInventoryOrders(),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 50.0,
+                                  height: 50.0,
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      FlutterFlowTheme.of(context).primary,
                                     ),
                                   ),
-                                );
-                              }
-                              final listViewGetInventoryOrdersRowList =
-                                  snapshot.data!;
+                                ),
+                              );
+                            }
+                            final columnGetInventoryOrdersRowList =
+                                snapshot.data!;
 
-                              return ListView.builder(
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount:
-                                    listViewGetInventoryOrdersRowList.length,
-                                itemBuilder: (context, listViewIndex) {
-                                  final listViewGetInventoryOrdersRow =
-                                      listViewGetInventoryOrdersRowList[
-                                          listViewIndex];
+                            return SingleChildScrollView(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: List.generate(
+                                    columnGetInventoryOrdersRowList.length,
+                                    (columnIndex) {
+                                  final columnGetInventoryOrdersRow =
+                                      columnGetInventoryOrdersRowList[
+                                          columnIndex];
                                   return SessionCardWidget(
                                     key: Key(
-                                        'Keyr54_${listViewIndex}_of_${listViewGetInventoryOrdersRowList.length}'),
+                                        'Keyr54_${columnIndex}_of_${columnGetInventoryOrdersRowList.length}'),
                                     count: '1,240',
-                                    date:
-                                        listViewGetInventoryOrdersRow.startTime,
+                                    date: columnGetInventoryOrdersRow.startTime,
                                     location: 'North Warehouse - Zone A',
-                                    session_id: listViewGetInventoryOrdersRow
-                                        .inventoryNo,
-                                    status:
-                                        listViewGetInventoryOrdersRow.status,
+                                    session_id:
+                                        columnGetInventoryOrdersRow.inventoryNo,
+                                    status: columnGetInventoryOrdersRow.status,
                                   );
-                                },
-                              );
-                            },
-                          ),
-                        ],
-                      ),
+                                }),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
                     ),
                     Container(
                       height: 80.0,
