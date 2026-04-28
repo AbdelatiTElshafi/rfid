@@ -42,25 +42,6 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
       _model.getInventoryItems = await SQLiteManager.instance.getInventoryItems(
         inventoryorderid: widget.inventoryOrder,
       );
-      var confirmDialogResponse = await showDialog<bool>(
-            context: context,
-            builder: (alertDialogContext) {
-              return AlertDialog(
-                title: Text(widget.inventoryOrder!),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(alertDialogContext, false),
-                    child: Text('Cancel'),
-                  ),
-                  TextButton(
-                    onPressed: () => Navigator.pop(alertDialogContext, true),
-                    child: Text('Confirm'),
-                  ),
-                ],
-              );
-            },
-          ) ??
-          false;
       _model.orderRFIDList = _model.getInventoryItems!
           .map((e) => e.tagId)
           .withoutNulls
@@ -68,28 +49,7 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
           .toList()
           .cast<String>();
       safeSetState(() {});
-      confirmDialogResponse = await showDialog<bool>(
-            context: context,
-            builder: (alertDialogContext) {
-              return AlertDialog(
-                title: Text(valueOrDefault<String>(
-                  _model.orderRFIDList.firstOrNull,
-                  'not',
-                )),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(alertDialogContext, false),
-                    child: Text('Cancel'),
-                  ),
-                  TextButton(
-                    onPressed: () => Navigator.pop(alertDialogContext, true),
-                    child: Text('Confirm'),
-                  ),
-                ],
-              );
-            },
-          ) ??
-          false;
+      safeSetState(() {});
       while (true) {
         await Future.delayed(
           Duration(
@@ -104,34 +64,11 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
             FFAppState().scannedTagList.elementAtOrNull(loop1Index)!,
             _model.orderRFIDList.toList(),
           );
-          if (_model.exist!) {
-            confirmDialogResponse = await showDialog<bool>(
-                  context: context,
-                  builder: (alertDialogContext) {
-                    return AlertDialog(
-                      title: Text('already exist'),
-                      actions: [
-                        TextButton(
-                          onPressed: () =>
-                              Navigator.pop(alertDialogContext, false),
-                          child: Text('Cancel'),
-                        ),
-                        TextButton(
-                          onPressed: () =>
-                              Navigator.pop(alertDialogContext, true),
-                          child: Text('Confirm'),
-                        ),
-                      ],
-                    );
-                  },
-                ) ??
-                false;
-          } else {
+          if (!_model.exist!) {
             _model.addToOrderRFIDList(
                 FFAppState().scannedTagList.elementAtOrNull(loop1Index)!);
             safeSetState(() {});
           }
-
           FFAppState().removeAtIndexFromScannedTagList(loop1Index);
           safeSetState(() {});
         }
@@ -544,56 +481,7 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                                         .elementAtOrNull(loop1Index),
                                     scantime: getCurrentTimestamp.toString(),
                                   );
-                                  var confirmDialogResponse = await showDialog<
-                                          bool>(
-                                        context: context,
-                                        builder: (alertDialogContext) {
-                                          return AlertDialog(
-                                            title: Text(_model.orderRFIDList
-                                                .elementAtOrNull(loop1Index)!),
-                                            actions: [
-                                              TextButton(
-                                                onPressed: () => Navigator.pop(
-                                                    alertDialogContext, false),
-                                                child: Text('Cancel'),
-                                              ),
-                                              TextButton(
-                                                onPressed: () => Navigator.pop(
-                                                    alertDialogContext, true),
-                                                child: Text('Confirm'),
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      ) ??
-                                      false;
                                 }
-                                var confirmDialogResponse =
-                                    await showDialog<bool>(
-                                          context: context,
-                                          builder: (alertDialogContext) {
-                                            return AlertDialog(
-                                              title: Text('done'),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          alertDialogContext,
-                                                          false),
-                                                  child: Text('Cancel'),
-                                                ),
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          alertDialogContext,
-                                                          true),
-                                                  child: Text('Confirm'),
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        ) ??
-                                        false;
                                 context.safePop();
                               },
                               child: wrapWithModel(
