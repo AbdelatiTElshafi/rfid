@@ -8,15 +8,28 @@ import 'package:flutter/material.dart';
 class RFIDScanningModel extends FlutterFlowModel<RFIDScanningWidget> {
   ///  Local state fields for this page.
 
-  List<String> orderRFIDList = [];
-  void addToOrderRFIDList(String item) => orderRFIDList.add(item);
-  void removeFromOrderRFIDList(String item) => orderRFIDList.remove(item);
-  void removeAtIndexFromOrderRFIDList(int index) =>
-      orderRFIDList.removeAt(index);
-  void insertAtIndexInOrderRFIDList(int index, String item) =>
-      orderRFIDList.insert(index, item);
-  void updateOrderRFIDListAtIndex(int index, Function(String) updateFn) =>
-      orderRFIDList[index] = updateFn(orderRFIDList[index]);
+  List<String> allOrderRFIDList = [];
+  void addToAllOrderRFIDList(String item) => allOrderRFIDList.add(item);
+  void removeFromAllOrderRFIDList(String item) => allOrderRFIDList.remove(item);
+  void removeAtIndexFromAllOrderRFIDList(int index) =>
+      allOrderRFIDList.removeAt(index);
+  void insertAtIndexInAllOrderRFIDList(int index, String item) =>
+      allOrderRFIDList.insert(index, item);
+  void updateAllOrderRFIDListAtIndex(int index, Function(String) updateFn) =>
+      allOrderRFIDList[index] = updateFn(allOrderRFIDList[index]);
+
+  int? savedTagsCount = 0;
+
+  List<String> newScannedRFIDTags = [];
+  void addToNewScannedRFIDTags(String item) => newScannedRFIDTags.add(item);
+  void removeFromNewScannedRFIDTags(String item) =>
+      newScannedRFIDTags.remove(item);
+  void removeAtIndexFromNewScannedRFIDTags(int index) =>
+      newScannedRFIDTags.removeAt(index);
+  void insertAtIndexInNewScannedRFIDTags(int index, String item) =>
+      newScannedRFIDTags.insert(index, item);
+  void updateNewScannedRFIDTagsAtIndex(int index, Function(String) updateFn) =>
+      newScannedRFIDTags[index] = updateFn(newScannedRFIDTags[index]);
 
   ///  State fields for stateful widgets in this page.
 

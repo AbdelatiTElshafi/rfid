@@ -42,12 +42,17 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
       _model.getInventoryItems = await SQLiteManager.instance.getInventoryItems(
         inventoryorderid: widget.inventoryOrder,
       );
-      _model.orderRFIDList = _model.getInventoryItems!
+      _model.allOrderRFIDList = _model.getInventoryItems!
           .map((e) => e.tagId)
           .withoutNulls
           .toList()
           .toList()
           .cast<String>();
+      safeSetState(() {});
+      _model.savedTagsCount = valueOrDefault<int>(
+        _model.allOrderRFIDList.length,
+        0,
+      );
       safeSetState(() {});
       safeSetState(() {});
       while (true) {
@@ -62,10 +67,13 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
           final currentLoop1Item = FFAppState().scannedTagList[loop1Index];
           _model.exist = await actions.checkStringInList(
             FFAppState().scannedTagList.elementAtOrNull(loop1Index)!,
-            _model.orderRFIDList.toList(),
+            _model.allOrderRFIDList.toList(),
           );
           if (!_model.exist!) {
-            _model.addToOrderRFIDList(
+            _model.addToAllOrderRFIDList(
+                FFAppState().scannedTagList.elementAtOrNull(loop1Index)!);
+            safeSetState(() {});
+            _model.addToNewScannedRFIDTags(
                 FFAppState().scannedTagList.elementAtOrNull(loop1Index)!);
             safeSetState(() {});
           }
@@ -258,7 +266,7 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'TOTAL TAGS',
+                                      'New TAGS',
                                       style: FlutterFlowTheme.of(context)
                                           .labelLarge
                                           .override(
@@ -282,8 +290,9 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                                     ),
                                     Text(
                                       valueOrDefault<String>(
-                                        _model.orderRFIDList.length.toString(),
-                                        '8',
+                                        _model.newScannedRFIDTags.length
+                                            .toString(),
+                                        '0',
                                       ),
                                       style: FlutterFlowTheme.of(context)
                                           .headlineLarge
@@ -370,7 +379,7 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                               model: _model.statCardModel1,
                               updateCallback: () => safeSetState(() {}),
                               child: StatCardWidget(
-                                label: 'Unique EPCs',
+                                label: 'Saved Tags',
                                 value: '412',
                               ),
                             ),
@@ -381,8 +390,9 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                               model: _model.statCardModel2,
                               updateCallback: () => safeSetState(() {}),
                               child: StatCardWidget(
-                                label: 'Tags/Sec',
-                                value: '85',
+                                label: 'Total Tags',
+                                value:
+                                    _model.allOrderRFIDList.length.toString(),
                               ),
                             ),
                           ),
@@ -470,14 +480,14 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                               highlightColor: Colors.transparent,
                               onTap: () async {
                                 for (int loop1Index = 0;
-                                    loop1Index < _model.orderRFIDList.length;
+                                    loop1Index < _model.allOrderRFIDList.length;
                                     loop1Index++) {
                                   final currentLoop1Item =
-                                      _model.orderRFIDList[loop1Index];
+                                      _model.allOrderRFIDList[loop1Index];
                                   await SQLiteManager.instance
                                       .saveTagsToInventoryOrders(
                                     inventoryorderid: widget.inventoryOrder,
-                                    tagid: _model.orderRFIDList
+                                    tagid: _model.newScannedRFIDTags
                                         .elementAtOrNull(loop1Index),
                                     scantime: getCurrentTimestamp.toString(),
                                   );
