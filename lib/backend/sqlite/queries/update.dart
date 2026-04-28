@@ -87,7 +87,7 @@ Future performSaveTagsToInventoryOrders(
 }) {
   final tagid = tagidList;
   final query = '''
-INSERT INTO inventory_items (inventory_order_id,tag_id,tag_id,scan_time)
+INSERT INTO inventory_items (inventory_order_id,tag_id,scan_time)
  VALUES ('${inventoryorderid}','${tagid}','${scantime}');
 ''';
   return database.rawQuery(query);
