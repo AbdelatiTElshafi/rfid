@@ -42,6 +42,25 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
       _model.getInventoryItems = await SQLiteManager.instance.getInventoryItems(
         inventoryorderid: widget.inventoryOrder,
       );
+      var confirmDialogResponse = await showDialog<bool>(
+            context: context,
+            builder: (alertDialogContext) {
+              return AlertDialog(
+                title: Text(widget.inventoryOrder!),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(alertDialogContext, false),
+                    child: Text('Cancel'),
+                  ),
+                  TextButton(
+                    onPressed: () => Navigator.pop(alertDialogContext, true),
+                    child: Text('Confirm'),
+                  ),
+                ],
+              );
+            },
+          ) ??
+          false;
       _model.orderRFIDList = _model.getInventoryItems!
           .map((e) => e.tagId)
           .withoutNulls
@@ -49,7 +68,7 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
           .toList()
           .cast<String>();
       safeSetState(() {});
-      var confirmDialogResponse = await showDialog<bool>(
+      confirmDialogResponse = await showDialog<bool>(
             context: context,
             builder: (alertDialogContext) {
               return AlertDialog(
