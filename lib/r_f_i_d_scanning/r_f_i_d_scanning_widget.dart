@@ -53,7 +53,10 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
             context: context,
             builder: (alertDialogContext) {
               return AlertDialog(
-                title: Text(_model.orderRFIDList.firstOrNull!),
+                title: Text(valueOrDefault<String>(
+                  _model.orderRFIDList.firstOrNull,
+                  'not',
+                )),
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.pop(alertDialogContext, false),
@@ -71,7 +74,7 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
       while (true) {
         await Future.delayed(
           Duration(
-            milliseconds: 20,
+            milliseconds: 200,
           ),
         );
         for (int loop1Index = 0;
