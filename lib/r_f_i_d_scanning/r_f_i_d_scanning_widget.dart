@@ -563,7 +563,7 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                                     inventoryorderid: _model.orderRFIDList
                                         .elementAtOrNull(loop1Index),
                                     tagid: widget.inventoryOrder,
-                                    scantime: getCurrentTimestamp.toString(),
+                                    scantime: 'tttt',
                                   );
                                   var confirmDialogResponse = await showDialog<
                                           bool>(
