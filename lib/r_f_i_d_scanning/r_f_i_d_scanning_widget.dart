@@ -100,27 +100,6 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
             loop1Index < FFAppState().scannedTagList.length;
             loop1Index++) {
           final currentLoop1Item = FFAppState().scannedTagList[loop1Index];
-          confirmDialogResponse = await showDialog<bool>(
-                context: context,
-                builder: (alertDialogContext) {
-                  return AlertDialog(
-                    title: Text('test'),
-                    actions: [
-                      TextButton(
-                        onPressed: () =>
-                            Navigator.pop(alertDialogContext, false),
-                        child: Text('Cancel'),
-                      ),
-                      TextButton(
-                        onPressed: () =>
-                            Navigator.pop(alertDialogContext, true),
-                        child: Text('Confirm'),
-                      ),
-                    ],
-                  );
-                },
-              ) ??
-              false;
           _model.exist = await actions.checkStringInList(
             FFAppState().scannedTagList.elementAtOrNull(loop1Index)!,
             _model.orderRFIDList.toList(),
@@ -561,8 +540,9 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                                   await SQLiteManager.instance
                                       .saveTagsToInventoryOrders(
                                     inventoryorderid: widget.inventoryOrder,
-                                    tagid: widget.inventoryOrder,
-                                    scantime: 'tttt',
+                                    tagid: _model.orderRFIDList
+                                        .elementAtOrNull(loop1Index),
+                                    scantime: getCurrentTimestamp.toString(),
                                   );
                                   var confirmDialogResponse = await showDialog<
                                           bool>(
