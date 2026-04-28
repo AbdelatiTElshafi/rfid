@@ -91,25 +91,6 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
           ) ??
           false;
       while (true) {
-        confirmDialogResponse = await showDialog<bool>(
-              context: context,
-              builder: (alertDialogContext) {
-                return AlertDialog(
-                  title: Text('test'),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(alertDialogContext, false),
-                      child: Text('Cancel'),
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pop(alertDialogContext, true),
-                      child: Text('Confirm'),
-                    ),
-                  ],
-                );
-              },
-            ) ??
-            false;
         await Future.delayed(
           Duration(
             milliseconds: 200,
@@ -119,6 +100,27 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
             loop1Index < FFAppState().scannedTagList.length;
             loop1Index++) {
           final currentLoop1Item = FFAppState().scannedTagList[loop1Index];
+          confirmDialogResponse = await showDialog<bool>(
+                context: context,
+                builder: (alertDialogContext) {
+                  return AlertDialog(
+                    title: Text('test'),
+                    actions: [
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pop(alertDialogContext, false),
+                        child: Text('Cancel'),
+                      ),
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pop(alertDialogContext, true),
+                        child: Text('Confirm'),
+                      ),
+                    ],
+                  );
+                },
+              ) ??
+              false;
           _model.exist = await actions.checkStringInList(
             FFAppState().scannedTagList.elementAtOrNull(loop1Index)!,
             _model.orderRFIDList.toList(),
