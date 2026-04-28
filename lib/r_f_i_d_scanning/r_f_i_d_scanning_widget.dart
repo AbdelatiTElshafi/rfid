@@ -380,7 +380,10 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                               updateCallback: () => safeSetState(() {}),
                               child: StatCardWidget(
                                 label: 'Saved Tags',
-                                value: '412',
+                                value: valueOrDefault<String>(
+                                  _model.savedTagsCount?.toString(),
+                                  '0',
+                                ),
                               ),
                             ),
                           ),
@@ -391,8 +394,10 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                               updateCallback: () => safeSetState(() {}),
                               child: StatCardWidget(
                                 label: 'Total Tags',
-                                value:
-                                    _model.allOrderRFIDList.length.toString(),
+                                value: valueOrDefault<String>(
+                                  _model.allOrderRFIDList.length.toString(),
+                                  '0',
+                                ),
                               ),
                             ),
                           ),
