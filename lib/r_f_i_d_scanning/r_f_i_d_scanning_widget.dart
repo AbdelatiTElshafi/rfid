@@ -104,11 +104,13 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
             FFAppState().scannedTagList.elementAtOrNull(loop1Index)!,
             _model.orderRFIDList.toList(),
           );
-          if (!_model.exist!) {
+          if (_model.exist!) {
+          } else {
             _model.addToOrderRFIDList(
                 FFAppState().scannedTagList.elementAtOrNull(loop1Index)!);
             safeSetState(() {});
           }
+
           FFAppState().removeAtIndexFromScannedTagList(loop1Index);
           safeSetState(() {});
         }
