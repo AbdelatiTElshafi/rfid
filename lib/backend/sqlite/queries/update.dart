@@ -82,10 +82,9 @@ VALUES (
 Future performSaveTagsToInventoryOrders(
   Database database, {
   String? inventoryorderid,
-  List<String>? tagidList,
+  String? tagid,
   String? scantime,
 }) {
-  final tagid = tagidList;
   final query = '''
 INSERT INTO inventory_items (inventory_order_id,tag_id,scan_time)
  VALUES ('${inventoryorderid}','${tagid}','${scantime}');

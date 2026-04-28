@@ -116,13 +116,13 @@ class SQLiteManager {
 
   Future saveTagsToInventoryOrders({
     String? inventoryorderid,
-    List<String>? tagidList,
+    String? tagid,
     String? scantime,
   }) =>
       performSaveTagsToInventoryOrders(
         _database,
         inventoryorderid: inventoryorderid,
-        tagidList: tagidList,
+        tagid: tagid,
         scantime: scantime,
       );
 

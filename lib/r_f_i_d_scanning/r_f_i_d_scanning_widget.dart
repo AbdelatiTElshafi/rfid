@@ -458,12 +458,19 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                await SQLiteManager.instance
-                                    .saveTagsToInventoryOrders(
-                                  inventoryorderid: widget.inventoryOrder,
-                                  tagid: _model.orderRFIDList,
-                                  scantime: getCurrentTimestamp.toString(),
-                                );
+                                for (int loop1Index = 0;
+                                    loop1Index < _model.orderRFIDList.length;
+                                    loop1Index++) {
+                                  final currentLoop1Item =
+                                      _model.orderRFIDList[loop1Index];
+                                  await SQLiteManager.instance
+                                      .saveTagsToInventoryOrders(
+                                    inventoryorderid: _model.orderRFIDList
+                                        .elementAtOrNull(loop1Index),
+                                    tagid: widget.inventoryOrder,
+                                    scantime: getCurrentTimestamp.toString(),
+                                  );
+                                }
                               },
                               child: wrapWithModel(
                                 model: _model.buttonModel1,
