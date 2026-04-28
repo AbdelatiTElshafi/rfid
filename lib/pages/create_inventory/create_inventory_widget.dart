@@ -3,6 +3,7 @@ import '/components/input_label/input_label_widget.dart';
 import '/components/text_field2/text_field2_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -377,93 +378,51 @@ class _CreateInventoryWidgetState extends State<CreateInventoryWidget> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 8.0),
-                        child: Container(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20.0),
-                            child: Container(
-                              height: 64.0,
-                              decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    blurRadius: 16.0,
-                                    color:
-                                        FlutterFlowTheme.of(context).primary25,
-                                    offset: Offset(
-                                      0.0,
-                                      8.0,
+                      FFButtonWidget(
+                        onPressed: (/* NOT RECOMMENDED */ _model
+                                    .inventoryNoTextFieldModel
+                                    .inputTextController
+                                    .text ==
+                                'true')
+                            ? null
+                            : () async {
+                                await SQLiteManager.instance
+                                    .createInventoryOrder(
+                                  inventoryno: _model.inventoryNoTextFieldModel
+                                      .inputTextController.text,
+                                  starttime: getCurrentTimestamp,
+                                );
+                                context.safePop();
+                              },
+                        text: 'Save To Inventory',
+                        options: FFButtonOptions(
+                          height: 47.19,
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              16.0, 0.0, 16.0, 0.0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: FlutterFlowTheme.of(context).primary,
+                          textStyle:
+                              FlutterFlowTheme.of(context).titleSmall.override(
+                                    font: GoogleFonts.interTight(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontStyle,
                                     ),
-                                    spreadRadius: 0.0,
-                                  )
-                                ],
-                                gradient: LinearGradient(
-                                  colors: [
-                                    FlutterFlowTheme.of(context).primary,
-                                    Color(0xFFDF7D34)
-                                  ],
-                                  stops: [0.0, 1.0],
-                                  begin: AlignmentDirectional(-1.0, 0.0),
-                                  end: AlignmentDirectional(1.0, 0),
-                                ),
-                                borderRadius: BorderRadius.circular(20.0),
-                                shape: BoxShape.rectangle,
-                              ),
-                              child: InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  await SQLiteManager.instance
-                                      .createInventoryOrder(
-                                    inventoryno: _model
-                                        .inventoryNoTextFieldModel
-                                        .inputTextController
-                                        .text,
-                                    starttime: getCurrentTimestamp,
-                                  );
-                                },
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Start Inventory',
-                                      style: FlutterFlowTheme.of(context)
-                                          .titleMedium
-                                          .override(
-                                            font: GoogleFonts.plusJakartaSans(
-                                              fontWeight: FontWeight.bold,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleMedium
-                                                      .fontStyle,
-                                            ),
-                                            color: FlutterFlowTheme.of(context)
-                                                .onPrimary,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.bold,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleMedium
-                                                    .fontStyle,
-                                            lineHeight: 1.4,
-                                          ),
-                                    ),
-                                    Icon(
-                                      Icons.arrow_forward_rounded,
-                                      color: FlutterFlowTheme.of(context)
-                                          .onPrimary,
-                                      size: 20.0,
-                                    ),
-                                  ].divide(SizedBox(width: 16.0)),
-                                ),
-                              ),
-                            ),
-                          ),
+                                    color: Colors.white,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontStyle,
+                                  ),
+                          elevation: 0.0,
+                          borderRadius: BorderRadius.circular(16.0),
                         ),
                       ),
                       Container(
