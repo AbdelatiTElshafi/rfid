@@ -395,7 +395,9 @@ class _CreateInventoryWidgetState extends State<CreateInventoryWidget> {
                                                 enabledBorder:
                                                     OutlineInputBorder(
                                                   borderSide: BorderSide(
-                                                    color: Color(0x00000000),
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .alternate,
                                                     width: 1.0,
                                                   ),
                                                   borderRadius:
@@ -438,7 +440,7 @@ class _CreateInventoryWidgetState extends State<CreateInventoryWidget> {
                                                 filled: true,
                                                 fillColor:
                                                     FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
+                                                        .transparent,
                                                 prefixIcon: Icon(
                                                   Icons.inventory_2,
                                                 ),
