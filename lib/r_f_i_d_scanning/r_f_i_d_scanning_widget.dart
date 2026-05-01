@@ -78,7 +78,21 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
             FFAppState().scannedTagList.elementAtOrNull(loop1Index)!,
             _model.allOrderRFIDList.toList(),
           );
-          if (!_model.exist!) {
+          if (_model.exist!) {
+            ScaffoldMessenger.of(context).clearSnackBars();
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  'Exist',
+                  style: TextStyle(
+                    color: FlutterFlowTheme.of(context).primaryText,
+                  ),
+                ),
+                duration: Duration(milliseconds: 500),
+                backgroundColor: FlutterFlowTheme.of(context).success,
+              ),
+            );
+          } else {
             _model.addToAllOrderRFIDList(
                 FFAppState().scannedTagList.elementAtOrNull(loop1Index)!);
             safeSetState(() {});
@@ -99,6 +113,7 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
               ),
             );
           }
+
           FFAppState().removeAtIndexFromScannedTagList(loop1Index);
           safeSetState(() {});
         }
