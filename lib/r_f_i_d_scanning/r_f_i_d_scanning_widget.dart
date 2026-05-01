@@ -512,17 +512,28 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                               highlightColor: Colors.transparent,
                               onTap: () async {
                                 for (int loop1Index = 0;
-                                    loop1Index < _model.allOrderRFIDList.length;
+                                    loop1Index <
+                                        _model.newScannedRFIDTags.length;
                                     loop1Index++) {
                                   final currentLoop1Item =
-                                      _model.allOrderRFIDList[loop1Index];
-                                  await SQLiteManager.instance
-                                      .saveTagsToInventoryOrders(
-                                    inventoryorderid: widget.inventoryOrder,
-                                    tagid: _model.newScannedRFIDTags
-                                        .elementAtOrNull(loop1Index),
-                                    scantime: getCurrentTimestamp.toString(),
-                                  );
+                                      _model.newScannedRFIDTags[loop1Index];
+                                  if (_model.newScannedRFIDTags.elementAtOrNull(
+                                                  loop1Index) !=
+                                              null &&
+                                          _model.newScannedRFIDTags
+                                                  .elementAtOrNull(
+                                                      loop1Index) !=
+                                              ''
+                                      ? true
+                                      : false) {
+                                    await SQLiteManager.instance
+                                        .saveTagsToInventoryOrders(
+                                      inventoryorderid: widget.inventoryOrder,
+                                      tagid: _model.newScannedRFIDTags
+                                          .elementAtOrNull(loop1Index),
+                                      scantime: getCurrentTimestamp.toString(),
+                                    );
+                                  }
                                 }
                                 context.safePop();
                               },
