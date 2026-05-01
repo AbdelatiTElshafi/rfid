@@ -73,6 +73,7 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
             loop1Index < FFAppState().scannedTagList.length;
             loop1Index++) {
           final currentLoop1Item = FFAppState().scannedTagList[loop1Index];
+          safeSetState(() {});
           _model.exist = await actions.checkStringInList(
             FFAppState().scannedTagList.elementAtOrNull(loop1Index)!,
             _model.allOrderRFIDList.toList(),
