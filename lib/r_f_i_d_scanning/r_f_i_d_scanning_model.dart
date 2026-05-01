@@ -31,6 +31,8 @@ class RFIDScanningModel extends FlutterFlowModel<RFIDScanningWidget> {
   void updateNewScannedRFIDTagsAtIndex(int index, Function(String) updateFn) =>
       newScannedRFIDTags[index] = updateFn(newScannedRFIDTags[index]);
 
+  bool startListen = false;
+
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Backend Call - SQLite (GetInventoryItems)] action in RFIDScanning widget.

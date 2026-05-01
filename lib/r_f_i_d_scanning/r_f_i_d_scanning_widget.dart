@@ -7,7 +7,6 @@ import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'r_f_i_d_scanning_model.dart';
 export 'r_f_i_d_scanning_model.dart';
@@ -44,6 +43,7 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
       _model.newScannedRFIDTags = [];
       _model.savedTagsCount = 0;
       _model.allOrderRFIDList = [];
+      _model.startListen = true;
       safeSetState(() {});
       _model.getInventoryItems = await SQLiteManager.instance.getInventoryItems(
         inventoryorderid: widget.inventoryOrder,
@@ -61,7 +61,7 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
       );
       safeSetState(() {});
       safeSetState(() {});
-      while (true) {
+      while (_model.startListen) {
         await Future.delayed(
           Duration(
             milliseconds: 100,
@@ -278,16 +278,6 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                             children: [
                               Container(
                                 alignment: AlignmentDirectional(0.0, 0.0),
-                                child: Opacity(
-                                  opacity: 0.4,
-                                  child: Lottie.asset(
-                                    'assets/jsons/radar+scanning+pulse+orange',
-                                    width: 300.0,
-                                    height: 300.0,
-                                    fit: BoxFit.contain,
-                                    animate: true,
-                                  ),
-                                ),
                               ),
                               Align(
                                 alignment: AlignmentDirectional(0.0, 0.0),
@@ -515,6 +505,8 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
+                                _model.startListen = false;
+                                safeSetState(() {});
                                 for (int loop1Index = 0;
                                     loop1Index <
                                         _model.newScannedRFIDTags.length;
