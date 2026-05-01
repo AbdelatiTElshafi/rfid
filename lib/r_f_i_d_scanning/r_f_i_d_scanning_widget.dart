@@ -82,6 +82,19 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
             _model.addToNewScannedRFIDTags(
                 FFAppState().scannedTagList.elementAtOrNull(loop1Index)!);
             safeSetState(() {});
+            ScaffoldMessenger.of(context).clearSnackBars();
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  '${FFAppState().scannedTagList.elementAtOrNull(loop1Index)} Scanned',
+                  style: TextStyle(
+                    color: FlutterFlowTheme.of(context).primaryText,
+                  ),
+                ),
+                duration: Duration(milliseconds: 1000),
+                backgroundColor: FlutterFlowTheme.of(context).secondary,
+              ),
+            );
           }
           FFAppState().removeAtIndexFromScannedTagList(loop1Index);
           safeSetState(() {});
