@@ -4,7 +4,6 @@ import '/components/stat_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
 import 'package:flutter/material.dart';
@@ -509,11 +508,11 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                                             .newScannedRFIDTags[loop1Index];
                                         if (_model.newScannedRFIDTags
                                                         .elementAtOrNull(
-                                                            loop2Index) !=
+                                                            loop1Index) !=
                                                     null &&
                                                 _model.newScannedRFIDTags
                                                         .elementAtOrNull(
-                                                            loop2Index) !=
+                                                            loop1Index) !=
                                                     ''
                                             ? true
                                             : false) {
@@ -522,7 +521,7 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                                             inventoryorderid:
                                                 widget.inventoryOrder,
                                             tagid: _model.newScannedRFIDTags
-                                                .elementAtOrNull(loop2Index),
+                                                .elementAtOrNull(loop1Index),
                                             scantime:
                                                 getCurrentTimestamp.toString(),
                                           );
