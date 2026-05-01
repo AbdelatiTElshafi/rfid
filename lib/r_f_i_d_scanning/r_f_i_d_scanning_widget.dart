@@ -75,27 +75,6 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
             FFAppState().scannedTagList.elementAtOrNull(loop1Index)!,
             _model.allOrderRFIDList.toList(),
           );
-          var confirmDialogResponse = await showDialog<bool>(
-                context: context,
-                builder: (alertDialogContext) {
-                  return AlertDialog(
-                    title: Text(loop1Index.toString()),
-                    actions: [
-                      TextButton(
-                        onPressed: () =>
-                            Navigator.pop(alertDialogContext, false),
-                        child: Text('Cancel'),
-                      ),
-                      TextButton(
-                        onPressed: () =>
-                            Navigator.pop(alertDialogContext, true),
-                        child: Text('Confirm'),
-                      ),
-                    ],
-                  );
-                },
-              ) ??
-              false;
           if (!_model.exist!) {
             _model.addToAllOrderRFIDList(
                 FFAppState().scannedTagList.elementAtOrNull(loop1Index)!);
