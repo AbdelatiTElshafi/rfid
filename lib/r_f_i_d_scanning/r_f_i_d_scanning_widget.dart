@@ -67,6 +67,18 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
             milliseconds: 100,
           ),
         );
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'bbhb',
+              style: TextStyle(
+                color: FlutterFlowTheme.of(context).primaryText,
+              ),
+            ),
+            duration: Duration(milliseconds: 4000),
+            backgroundColor: FlutterFlowTheme.of(context).secondary,
+          ),
+        );
         for (int loop1Index = 0;
             loop1Index < FFAppState().scannedTagList.length;
             loop1Index++) {
