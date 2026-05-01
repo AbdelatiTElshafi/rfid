@@ -2,6 +2,7 @@ import '/backend/sqlite/sqlite_manager.dart';
 import '/components/button2_widget.dart';
 import '/components/stat_card_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'r_f_i_d_scanning_widget.dart' show RFIDScanningWidget;
 import 'package:flutter/material.dart';
 
@@ -44,23 +45,19 @@ class RFIDScanningModel extends FlutterFlowModel<RFIDScanningWidget> {
   // Model for StatCard.
   late StatCardModel statCardModel2;
   // Model for Button.
-  late Button2Model buttonModel1;
-  // Model for Button.
-  late Button2Model buttonModel2;
+  late Button2Model buttonModel;
 
   @override
   void initState(BuildContext context) {
     statCardModel1 = createModel(context, () => StatCardModel());
     statCardModel2 = createModel(context, () => StatCardModel());
-    buttonModel1 = createModel(context, () => Button2Model());
-    buttonModel2 = createModel(context, () => Button2Model());
+    buttonModel = createModel(context, () => Button2Model());
   }
 
   @override
   void dispose() {
     statCardModel1.dispose();
     statCardModel2.dispose();
-    buttonModel1.dispose();
-    buttonModel2.dispose();
+    buttonModel.dispose();
   }
 }

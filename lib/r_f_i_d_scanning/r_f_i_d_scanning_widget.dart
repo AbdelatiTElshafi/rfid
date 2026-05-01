@@ -3,7 +3,10 @@ import '/components/button2_widget.dart';
 import '/components/stat_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -67,18 +70,6 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
             milliseconds: 100,
           ),
         );
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              'bbhb',
-              style: TextStyle(
-                color: FlutterFlowTheme.of(context).primaryText,
-              ),
-            ),
-            duration: Duration(milliseconds: 50),
-            backgroundColor: FlutterFlowTheme.of(context).secondary,
-          ),
-        );
         for (int loop1Index = 0;
             loop1Index < FFAppState().scannedTagList.length;
             loop1Index++) {
@@ -103,8 +94,8 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                     color: FlutterFlowTheme.of(context).primaryText,
                   ),
                 ),
-                duration: Duration(milliseconds: 1000),
-                backgroundColor: FlutterFlowTheme.of(context).secondary,
+                duration: Duration(milliseconds: 500),
+                backgroundColor: FlutterFlowTheme.of(context).success,
               ),
             );
           }
@@ -154,6 +145,11 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+                          Icon(
+                            Icons.arrow_back,
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            size: 30.0,
+                          ),
                           Column(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -499,79 +495,108 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                                 ),
                               ),
                             ),
+                            FFButtonWidget(
+                              onPressed: !(_model.newScannedRFIDTags.isNotEmpty)
+                                  ? null
+                                  : () async {
+                                      _model.startListen = false;
+                                      safeSetState(() {});
+                                      for (int loop1Index = 0;
+                                          loop1Index <
+                                              _model.newScannedRFIDTags.length;
+                                          loop1Index++) {
+                                        final currentLoop1Item = _model
+                                            .newScannedRFIDTags[loop1Index];
+                                        if (_model.newScannedRFIDTags
+                                                        .elementAtOrNull(
+                                                            loop2Index) !=
+                                                    null &&
+                                                _model.newScannedRFIDTags
+                                                        .elementAtOrNull(
+                                                            loop2Index) !=
+                                                    ''
+                                            ? true
+                                            : false) {
+                                          await SQLiteManager.instance
+                                              .saveTagsToInventoryOrders(
+                                            inventoryorderid:
+                                                widget.inventoryOrder,
+                                            tagid: _model.newScannedRFIDTags
+                                                .elementAtOrNull(loop2Index),
+                                            scantime:
+                                                getCurrentTimestamp.toString(),
+                                          );
+                                        }
+                                      }
+                                      context.safePop();
+                                    },
+                              text: 'Save Session ',
+                              icon: Icon(
+                                Icons.save,
+                                size: 15.0,
+                              ),
+                              options: FFButtonOptions(
+                                width: 300.0,
+                                height: 45.0,
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    16.0, 0.0, 16.0, 0.0),
+                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                color: FlutterFlowTheme.of(context).primary,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .override(
+                                      font: GoogleFonts.interTight(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .fontStyle,
+                                      ),
+                                      color: Colors.white,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontStyle,
+                                    ),
+                                elevation: 0.0,
+                                borderRadius: BorderRadius.circular(24.0),
+                                disabledColor:
+                                    FlutterFlowTheme.of(context).accent3,
+                              ),
+                            ),
                             InkWell(
                               splashColor: Colors.transparent,
                               focusColor: Colors.transparent,
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                _model.startListen = false;
-                                safeSetState(() {});
-                                for (int loop1Index = 0;
-                                    loop1Index <
-                                        _model.newScannedRFIDTags.length;
-                                    loop1Index++) {
-                                  final currentLoop1Item =
-                                      _model.newScannedRFIDTags[loop1Index];
-                                  if (_model.newScannedRFIDTags.elementAtOrNull(
-                                                  loop1Index) !=
-                                              null &&
-                                          _model.newScannedRFIDTags
-                                                  .elementAtOrNull(
-                                                      loop1Index) !=
-                                              ''
-                                      ? true
-                                      : false) {
-                                    await SQLiteManager.instance
-                                        .saveTagsToInventoryOrders(
-                                      inventoryorderid: widget.inventoryOrder,
-                                      tagid: _model.newScannedRFIDTags
-                                          .elementAtOrNull(loop1Index),
-                                      scantime: getCurrentTimestamp.toString(),
-                                    );
-                                  }
-                                }
-                                context.safePop();
+                                context.pushNamed(
+                                    InventoryHistoryWidget.routeName);
                               },
                               child: wrapWithModel(
-                                model: _model.buttonModel1,
+                                model: _model.buttonModel,
                                 updateCallback: () => safeSetState(() {}),
                                 child: Button2Widget(
-                                  content: 'Complete Session',
+                                  content: 'Close Session',
                                   icon: Icon(
-                                    Icons.check_circle_rounded,
-                                    color:
-                                        FlutterFlowTheme.of(context).onPrimary,
+                                    Icons.close,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
                                     size: 16.0,
                                   ),
                                   icon_present: true,
                                   icon_end_present: false,
-                                  variant: 'primary',
+                                  variant: 'outline',
                                   size: 'large',
                                   full_width: true,
                                   loading: false,
                                   disabled: false,
                                 ),
-                              ),
-                            ),
-                            wrapWithModel(
-                              model: _model.buttonModel2,
-                              updateCallback: () => safeSetState(() {}),
-                              child: Button2Widget(
-                                content: 'Pause Scanning',
-                                icon: Icon(
-                                  Icons.pause_rounded,
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  size: 16.0,
-                                ),
-                                icon_present: true,
-                                icon_end_present: false,
-                                variant: 'outline',
-                                size: 'large',
-                                full_width: true,
-                                loading: false,
-                                disabled: false,
                               ),
                             ),
                           ].divide(SizedBox(height: 16.0)),
