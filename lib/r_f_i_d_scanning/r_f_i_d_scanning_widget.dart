@@ -276,8 +276,8 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                                 alignment: AlignmentDirectional(0.0, 0.0),
                                 child: Opacity(
                                   opacity: 0.4,
-                                  child: Lottie.network(
-                                    'https://dimg.dreamflow.cloud/v1/lottie/radar+scanning+pulse+orange',
+                                  child: Lottie.asset(
+                                    'assets/jsons/radar+scanning+pulse+orange',
                                     width: 300.0,
                                     height: 300.0,
                                     fit: BoxFit.contain,
@@ -468,7 +468,7 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                                       Expanded(
                                         flex: 1,
                                         child: Text(
-                                          'Trigger pulled: High-power mode active. Keep device moving for best results.',
+                                          'Trigger pulled: High-power mode active. Keep device moving for best results..',
                                           style: FlutterFlowTheme.of(context)
                                               .bodySmall
                                               .override(
