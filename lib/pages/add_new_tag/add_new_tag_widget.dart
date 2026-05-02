@@ -593,6 +593,12 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                               .toList()
                                               .cast<String>();
                                           safeSetState(() {});
+                                          safeSetState(() {
+                                            _model.descTextFieldTextController
+                                                    ?.text =
+                                                _model.partNOTextTextController
+                                                    .text;
+                                          });
 
                                           safeSetState(() {});
                                         },
@@ -606,11 +612,8 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                         );
                                         safeSetState(() {
                                           _model.descTextFieldTextController
-                                              ?.text = (_model
-                                                      .descTextFieldFocusNode
-                                                      ?.hasFocus ??
-                                                  false)
-                                              .toString();
+                                                  ?.text =
+                                              _model.partNOTextSelectedOption!;
                                         });
 
                                         safeSetState(() {});
@@ -623,7 +626,7 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                       textInputAction: TextInputAction.next,
                                       obscureText: false,
                                       decoration: InputDecoration(
-                                        hintText: 'e.g. Warehouse Pallet A1',
+                                        hintText: 'e.g. GN65190-GT',
                                         hintStyle: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
