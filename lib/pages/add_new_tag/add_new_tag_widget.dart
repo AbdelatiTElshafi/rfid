@@ -700,7 +700,7 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                                 await SQLiteManager.instance
                                                     .getAllPartNO(
                                               partno:
-                                                  '%${_model.textController1.text}',
+                                                  '${_model.textController1.text}%',
                                             );
                                             _model.partsno = _model.partsno100!
                                                 .map((e) => e.partNumber)
