@@ -556,13 +556,13 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                       onEditingComplete: onEditingComplete,
                                       onChanged: (_) => EasyDebounce.debounce(
                                         '_model.partNOTextTextController',
-                                        Duration(milliseconds: 2000),
+                                        Duration(milliseconds: 100),
                                         () async {
                                           _model.partNumbersData =
                                               await SQLiteManager.instance
                                                   .getAllPartNO(
                                             partno:
-                                                '${_model.partNOTextTextController.text}%',
+                                                '%${_model.partNOTextTextController.text}',
                                           );
                                           _model.partsno = _model
                                               .partNumbersData!
