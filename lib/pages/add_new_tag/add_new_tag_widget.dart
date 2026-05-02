@@ -708,6 +708,43 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                                 .toList()
                                                 .cast<String>();
                                             safeSetState(() {});
+                                            var confirmDialogResponse =
+                                                await showDialog<bool>(
+                                                      context: context,
+                                                      builder:
+                                                          (alertDialogContext) {
+                                                        return AlertDialog(
+                                                          title: Text(
+                                                              valueOrDefault<
+                                                                  String>(
+                                                            _model
+                                                                .partsno100
+                                                                ?.firstOrNull
+                                                                ?.partNumber,
+                                                            '000',
+                                                          )),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext,
+                                                                      false),
+                                                              child: Text(
+                                                                  'Cancel'),
+                                                            ),
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext,
+                                                                      true),
+                                                              child: Text(
+                                                                  'Confirm'),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    ) ??
+                                                    false;
 
                                             safeSetState(() {});
                                           },
