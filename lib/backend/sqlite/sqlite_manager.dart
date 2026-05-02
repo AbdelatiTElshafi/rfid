@@ -41,10 +41,10 @@ class SQLiteManager {
         searchText: searchText,
       );
 
-  Future<List<CheckTagExistsRow>> checkTagExists({
+  Future<List<GetTagDataRow>> getTagData({
     String? tagId,
   }) =>
-      performCheckTagExists(
+      performGetTagData(
         _database,
         tagId: tagId,
       );
@@ -128,12 +128,18 @@ class SQLiteManager {
     String? inventoryorderid,
     String? tagid,
     String? scantime,
+    String? partno,
+    String? serial,
+    String? name,
   }) =>
       performSaveTagsToInventoryOrders(
         _database,
         inventoryorderid: inventoryorderid,
         tagid: tagid,
         scantime: scantime,
+        partno: partno,
+        serial: serial,
+        name: name,
       );
 
   Future updateIneventoryOrder({

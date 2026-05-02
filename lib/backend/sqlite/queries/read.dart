@@ -60,8 +60,8 @@ class SearchTagsRow extends SqliteRow {
 
 /// END SEARCHTAGS
 
-/// BEGIN CHECKTAGEXISTS
-Future<List<CheckTagExistsRow>> performCheckTagExists(
+/// BEGIN GETTAGDATA
+Future<List<GetTagDataRow>> performGetTagData(
   Database database, {
   String? tagId,
 }) {
@@ -69,16 +69,19 @@ Future<List<CheckTagExistsRow>> performCheckTagExists(
 SELECT * FROM saved_tags
 WHERE tag_id = '${tagId}';
 ''';
-  return _readQuery(database, query, (d) => CheckTagExistsRow(d));
+  return _readQuery(database, query, (d) => GetTagDataRow(d));
 }
 
-class CheckTagExistsRow extends SqliteRow {
-  CheckTagExistsRow(Map<String, dynamic> data) : super(data);
+class GetTagDataRow extends SqliteRow {
+  GetTagDataRow(Map<String, dynamic> data) : super(data);
 
   String? get tagId => data['tag_Id'] as String?;
+  String? get nameDescription => data['name_description'] as String?;
+  String? get serialNumber => data['serial_number'] as String?;
+  String? get partNumber => data['part_number'] as String?;
 }
 
-/// END CHECKTAGEXISTS
+/// END GETTAGDATA
 
 /// BEGIN GETALLPARTNO
 Future<List<GetAllPartNORow>> performGetAllPartNO(

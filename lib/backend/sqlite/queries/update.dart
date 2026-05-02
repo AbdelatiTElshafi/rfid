@@ -85,10 +85,15 @@ Future performSaveTagsToInventoryOrders(
   String? inventoryorderid,
   String? tagid,
   String? scantime,
+  String? partno,
+  String? serial,
+  String? name,
 }) {
   final query = '''
-INSERT INTO inventory_items (inventory_order_id,tag_id,scan_time)
- VALUES ('${inventoryorderid}','${tagid}','${scantime}');
+INSERT INTO inventory_items 
+(inventory_order_id, tag_id, scan_time, part_no, serial, name)
+VALUES 
+('${inventoryorderid}', '${tagid}', '${scantime}', '${partno}', '${serial}', '${name}');
 ''';
   return database.rawQuery(query);
 }

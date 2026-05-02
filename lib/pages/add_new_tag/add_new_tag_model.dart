@@ -26,8 +26,8 @@ class AddNewTagModel extends FlutterFlowModel<AddNewTagWidget> {
   TextEditingController? serialTextFieldTextController;
   String? Function(BuildContext, String?)?
       serialTextFieldTextControllerValidator;
-  // Stores action output result for [Backend Call - SQLite (CheckTagExists)] action in Button widget.
-  List<CheckTagExistsRow>? checkTagExistsResult;
+  // Stores action output result for [Backend Call - SQLite (GetTagData)] action in Button widget.
+  List<GetTagDataRow>? checkTagExistsResult;
 
   @override
   void initState(BuildContext context) {}

@@ -208,22 +208,23 @@ class _SessionCardWidgetState extends State<SessionCardWidget> {
                     onTap: () async {
                       FFAppState().scannedTagList = [];
                       safeSetState(() {});
-
-                      context.pushNamed(
-                        RFIDScanningWidget.routeName,
-                        queryParameters: {
-                          'inventoryOrder': serializeParam(
-                            widget.session_id,
-                            ParamType.String,
-                          ),
-                        }.withoutNulls,
-                      );
+                      if (widget.status == 'in_progress') {
+                        context.pushNamed(
+                          RFIDScanningWidget.routeName,
+                          queryParameters: {
+                            'inventoryOrder': serializeParam(
+                              widget.session_id,
+                              ParamType.String,
+                            ),
+                          }.withoutNulls,
+                        );
+                      }
                     },
                     child: wrapWithModel(
                       model: _model.buttonModel,
                       updateCallback: () => safeSetState(() {}),
                       child: ButtonWidget(
-                        content: 'View Details',
+                        content: 'Start Scan',
                         icon: Icon(
                           Icons.arrow_forward_rounded,
                           color: FlutterFlowTheme.of(context).primary,

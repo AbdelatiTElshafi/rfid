@@ -1007,7 +1007,7 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                     child: FFButtonWidget(
                       onPressed: () async {
                         _model.checkTagExistsResult =
-                            await SQLiteManager.instance.checkTagExists(
+                            await SQLiteManager.instance.getTagData(
                           tagId: FFAppState().scannedTagId,
                         );
                         if (_model.checkTagExistsResult != null &&

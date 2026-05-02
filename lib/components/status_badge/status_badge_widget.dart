@@ -44,7 +44,7 @@ class _StatusBadgeWidgetState extends State<StatusBadgeWidget> {
     return Container(
       decoration: BoxDecoration(
         color: widget.status == 'in_progress'
-            ? FlutterFlowTheme.of(context).warning
+            ? FlutterFlowTheme.of(context).primary
             : FlutterFlowTheme.of(context).success20,
         borderRadius: BorderRadius.circular(12.0),
         shape: BoxShape.rectangle,

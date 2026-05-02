@@ -562,18 +562,61 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                                                       ''
                                               ? true
                                               : false) {
-                                            await SQLiteManager.instance
-                                                .saveTagsToInventoryOrders(
-                                              inventoryorderid:
-                                                  widget.inventoryOrder,
-                                              tagid: _model.newScannedRFIDTags
+                                            _model.tagData = await SQLiteManager
+                                                .instance
+                                                .getTagData(
+                                              tagId: _model.newScannedRFIDTags
                                                   .elementAtOrNull(loop1Index),
-                                              scantime: getCurrentTimestamp
-                                                  .toString(),
                                             );
+                                            if ((_model.tagData != null &&
+                                                    (_model.tagData)!
+                                                        .isNotEmpty) ==
+                                                false) {
+                                              await SQLiteManager.instance
+                                                  .saveTagsToInventoryOrders(
+                                                inventoryorderid:
+                                                    widget.inventoryOrder,
+                                                tagid: _model.newScannedRFIDTags
+                                                    .elementAtOrNull(
+                                                        loop1Index),
+                                                scantime: getCurrentTimestamp
+                                                    .toString(),
+                                                partno: _model.tagData
+                                                    ?.firstOrNull?.partNumber,
+                                                serial: _model.tagData
+                                                    ?.firstOrNull?.serialNumber,
+                                                name: _model
+                                                    .tagData
+                                                    ?.firstOrNull
+                                                    ?.nameDescription,
+                                              );
+                                            } else {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    'TAG NOT SAVED',
+                                                    style: TextStyle(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                    ),
+                                                  ),
+                                                  duration: Duration(
+                                                      milliseconds: 4000),
+                                                  backgroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .error,
+                                                ),
+                                              );
+                                            }
                                           }
                                         }
                                         context.safePop();
+
+                                        safeSetState(() {});
                                       },
                                 text: 'Save Session ',
                                 icon: Icon(

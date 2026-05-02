@@ -44,6 +44,8 @@ class RFIDScanningModel extends FlutterFlowModel<RFIDScanningWidget> {
   late StatCardModel statCardModel1;
   // Model for StatCard.
   late StatCardModel statCardModel2;
+  // Stores action output result for [Backend Call - SQLite (GetTagData)] action in Button widget.
+  List<GetTagDataRow>? tagData;
   // Model for Button.
   late Button2Model buttonModel;
 

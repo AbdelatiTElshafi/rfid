@@ -246,8 +246,8 @@ dynamic deserializeParam<T>(
             return GetAllTagsRow(data);
           case SearchTagsRow:
             return SearchTagsRow(data);
-          case CheckTagExistsRow:
-            return CheckTagExistsRow(data);
+          case GetTagDataRow:
+            return GetTagDataRow(data);
           case GetAllPartNORow:
             return GetAllPartNORow(data);
           case GetPartNoDescRow:
