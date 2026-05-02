@@ -721,7 +721,7 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                                                 .partsno100
                                                                 ?.firstOrNull
                                                                 ?.partNumber,
-                                                            '000',
+                                                            '0000',
                                                           )),
                                                           actions: [
                                                             TextButton(
