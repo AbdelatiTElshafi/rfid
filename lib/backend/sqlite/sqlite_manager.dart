@@ -49,8 +49,12 @@ class SQLiteManager {
         tagId: tagId,
       );
 
-  Future<List<GetAllPartNORow>> getAllPartNO() => performGetAllPartNO(
+  Future<List<GetAllPartNORow>> getAllPartNO({
+    String? partno,
+  }) =>
+      performGetAllPartNO(
         _database,
+        partno: partno,
       );
 
   Future<List<GetPartNoDescRow>> getPartNoDesc({

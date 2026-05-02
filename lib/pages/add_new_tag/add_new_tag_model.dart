@@ -10,6 +10,15 @@ class AddNewTagModel extends FlutterFlowModel<AddNewTagWidget> {
 
   String scannedTagId = ' test';
 
+  List<String> partsno = [];
+  void addToPartsno(String item) => partsno.add(item);
+  void removeFromPartsno(String item) => partsno.remove(item);
+  void removeAtIndexFromPartsno(int index) => partsno.removeAt(index);
+  void insertAtIndexInPartsno(int index, String item) =>
+      partsno.insert(index, item);
+  void updatePartsnoAtIndex(int index, Function(String) updateFn) =>
+      partsno[index] = updateFn(partsno[index]);
+
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for PartNODropDown widget.
@@ -17,6 +26,14 @@ class AddNewTagModel extends FlutterFlowModel<AddNewTagWidget> {
   FormFieldController<String>? partNODropDownValueController;
   // Stores action output result for [Backend Call - SQLite (GetPartNoDesc)] action in PartNODropDown widget.
   List<GetPartNoDescRow>? getPartNoDesc;
+  // State field(s) for TextField widget.
+  final textFieldKey = GlobalKey();
+  FocusNode? textFieldFocusNode;
+  TextEditingController? textController1;
+  String? textFieldSelectedOption;
+  String? Function(BuildContext, String?)? textController1Validator;
+  // Stores action output result for [Backend Call - SQLite (GetAllPartNO)] action in TextField widget.
+  List<GetAllPartNORow>? partsno100;
   // State field(s) for DescTextField widget.
   FocusNode? descTextFieldFocusNode;
   TextEditingController? descTextFieldTextController;
@@ -34,6 +51,8 @@ class AddNewTagModel extends FlutterFlowModel<AddNewTagWidget> {
 
   @override
   void dispose() {
+    textFieldFocusNode?.dispose();
+
     descTextFieldFocusNode?.dispose();
     descTextFieldTextController?.dispose();
 

@@ -85,10 +85,15 @@ class GetTagDataRow extends SqliteRow {
 
 /// BEGIN GETALLPARTNO
 Future<List<GetAllPartNORow>> performGetAllPartNO(
-  Database database,
-) {
+  Database database, {
+  String? partno,
+}) {
   final query = '''
-SELECT * FROM Products;
+SELECT part_number
+FROM Products
+WHERE part_number LIKE ? || '${partno}' 
+ORDER BY part_number ASC
+LIMIT 100;
 ''';
   return _readQuery(database, query, (d) => GetAllPartNORow(d));
 }

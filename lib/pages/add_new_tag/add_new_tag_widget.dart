@@ -1,4 +1,5 @@
 import '/backend/sqlite/sqlite_manager.dart';
+import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -85,6 +86,8 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       safeSetState(() {});
     });
+
+    _model.textController1 ??= TextEditingController();
 
     _model.descTextFieldTextController ??= TextEditingController();
     _model.descTextFieldFocusNode ??= FocusNode();
@@ -611,6 +614,239 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                   isOverButton: false,
                                   isSearchable: true,
                                   isMultiSelect: false,
+                                ),
+                                Container(
+                                  width: 200.0,
+                                  child: Autocomplete<String>(
+                                    initialValue: TextEditingValue(),
+                                    optionsBuilder: (textEditingValue) {
+                                      if (textEditingValue.text == '') {
+                                        return const Iterable<String>.empty();
+                                      }
+                                      return _model.partsno.where((option) {
+                                        final lowercaseOption =
+                                            option.toLowerCase();
+                                        return lowercaseOption.contains(
+                                            textEditingValue.text
+                                                .toLowerCase());
+                                      });
+                                    },
+                                    optionsViewBuilder:
+                                        (context, onSelected, options) {
+                                      return AutocompleteOptionsList(
+                                        textFieldKey: _model.textFieldKey,
+                                        textController: _model.textController1!,
+                                        options: options.toList(),
+                                        onSelected: onSelected,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              font: GoogleFonts.inter(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
+                                        textHighlightStyle: TextStyle(),
+                                        elevation: 4.0,
+                                        optionBackgroundColor:
+                                            FlutterFlowTheme.of(context)
+                                                .primaryBackground,
+                                        optionHighlightColor:
+                                            FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                        maxHeight: 200.0,
+                                      );
+                                    },
+                                    onSelected: (String selection) {
+                                      safeSetState(() => _model
+                                          .textFieldSelectedOption = selection);
+                                      FocusScope.of(context).unfocus();
+                                    },
+                                    fieldViewBuilder: (
+                                      context,
+                                      textEditingController,
+                                      focusNode,
+                                      onEditingComplete,
+                                    ) {
+                                      _model.textFieldFocusNode = focusNode;
+
+                                      _model.textController1 =
+                                          textEditingController;
+                                      return TextFormField(
+                                        key: _model.textFieldKey,
+                                        controller: textEditingController,
+                                        focusNode: focusNode,
+                                        onEditingComplete: onEditingComplete,
+                                        onChanged: (_) => EasyDebounce.debounce(
+                                          '_model.textController1',
+                                          Duration(milliseconds: 500),
+                                          () async {
+                                            _model.partsno100 =
+                                                await SQLiteManager.instance
+                                                    .getAllPartNO(
+                                              partno: _model
+                                                  .textFieldSelectedOption,
+                                            );
+                                            _model.partsno = _model.partsno100!
+                                                .map((e) => e.partNumber)
+                                                .withoutNulls
+                                                .toList()
+                                                .cast<String>();
+                                            safeSetState(() {});
+
+                                            safeSetState(() {});
+                                          },
+                                        ),
+                                        autofocus: false,
+                                        enabled: true,
+                                        obscureText: false,
+                                        decoration: InputDecoration(
+                                          isDense: true,
+                                          labelStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .labelMedium
+                                              .override(
+                                                font:
+                                                    GoogleFonts.plusJakartaSans(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMedium
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMedium
+                                                          .fontStyle,
+                                                ),
+                                                letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontStyle,
+                                              ),
+                                          hintText: 'TextField',
+                                          hintStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .labelMedium
+                                              .override(
+                                                font:
+                                                    GoogleFonts.plusJakartaSans(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMedium
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMedium
+                                                          .fontStyle,
+                                                ),
+                                                letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontStyle,
+                                              ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0x00000000),
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0x00000000),
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
+                                          errorBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .error,
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
+                                          focusedErrorBorder:
+                                              OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .error,
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
+                                          filled: true,
+                                          fillColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryBackground,
+                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              font: GoogleFonts.inter(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
+                                        cursorColor:
+                                            FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                        enableInteractiveSelection: true,
+                                        validator: _model
+                                            .textController1Validator
+                                            .asValidator(context),
+                                      );
+                                    },
+                                  ),
                                 ),
                               ].divide(SizedBox(height: 6.0)),
                             ),
