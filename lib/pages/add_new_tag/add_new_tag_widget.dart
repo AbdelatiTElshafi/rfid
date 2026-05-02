@@ -1011,68 +1011,78 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                       borderRadius: BorderRadius.circular(14.0),
                     ),
                     child: FFButtonWidget(
-                      onPressed: () async {
-                        _model.checkTagExistsResult =
-                            await SQLiteManager.instance.getTagData(
-                          tagId: FFAppState().scannedTagId,
-                        );
-                        if (_model.checkTagExistsResult != null &&
-                            (_model.checkTagExistsResult)!.isNotEmpty) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                '${FFAppState().scannedTagId}tag already assigned To another product',
-                                style: TextStyle(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                ),
-                              ),
-                              duration: Duration(milliseconds: 4000),
-                              backgroundColor:
-                                  FlutterFlowTheme.of(context).error,
-                            ),
-                          );
-                        } else {
-                          await SQLiteManager.instance.insertTag(
-                            nameDesc: valueOrDefault<String>(
-                              _model.descTextFieldTextController.text,
-                              'Desc',
-                            ),
-                            serialNumber: valueOrDefault<String>(
-                              _model.serialTextFieldTextController.text,
-                              'Serial',
-                            ),
-                            tagId: FFAppState().scannedTagId,
-                            partNo: _model.partNODropDownValue,
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                '${FFAppState().scannedTagId} tag has been stored locally and is ready to use.',
-                                style: TextStyle(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                ),
-                              ),
-                              duration: Duration(milliseconds: 4000),
-                              backgroundColor:
-                                  FlutterFlowTheme.of(context).secondary,
-                            ),
-                          );
-                          safeSetState(() {
-                            _model.descTextFieldTextController?.clear();
-                            _model.serialTextFieldTextController?.clear();
-                          });
-                          safeSetState(() {
-                            _model.partNODropDownValueController?.reset();
-                            _model.partNODropDownValue = null;
-                          });
-                          FFAppState().scannedTagId = '';
-                          safeSetState(() {});
-                        }
+                      onPressed: ((FFAppState().scannedTagId == '') ||
+                              (_model.partNODropDownValue == null ||
+                                  _model.partNODropDownValue == '') ||
+                              ((_model.descTextFieldFocusNode?.hasFocus ??
+                                      false) ==
+                                  null) ||
+                              ((_model.serialTextFieldFocusNode?.hasFocus ??
+                                      false) ==
+                                  null))
+                          ? null
+                          : () async {
+                              _model.checkTagExistsResult =
+                                  await SQLiteManager.instance.getTagData(
+                                tagId: FFAppState().scannedTagId,
+                              );
+                              if (_model.checkTagExistsResult != null &&
+                                  (_model.checkTagExistsResult)!.isNotEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      '${FFAppState().scannedTagId}tag already assigned To another product',
+                                      style: TextStyle(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                      ),
+                                    ),
+                                    duration: Duration(milliseconds: 4000),
+                                    backgroundColor:
+                                        FlutterFlowTheme.of(context).error,
+                                  ),
+                                );
+                              } else {
+                                await SQLiteManager.instance.insertTag(
+                                  nameDesc: valueOrDefault<String>(
+                                    _model.descTextFieldTextController.text,
+                                    'Desc',
+                                  ),
+                                  serialNumber: valueOrDefault<String>(
+                                    _model.serialTextFieldTextController.text,
+                                    'Serial',
+                                  ),
+                                  tagId: FFAppState().scannedTagId,
+                                  partNo: _model.partNODropDownValue,
+                                );
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      '${FFAppState().scannedTagId} tag has been stored locally and is ready to use.',
+                                      style: TextStyle(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                      ),
+                                    ),
+                                    duration: Duration(milliseconds: 4000),
+                                    backgroundColor:
+                                        FlutterFlowTheme.of(context).secondary,
+                                  ),
+                                );
+                                safeSetState(() {
+                                  _model.descTextFieldTextController?.clear();
+                                  _model.serialTextFieldTextController?.clear();
+                                });
+                                safeSetState(() {
+                                  _model.partNODropDownValueController?.reset();
+                                  _model.partNODropDownValue = null;
+                                });
+                                FFAppState().scannedTagId = '';
+                                safeSetState(() {});
+                              }
 
-                        safeSetState(() {});
-                      },
+                              safeSetState(() {});
+                            },
                       text: 'Save Tag',
                       options: FFButtonOptions(
                         height: 40.0,

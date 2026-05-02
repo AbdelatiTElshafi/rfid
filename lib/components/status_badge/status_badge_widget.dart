@@ -64,7 +64,7 @@ class _StatusBadgeWidgetState extends State<StatusBadgeWidget> {
                         FlutterFlowTheme.of(context).labelSmall.fontStyle,
                   ),
                   color: widget.status == 'in_progress'
-                      ? Color(0x00000000)
+                      ? FlutterFlowTheme.of(context).primaryText
                       : FlutterFlowTheme.of(context).success,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.bold,
