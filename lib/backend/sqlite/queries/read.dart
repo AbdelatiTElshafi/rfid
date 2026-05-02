@@ -91,7 +91,7 @@ Future<List<GetAllPartNORow>> performGetAllPartNO(
   final query = '''
 SELECT part_number
 FROM Products
-WHERE part_number LIKE '${partno}%'
+WHERE part_number LIKE 'GN%'
 ORDER BY part_number ASC
 LIMIT 100;
 ''';
