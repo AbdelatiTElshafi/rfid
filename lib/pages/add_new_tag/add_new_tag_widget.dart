@@ -699,8 +699,8 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                             _model.partsno100 =
                                                 await SQLiteManager.instance
                                                     .getAllPartNO(
-                                              partno: _model
-                                                  .textFieldSelectedOption,
+                                              partno:
+                                                  '%${_model.textController1.text}',
                                             );
                                             _model.partsno = _model.partsno100!
                                                 .map((e) => e.partNumber)
@@ -708,43 +708,6 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                                 .toList()
                                                 .cast<String>();
                                             safeSetState(() {});
-                                            var confirmDialogResponse =
-                                                await showDialog<bool>(
-                                                      context: context,
-                                                      builder:
-                                                          (alertDialogContext) {
-                                                        return AlertDialog(
-                                                          title: Text(
-                                                              valueOrDefault<
-                                                                  String>(
-                                                            _model
-                                                                .partsno100
-                                                                ?.firstOrNull
-                                                                ?.partNumber,
-                                                            '0000',
-                                                          )),
-                                                          actions: [
-                                                            TextButton(
-                                                              onPressed: () =>
-                                                                  Navigator.pop(
-                                                                      alertDialogContext,
-                                                                      false),
-                                                              child: Text(
-                                                                  'Cancel'),
-                                                            ),
-                                                            TextButton(
-                                                              onPressed: () =>
-                                                                  Navigator.pop(
-                                                                      alertDialogContext,
-                                                                      true),
-                                                              child: Text(
-                                                                  'Confirm'),
-                                                            ),
-                                                          ],
-                                                        );
-                                                      },
-                                                    ) ??
-                                                    false;
 
                                             safeSetState(() {});
                                           },
