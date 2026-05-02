@@ -563,6 +563,8 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                                       .labelMedium
                                                       .fontStyle,
                                             ),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryBackground,
                                             letterSpacing: 0.0,
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
@@ -637,6 +639,8 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                       margin: EdgeInsetsDirectional.fromSTEB(
                                           12.0, 0.0, 12.0, 0.0),
                                       hidesUnderline: true,
+                                      disabled:
+                                          FFAppState().scannedTagId == '',
                                       isOverButton: false,
                                       isSearchable: true,
                                       isMultiSelect: false,
@@ -708,6 +712,7 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                     () => safeSetState(() {}),
                                   ),
                                   autofocus: false,
+                                  enabled: FFAppState().scannedTagId != '',
                                   textCapitalization:
                                       TextCapitalization.sentences,
                                   textInputAction: TextInputAction.next,
@@ -883,6 +888,7 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                     },
                                   ),
                                   autofocus: false,
+                                  enabled: FFAppState().scannedTagId != '',
                                   textCapitalization:
                                       TextCapitalization.characters,
                                   textInputAction: TextInputAction.next,
