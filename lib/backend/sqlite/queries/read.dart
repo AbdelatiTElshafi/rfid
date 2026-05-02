@@ -89,8 +89,9 @@ Future<List<GetAllPartNORow>> performGetAllPartNO(
   String? partno,
 }) {
   final query = '''
-SELECT * FROM Products
-WHERE part_number LIKE  '${partno}%' 
+SELECT part_number
+FROM Products
+WHERE part_number LIKE ? || '%'
 ORDER BY part_number ASC
 LIMIT 100;
 ''';
