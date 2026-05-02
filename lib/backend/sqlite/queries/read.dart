@@ -160,6 +160,9 @@ class GetInventoryItemsRow extends SqliteRow {
   GetInventoryItemsRow(Map<String, dynamic> data) : super(data);
 
   String? get tagId => data['tag_id'] as String?;
+  String? get partNo => data['part_no'] as String?;
+  String? get serial => data['serial'] as String?;
+  String? get name => data['name'] as String?;
 }
 
 /// END GETINVENTORYITEMS

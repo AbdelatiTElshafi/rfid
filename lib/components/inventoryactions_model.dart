@@ -1,3 +1,4 @@
+import '/backend/sqlite/sqlite_manager.dart';
 import '/components/button3_widget.dart';
 import '/components/export_option_card_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -13,6 +14,8 @@ class InventoryactionsModel extends FlutterFlowModel<InventoryactionsWidget> {
   late ExportOptionCardModel exportOptionCardModel2;
   // Model for ExportOptionCard.
   late ExportOptionCardModel exportOptionCardModel3;
+  // Stores action output result for [Backend Call - SQLite (GetInventoryItems)] action in ExportOptionCard widget.
+  List<GetInventoryItemsRow>? inventoryItemsData;
   // Model for Button.
   late Button3Model buttonModel;
 

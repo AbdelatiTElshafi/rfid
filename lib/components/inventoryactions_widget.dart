@@ -3,6 +3,7 @@ import '/components/button3_widget.dart';
 import '/components/export_option_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -239,17 +240,49 @@ class _InventoryactionsWidgetState extends State<InventoryactionsWidget> {
                     ),
                   ),
                 ),
-                wrapWithModel(
-                  model: _model.exportOptionCardModel3,
-                  updateCallback: () => safeSetState(() {}),
-                  child: ExportOptionCardWidget(
-                    icon: Icon(
-                      Icons.table_view_rounded,
-                      color: FlutterFlowTheme.of(context).primary,
-                      size: 24.0,
+                InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    _model.inventoryItemsData =
+                        await SQLiteManager.instance.getInventoryItems(
+                      inventoryorderid: widget.inventoryID,
+                    );
+                    await actions.exportInventoryExcelWithSummary(
+                      _model.inventoryItemsData!
+                          .map((e) => e.tagId)
+                          .withoutNulls
+                          .toList(),
+                      _model.inventoryItemsData!
+                          .map((e) => e.name)
+                          .withoutNulls
+                          .toList(),
+                      _model.inventoryItemsData!
+                          .map((e) => e.partNo)
+                          .withoutNulls
+                          .toList(),
+                      _model.inventoryItemsData!
+                          .map((e) => e.serial)
+                          .withoutNulls
+                          .toList(),
+                    );
+
+                    safeSetState(() {});
+                  },
+                  child: wrapWithModel(
+                    model: _model.exportOptionCardModel3,
+                    updateCallback: () => safeSetState(() {}),
+                    child: ExportOptionCardWidget(
+                      icon: Icon(
+                        Icons.table_view_rounded,
+                        color: FlutterFlowTheme.of(context).primary,
+                        size: 24.0,
+                      ),
+                      subtitle: 'Best for Excel or database imports',
+                      title: 'Export as CSV',
                     ),
-                    subtitle: 'Best for Excel or database imports',
-                    title: 'Export as CSV',
                   ),
                 ),
                 Container(

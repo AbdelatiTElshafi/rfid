@@ -8,9 +8,6 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import '/custom_code/actions/index.dart';
-import '/flutter_flow/custom_functions.dart';
-
 import 'dart:io';
 import 'package:excel/excel.dart';
 import 'package:path_provider/path_provider.dart';
@@ -30,12 +27,11 @@ Future<void> exportInventoryExcelWithSummary(
 
   final excel = Excel.createExcel();
 
-  // Sheet 1: Full Data
   final dataSheet = excel['Data'];
 
   dataSheet.appendRow([
     TextCellValue('tag_id'),
-    TextCellValue('name_description'),
+    TextCellValue('name'),
     TextCellValue('part_number'),
     TextCellValue('serial_number'),
   ]);
@@ -49,7 +45,6 @@ Future<void> exportInventoryExcelWithSummary(
     ]);
   }
 
-  // Sheet 2: Summary
   final Map<String, Map<String, dynamic>> summary = {};
 
   for (int i = 0; i < partNumbers.length; i++) {
@@ -65,14 +60,14 @@ Future<void> exportInventoryExcelWithSummary(
       };
     }
 
-    summary[partNumber]!['count'] = summary[partNumber]!['count'] + 1;
+    summary[partNumber]!['count'] = (summary[partNumber]!['count'] as int) + 1;
   }
 
   final summarySheet = excel['Summary'];
 
   summarySheet.appendRow([
     TextCellValue('part_number'),
-    TextCellValue('name_description'),
+    TextCellValue('name'),
     TextCellValue('tag_count'),
   ]);
 
@@ -80,11 +75,11 @@ Future<void> exportInventoryExcelWithSummary(
     summarySheet.appendRow([
       TextCellValue(partNumber),
       TextCellValue(data['name'].toString()),
-      IntCellValue(data['count']),
+      IntCellValue(data['count'] as int),
     ]);
   });
 
-  if (excel.sheets.containsKey('Sheet1')) {
+  if (excel.sheets.containsKey('Sheet1') && excel.sheets.length > 1) {
     excel.delete('Sheet1');
   }
 
@@ -99,7 +94,7 @@ Future<void> exportInventoryExcelWithSummary(
   }
 
   final file = File(path);
-  await file.writeAsBytes(fileBytes);
+  await file.writeAsBytes(fileBytes, flush: true);
 
   await Share.shareXFiles(
     [XFile(path)],
