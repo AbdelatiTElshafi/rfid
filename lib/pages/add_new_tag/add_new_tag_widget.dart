@@ -562,7 +562,7 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                               await SQLiteManager.instance
                                                   .getAllPartNO(
                                             partno:
-                                                '%${_model.partNOTextTextController.text}',
+                                                '%${_model.partNOTextTextController.text}%',
                                           );
                                           _model.partsno = _model
                                               .partNumbersData!
