@@ -623,8 +623,7 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                       if (textEditingValue.text == '') {
                                         return const Iterable<String>.empty();
                                       }
-                                      return ['Option 1234', '9090', '23423']
-                                          .where((option) {
+                                      return _model.partsno.where((option) {
                                         final lowercaseOption =
                                             option.toLowerCase();
                                         return lowercaseOption.contains(
