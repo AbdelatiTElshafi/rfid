@@ -571,7 +571,7 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                                             if ((_model.tagData != null &&
                                                     (_model.tagData)!
                                                         .isNotEmpty) ==
-                                                false) {
+                                                true) {
                                               await SQLiteManager.instance
                                                   .saveTagsToInventoryOrders(
                                                 inventoryorderid:
