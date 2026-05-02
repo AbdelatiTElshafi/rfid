@@ -3,6 +3,7 @@ import '/components/button3_widget.dart';
 import '/components/export_option_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'inventoryactions_model.dart';
@@ -149,6 +150,8 @@ class _InventoryactionsWidgetState extends State<InventoryactionsWidget> {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
+                            context.pushNamed(InventoryHistoryWidget.routeName);
+
                             Navigator.pop(context);
                           },
                           child: Container(
@@ -187,6 +190,9 @@ class _InventoryactionsWidgetState extends State<InventoryactionsWidget> {
                       inventoryno: widget.inventoryID,
                       status: 'completed',
                     );
+
+                    context.pushNamed(InventoryHistoryWidget.routeName);
+
                     Navigator.pop(context);
                   },
                   child: wrapWithModel(
@@ -213,7 +219,11 @@ class _InventoryactionsWidgetState extends State<InventoryactionsWidget> {
                       inventoryno: widget.inventoryID,
                       status: 'deleted',
                     );
+
+                    context.pushNamed(InventoryHistoryWidget.routeName);
+
                     Navigator.pop(context);
+                    safeSetState(() {});
                   },
                   child: wrapWithModel(
                     model: _model.exportOptionCardModel2,
@@ -256,6 +266,8 @@ class _InventoryactionsWidgetState extends State<InventoryactionsWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
+                        context.pushNamed(InventoryHistoryWidget.routeName);
+
                         Navigator.pop(context);
                       },
                       child: wrapWithModel(

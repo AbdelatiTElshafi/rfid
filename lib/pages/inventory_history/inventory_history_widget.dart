@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'inventory_history_model.dart';
 export 'inventory_history_model.dart';
@@ -28,6 +29,11 @@ class _InventoryHistoryWidgetState extends State<InventoryHistoryWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => InventoryHistoryModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      safeSetState(() {});
+    });
   }
 
   @override
