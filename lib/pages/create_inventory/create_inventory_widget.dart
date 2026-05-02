@@ -538,6 +538,7 @@ class _CreateInventoryWidgetState extends State<CreateInventoryWidget> {
                                     .createInventoryOrder(
                                   inventoryno: _model.textController.text,
                                   starttime: getCurrentTimestamp,
+                                  status: 'in_progress',
                                 );
                                 context.safePop();
                               },

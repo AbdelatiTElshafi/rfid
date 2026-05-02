@@ -56,6 +56,7 @@ Future performCreateInventoryOrder(
   Database database, {
   String? inventoryno,
   DateTime? starttime,
+  String? status,
 }) {
   final query = '''
 INSERT INTO inventory_orders (
@@ -68,7 +69,7 @@ INSERT INTO inventory_orders (
 VALUES (
  '${inventoryno}',
  '${starttime}',
-  'OPEN',
+  '${status}',
   0,
   'notes'
 );
@@ -93,3 +94,20 @@ INSERT INTO inventory_items (inventory_order_id,tag_id,scan_time)
 }
 
 /// END SAVETAGSTOINVENTORYORDERS
+
+/// BEGIN UPDATEINEVENTORYORDER
+Future performUpdateIneventoryOrder(
+  Database database, {
+  String? status,
+  String? inventoryno,
+}) {
+  final query = '''
+UPDATE inventory_orders
+SET
+status= '${status}'
+WHERE iinventory_no = '${inventoryno}';
+''';
+  return database.rawQuery(query);
+}
+
+/// END UPDATEINEVENTORYORDER

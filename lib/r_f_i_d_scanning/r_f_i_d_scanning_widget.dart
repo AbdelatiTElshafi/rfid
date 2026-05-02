@@ -385,6 +385,7 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                                               EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 6.0, 16.0, 6.0),
                                           child: Container(
+                                            decoration: BoxDecoration(),
                                             child: Text(
                                               'Session: ${widget.inventoryOrder}',
                                               style:

@@ -115,11 +115,13 @@ class SQLiteManager {
   Future createInventoryOrder({
     String? inventoryno,
     DateTime? starttime,
+    String? status,
   }) =>
       performCreateInventoryOrder(
         _database,
         inventoryno: inventoryno,
         starttime: starttime,
+        status: status,
       );
 
   Future saveTagsToInventoryOrders({
@@ -132,6 +134,16 @@ class SQLiteManager {
         inventoryorderid: inventoryorderid,
         tagid: tagid,
         scantime: scantime,
+      );
+
+  Future updateIneventoryOrder({
+    String? status,
+    String? inventoryno,
+  }) =>
+      performUpdateIneventoryOrder(
+        _database,
+        status: status,
+        inventoryno: inventoryno,
       );
 
   /// END UPDATE QUERY CALLS
