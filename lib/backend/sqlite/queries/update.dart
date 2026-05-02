@@ -105,7 +105,7 @@ Future performUpdateIneventoryOrder(
 UPDATE inventory_orders
 SET
 status= '${status}'
-WHERE iinventory_no = '${inventoryno}';
+WHERE inventory_no = '${inventoryno}';
 ''';
   return database.rawQuery(query);
 }
