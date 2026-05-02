@@ -1,6 +1,5 @@
 import '/backend/sqlite/sqlite_manager.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/form_field_controller.dart';
 import '/index.dart';
 import 'add_new_tag_widget.dart' show AddNewTagWidget;
 import 'package:flutter/material.dart';
@@ -21,19 +20,16 @@ class AddNewTagModel extends FlutterFlowModel<AddNewTagWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  // State field(s) for PartNODropDown widget.
-  String? partNODropDownValue;
-  FormFieldController<String>? partNODropDownValueController;
-  // Stores action output result for [Backend Call - SQLite (GetPartNoDesc)] action in PartNODropDown widget.
+  // State field(s) for PartNOText widget.
+  final partNOTextKey = GlobalKey();
+  FocusNode? partNOTextFocusNode;
+  TextEditingController? partNOTextTextController;
+  String? partNOTextSelectedOption;
+  String? Function(BuildContext, String?)? partNOTextTextControllerValidator;
+  // Stores action output result for [Backend Call - SQLite (GetPartNoDesc)] action in PartNOText widget.
   List<GetPartNoDescRow>? getPartNoDesc;
-  // State field(s) for TextField widget.
-  final textFieldKey = GlobalKey();
-  FocusNode? textFieldFocusNode;
-  TextEditingController? textController1;
-  String? textFieldSelectedOption;
-  String? Function(BuildContext, String?)? textController1Validator;
-  // Stores action output result for [Backend Call - SQLite (GetAllPartNO)] action in TextField widget.
-  List<GetAllPartNORow>? partsno100;
+  // Stores action output result for [Backend Call - SQLite (GetAllPartNO)] action in PartNOText widget.
+  List<GetAllPartNORow>? partNumbersData;
   // State field(s) for DescTextField widget.
   FocusNode? descTextFieldFocusNode;
   TextEditingController? descTextFieldTextController;
@@ -51,7 +47,7 @@ class AddNewTagModel extends FlutterFlowModel<AddNewTagWidget> {
 
   @override
   void dispose() {
-    textFieldFocusNode?.dispose();
+    partNOTextFocusNode?.dispose();
 
     descTextFieldFocusNode?.dispose();
     descTextFieldTextController?.dispose();
