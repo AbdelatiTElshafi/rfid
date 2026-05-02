@@ -79,6 +79,39 @@ class _SessionCardWidgetState extends State<SessionCardWidget> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  Align(
+                    alignment: AlignmentDirectional(1.0, 0.0),
+                    child: Builder(
+                      builder: (context) => InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          await showDialog(
+                            context: context,
+                            builder: (dialogContext) {
+                              return Dialog(
+                                elevation: 0,
+                                insetPadding: EdgeInsets.zero,
+                                backgroundColor: Colors.transparent,
+                                alignment: AlignmentDirectional(1.0, 0.0)
+                                    .resolve(Directionality.of(context)),
+                                child: InventoryactionsWidget(
+                                  inventoryID: widget.session_id,
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        child: Icon(
+                          Icons.info,
+                          color: FlutterFlowTheme.of(context).primaryText,
+                          size: 24.0,
+                        ),
+                      ),
+                    ),
+                  ),
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -151,36 +184,6 @@ class _SessionCardWidgetState extends State<SessionCardWidget> {
                         updateCallback: () => safeSetState(() {}),
                         child: StatusBadgeWidget(
                           status: widget.status,
-                        ),
-                      ),
-                      Builder(
-                        builder: (context) => InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            await showDialog(
-                              context: context,
-                              builder: (dialogContext) {
-                                return Dialog(
-                                  elevation: 0,
-                                  insetPadding: EdgeInsets.zero,
-                                  backgroundColor: Colors.transparent,
-                                  alignment: AlignmentDirectional(0.0, 0.0)
-                                      .resolve(Directionality.of(context)),
-                                  child: InventoryactionsWidget(
-                                    inventoryID: '',
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                          child: Icon(
-                            Icons.info,
-                            color: FlutterFlowTheme.of(context).primaryText,
-                            size: 24.0,
-                          ),
                         ),
                       ),
                     ],
