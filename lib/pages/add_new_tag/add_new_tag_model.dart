@@ -30,6 +30,8 @@ class AddNewTagModel extends FlutterFlowModel<AddNewTagWidget> {
   List<GetPartNoDescRow>? getPartNoDesc;
   // Stores action output result for [Backend Call - SQLite (GetAllPartNO)] action in PartNOText widget.
   List<GetAllPartNORow>? partNumbersData;
+  // Stores action output result for [Backend Call - SQLite (GetPartNoDesc)] action in PartNOText widget.
+  List<GetPartNoDescRow>? getPartNoDescOnChange;
   // State field(s) for DescTextField widget.
   FocusNode? descTextFieldFocusNode;
   TextEditingController? descTextFieldTextController;

@@ -522,29 +522,7 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                           _model.partNOTextTextController!,
                                       options: options.toList(),
                                       onSelected: onSelected,
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            font: GoogleFonts.inter(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
-                                            ),
-                                            letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
-                                          ),
+                                      textStyle: TextStyle(),
                                       textHighlightStyle: TextStyle(),
                                       elevation: 4.0,
                                       optionBackgroundColor:
@@ -593,6 +571,20 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                               .toList()
                                               .cast<String>();
                                           safeSetState(() {});
+                                          _model.getPartNoDescOnChange =
+                                              await SQLiteManager.instance
+                                                  .getPartNoDesc(
+                                            partnumber:
+                                                _model.partNOTextSelectedOption,
+                                          );
+                                          safeSetState(() {
+                                            _model.descTextFieldTextController
+                                                    ?.text =
+                                                _model
+                                                    .getPartNoDescOnChange!
+                                                    .firstOrNull!
+                                                    .nameDescription!;
+                                          });
 
                                           safeSetState(() {});
                                         },
@@ -1196,6 +1188,7 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                 ),
                         elevation: 0.0,
                         borderRadius: BorderRadius.circular(8.0),
+                        disabledColor: FlutterFlowTheme.of(context).accent4,
                       ),
                     ),
                   ),
