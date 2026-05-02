@@ -79,38 +79,67 @@ class _SessionCardWidgetState extends State<SessionCardWidget> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Align(
-                    alignment: AlignmentDirectional(1.0, 0.0),
-                    child: Builder(
-                      builder: (context) => InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          await showDialog(
-                            context: context,
-                            builder: (dialogContext) {
-                              return Dialog(
-                                elevation: 0,
-                                insetPadding: EdgeInsets.zero,
-                                backgroundColor: Colors.transparent,
-                                alignment: AlignmentDirectional(1.0, 0.0)
-                                    .resolve(Directionality.of(context)),
-                                child: InventoryactionsWidget(
-                                  inventoryID: widget.session_id,
-                                ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        valueOrDefault<String>(
+                          widget.session_id,
+                          'INV-2023-0891',
+                        ),
+                        style: FlutterFlowTheme.of(context)
+                            .titleMedium
+                            .override(
+                              font: GoogleFonts.plusJakartaSans(
+                                fontWeight: FontWeight.bold,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .titleMedium
+                                    .fontStyle,
+                              ),
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .titleMedium
+                                  .fontStyle,
+                              lineHeight: 1.4,
+                            ),
+                      ),
+                      Align(
+                        alignment: AlignmentDirectional(1.0, 0.0),
+                        child: Builder(
+                          builder: (context) => InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              await showDialog(
+                                context: context,
+                                builder: (dialogContext) {
+                                  return Dialog(
+                                    elevation: 0,
+                                    insetPadding: EdgeInsets.zero,
+                                    backgroundColor: Colors.transparent,
+                                    alignment: AlignmentDirectional(1.0, 0.0)
+                                        .resolve(Directionality.of(context)),
+                                    child: InventoryactionsWidget(
+                                      inventoryID: widget.session_id,
+                                    ),
+                                  );
+                                },
                               );
                             },
-                          );
-                        },
-                        child: Icon(
-                          Icons.info,
-                          color: FlutterFlowTheme.of(context).primaryText,
-                          size: 24.0,
+                            child: Icon(
+                              Icons.info,
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              size: 24.0,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
                   Row(
                     mainAxisSize: MainAxisSize.max,
@@ -124,30 +153,6 @@ class _SessionCardWidgetState extends State<SessionCardWidget> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              valueOrDefault<String>(
-                                widget.session_id,
-                                'INV-2023-0891',
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .titleMedium
-                                  .override(
-                                    font: GoogleFonts.plusJakartaSans(
-                                      fontWeight: FontWeight.bold,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .titleMedium
-                                          .fontStyle,
-                                    ),
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.bold,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .titleMedium
-                                        .fontStyle,
-                                    lineHeight: 1.4,
-                                  ),
-                            ),
                             Text(
                               valueOrDefault<String>(
                                 widget.date,

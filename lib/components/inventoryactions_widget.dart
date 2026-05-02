@@ -187,6 +187,7 @@ class _InventoryactionsWidgetState extends State<InventoryactionsWidget> {
                       inventoryno: widget.inventoryID,
                       status: 'completed',
                     );
+                    Navigator.pop(context);
                   },
                   child: wrapWithModel(
                     model: _model.exportOptionCardModel1,
@@ -212,6 +213,7 @@ class _InventoryactionsWidgetState extends State<InventoryactionsWidget> {
                       inventoryno: widget.inventoryID,
                       status: 'deleted',
                     );
+                    Navigator.pop(context);
                   },
                   child: wrapWithModel(
                     model: _model.exportOptionCardModel2,

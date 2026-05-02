@@ -125,6 +125,7 @@ Future<List<GetInventoryOrdersRow>> performGetInventoryOrders(
   final query = '''
 SELECT *
 FROM inventory_orders
+WHERE status != 'deleted'
 ORDER BY id DESC;
 ''';
   return _readQuery(database, query, (d) => GetInventoryOrdersRow(d));
