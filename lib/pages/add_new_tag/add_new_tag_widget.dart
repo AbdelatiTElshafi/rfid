@@ -593,12 +593,6 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                               .toList()
                                               .cast<String>();
                                           safeSetState(() {});
-                                          safeSetState(() {
-                                            _model.descTextFieldTextController
-                                                    ?.text =
-                                                _model.partNOTextTextController
-                                                    .text;
-                                          });
 
                                           safeSetState(() {});
                                         },
@@ -613,7 +607,8 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                         safeSetState(() {
                                           _model.descTextFieldTextController
                                                   ?.text =
-                                              _model.partNOTextSelectedOption!;
+                                              _model.getPartNoDesc!.firstOrNull!
+                                                  .nameDescription!;
                                         });
 
                                         safeSetState(() {});
