@@ -500,57 +500,30 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                     ),
                                   ].divide(SizedBox(width: 4.0)),
                                 ),
-                                FutureBuilder<List<GetAllPartNORow>>(
-                                  future: SQLiteManager.instance.getAllPartNO(),
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                        child: SizedBox(
-                                          width: 50.0,
-                                          height: 50.0,
-                                          child: CircularProgressIndicator(
-                                            valueColor:
-                                                AlwaysStoppedAnimation<Color>(
-                                              FlutterFlowTheme.of(context)
-                                                  .primary,
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                    final partNODropDownGetAllPartNORowList =
-                                        snapshot.data!;
-
-                                    return FlutterFlowDropDown<String>(
-                                      controller: _model
-                                              .partNODropDownValueController ??=
+                                FlutterFlowDropDown<String>(
+                                  controller:
+                                      _model.partNODropDownValueController ??=
                                           FormFieldController<String>(null),
-                                      options: partNODropDownGetAllPartNORowList
-                                          .map((e) => e.partNumber)
-                                          .withoutNulls
-                                          .toList(),
-                                      onChanged: (val) async {
-                                        safeSetState(() =>
-                                            _model.partNODropDownValue = val);
-                                        _model.getPartNoDesc =
-                                            await SQLiteManager.instance
-                                                .getPartNoDesc(
-                                          partnumber:
-                                              _model.partNODropDownValue,
-                                        );
-                                        safeSetState(() {
-                                          _model.descTextFieldTextController
-                                                  ?.text =
-                                              _model.getPartNoDesc!.firstOrNull!
-                                                  .nameDescription!;
-                                        });
+                                  options: ['Option 1', 'Option 2', 'Option 3'],
+                                  onChanged: (val) async {
+                                    safeSetState(
+                                        () => _model.partNODropDownValue = val);
+                                    _model.getPartNoDesc = await SQLiteManager
+                                        .instance
+                                        .getPartNoDesc(
+                                      partnumber: _model.partNODropDownValue,
+                                    );
+                                    safeSetState(() {
+                                      _model.descTextFieldTextController?.text =
+                                          _model.getPartNoDesc!.firstOrNull!
+                                              .nameDescription!;
+                                    });
 
-                                        safeSetState(() {});
-                                      },
-                                      height: 50.0,
-                                      searchHintTextStyle: FlutterFlowTheme.of(
-                                              context)
+                                    safeSetState(() {});
+                                  },
+                                  height: 50.0,
+                                  searchHintTextStyle:
+                                      FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
                                             font: GoogleFonts.plusJakartaSans(
@@ -575,77 +548,69 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                                     .labelMedium
                                                     .fontStyle,
                                           ),
-                                      searchTextStyle: FlutterFlowTheme.of(
-                                              context)
-                                          .bodyMedium
-                                          .override(
-                                            font: GoogleFonts.inter(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
-                                            ),
-                                            letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
-                                          ),
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            font: GoogleFonts.inter(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
-                                            ),
-                                            color: Color(0xFF1A1A1A),
-                                            letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
-                                          ),
-                                      hintText: 'Select...',
-                                      searchHintText: 'Search...',
-                                      icon: Icon(
-                                        Icons.keyboard_arrow_down_rounded,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        size: 24.0,
+                                  searchTextStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        font: GoogleFonts.inter(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
                                       ),
-                                      fillColor: Color(0xFFFAFAFA),
-                                      elevation: 2.0,
-                                      borderColor: Color(0xFFE8E8E8),
-                                      borderWidth: 0.0,
-                                      borderRadius: 8.0,
-                                      margin: EdgeInsetsDirectional.fromSTEB(
-                                          12.0, 0.0, 12.0, 0.0),
-                                      hidesUnderline: true,
-                                      disabled:
-                                          FFAppState().scannedTagId == '',
-                                      isOverButton: false,
-                                      isSearchable: true,
-                                      isMultiSelect: false,
-                                    );
-                                  },
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        font: GoogleFonts.inter(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                        color: Color(0xFF1A1A1A),
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
+                                  hintText: 'Select...',
+                                  searchHintText: 'Search...',
+                                  icon: Icon(
+                                    Icons.keyboard_arrow_down_rounded,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                    size: 24.0,
+                                  ),
+                                  fillColor: Color(0xFFFAFAFA),
+                                  elevation: 2.0,
+                                  borderColor: Color(0xFFE8E8E8),
+                                  borderWidth: 0.0,
+                                  borderRadius: 8.0,
+                                  margin: EdgeInsetsDirectional.fromSTEB(
+                                      12.0, 0.0, 12.0, 0.0),
+                                  hidesUnderline: true,
+                                  disabled: FFAppState().scannedTagId == '',
+                                  isOverButton: false,
+                                  isSearchable: true,
+                                  isMultiSelect: false,
                                 ),
                               ].divide(SizedBox(height: 6.0)),
                             ),
