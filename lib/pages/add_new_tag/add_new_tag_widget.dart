@@ -574,8 +574,8 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                           _model.getPartNoDescOnChange =
                                               await SQLiteManager.instance
                                                   .getPartNoDesc(
-                                            partnumber:
-                                                _model.partNOTextSelectedOption,
+                                            partnumber: _model
+                                                .partNOTextTextController.text,
                                           );
                                           safeSetState(() {
                                             _model.descTextFieldTextController
@@ -593,8 +593,8 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                         _model.getPartNoDesc =
                                             await SQLiteManager.instance
                                                 .getPartNoDesc(
-                                          partnumber:
-                                              _model.partNOTextSelectedOption,
+                                          partnumber: _model
+                                              .partNOTextTextController.text,
                                         );
                                         safeSetState(() {
                                           _model.descTextFieldTextController
@@ -1091,8 +1091,7 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                     ),
                     child: FFButtonWidget(
                       onPressed: ((FFAppState().scannedTagId == '') ||
-                              (_model.partNOTextSelectedOption == null ||
-                                  _model.partNOTextSelectedOption == '') ||
+                              (_model.partNOTextTextController.text == '') ||
                               ((_model.descTextFieldFocusNode?.hasFocus ??
                                       false) ==
                                   null) ||
