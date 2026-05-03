@@ -604,7 +604,7 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                                                     ),
                                                   ),
                                                   duration: Duration(
-                                                      milliseconds: 4000),
+                                                      milliseconds: 500),
                                                   backgroundColor:
                                                       FlutterFlowTheme.of(
                                                               context)

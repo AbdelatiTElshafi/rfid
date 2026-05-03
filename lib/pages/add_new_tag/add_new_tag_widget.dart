@@ -384,7 +384,9 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                                       10.0, 0.0, 0.0, 0.0),
                                               child: Text(
                                                 valueOrDefault<String>(
-                                                  FFAppState().scannedTagId,
+                                                  FFAppState()
+                                                      .scannedTagList
+                                                      .firstOrNull,
                                                   'Scan Tag....',
                                                 ),
                                                 style: FlutterFlowTheme.of(
