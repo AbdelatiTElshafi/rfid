@@ -74,6 +74,7 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
   late AddNewTagModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  bool partNOTextFocusListenerRegistered = false;
 
   @override
   void initState() {
@@ -546,7 +547,29 @@ class _AddNewTagWidgetState extends State<AddNewTagWidget> {
                                     onEditingComplete,
                                   ) {
                                     _model.partNOTextFocusNode = focusNode;
+                                    if (!partNOTextFocusListenerRegistered) {
+                                      partNOTextFocusListenerRegistered = true;
+                                      _model.partNOTextFocusNode!.addListener(
+                                        () async {
+                                          _model.getPartNoDescFocusChange =
+                                              await SQLiteManager.instance
+                                                  .getPartNoDesc(
+                                            partnumber: _model
+                                                .partNOTextTextController.text,
+                                          );
+                                          safeSetState(() {
+                                            _model.descTextFieldTextController
+                                                    ?.text =
+                                                _model
+                                                    .getPartNoDescFocusChange!
+                                                    .firstOrNull!
+                                                    .nameDescription!;
+                                          });
 
+                                          safeSetState(() {});
+                                        },
+                                      );
+                                    }
                                     _model.partNOTextTextController =
                                         textEditingController;
                                     return TextFormField(
