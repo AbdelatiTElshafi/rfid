@@ -367,56 +367,6 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                                               lineHeight: 1.2,
                                             ),
                                       ),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary25,
-                                          borderRadius:
-                                              BorderRadius.circular(9999.0),
-                                          shape: BoxShape.rectangle,
-                                          border: Border.all(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary25,
-                                            width: 1.0,
-                                          ),
-                                        ),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  16.0, 6.0, 16.0, 6.0),
-                                          child: Container(
-                                            decoration: BoxDecoration(),
-                                            child: Text(
-                                              'Session: ${widget.inventoryOrder}',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelSmall
-                                                      .override(
-                                                        font: GoogleFonts
-                                                            .plusJakartaSans(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .labelSmall
-                                                                  .fontStyle,
-                                                        ),
-                                                        color: Colors.white,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelSmall
-                                                                .fontStyle,
-                                                        lineHeight: 1.2,
-                                                      ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
                                     ].divide(SizedBox(height: 4.0)),
                                   ),
                                 ),

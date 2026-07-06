@@ -8,3 +8,5 @@ export '/pages/inventory_history/inventory_history_widget.dart'
 export '/pages/create_inventory/create_inventory_widget.dart'
     show CreateInventoryWidget;
 export '/r_f_i_d_scanning/r_f_i_d_scanning_widget.dart' show RFIDScanningWidget;
+export '/pages/upload_a_datbase_page/upload_a_datbase_page_widget.dart'
+    show UploadADatbasePageWidget;

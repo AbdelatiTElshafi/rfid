@@ -23,7 +23,7 @@ class SQLiteManager {
     }
     _database = await initializeDatabaseFromDbFile(
       'rfiddb',
-      'RFIDDB.db',
+      'rfiddb.db',
     );
   }
 
