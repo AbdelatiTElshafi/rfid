@@ -735,6 +735,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
+                              FFAppState().loadingvis = true;
+                              safeSetState(() {});
                               _model.syncstatus =
                                   await actions.syncSqliteToMysql(
                                 FFAppState().host,
@@ -743,8 +745,6 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 FFAppState().user,
                                 FFAppState().password,
                               );
-                              FFAppState().loadingvis = true;
-                              safeSetState(() {});
                               if (_model.syncstatus!) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
