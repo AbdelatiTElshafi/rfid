@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FFAppState extends ChangeNotifier {
   static FFAppState _instance = FFAppState._internal();
@@ -13,12 +14,31 @@ class FFAppState extends ChangeNotifier {
     _instance = FFAppState._internal();
   }
 
-  Future initializePersistedState() async {}
+  Future initializePersistedState() async {
+    prefs = await SharedPreferences.getInstance();
+    _safeInit(() {
+      _host = prefs.getString('ff_host') ?? _host;
+    });
+    _safeInit(() {
+      _user = prefs.getString('ff_user') ?? _user;
+    });
+    _safeInit(() {
+      _password = prefs.getString('ff_password') ?? _password;
+    });
+    _safeInit(() {
+      _dbname = prefs.getString('ff_dbname') ?? _dbname;
+    });
+    _safeInit(() {
+      _port = prefs.getInt('ff_port') ?? _port;
+    });
+  }
 
   void update(VoidCallback callback) {
     callback();
     notifyListeners();
   }
+
+  late SharedPreferences prefs;
 
   String _rfidStatus = 'Disconnected';
   String get rfidStatus => _rfidStatus;
@@ -66,4 +86,51 @@ class FFAppState extends ChangeNotifier {
   void insertAtIndexInScannedTagList(int index, String value) {
     scannedTagList.insert(index, value);
   }
+
+  String _host = '';
+  String get host => _host;
+  set host(String value) {
+    _host = value;
+    prefs.setString('ff_host', value);
+  }
+
+  String _user = '';
+  String get user => _user;
+  set user(String value) {
+    _user = value;
+    prefs.setString('ff_user', value);
+  }
+
+  String _password = '';
+  String get password => _password;
+  set password(String value) {
+    _password = value;
+    prefs.setString('ff_password', value);
+  }
+
+  String _dbname = '';
+  String get dbname => _dbname;
+  set dbname(String value) {
+    _dbname = value;
+    prefs.setString('ff_dbname', value);
+  }
+
+  int _port = 0;
+  int get port => _port;
+  set port(int value) {
+    _port = value;
+    prefs.setInt('ff_port', value);
+  }
+}
+
+void _safeInit(Function() initializeField) {
+  try {
+    initializeField();
+  } catch (_) {}
+}
+
+Future _safeInitAsync(Function() initializeField) async {
+  try {
+    await initializeField();
+  } catch (_) {}
 }

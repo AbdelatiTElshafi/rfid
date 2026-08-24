@@ -10,3 +10,4 @@ export '/pages/create_inventory/create_inventory_widget.dart'
 export '/r_f_i_d_scanning/r_f_i_d_scanning_widget.dart' show RFIDScanningWidget;
 export '/pages/upload_a_datbase_page/upload_a_datbase_page_widget.dart'
     show UploadADatbasePageWidget;
+export '/setting_page/setting_page_widget.dart' show SettingPageWidget;

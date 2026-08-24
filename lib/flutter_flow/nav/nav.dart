@@ -102,6 +102,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: UploadADatbasePageWidget.routeName,
           path: UploadADatbasePageWidget.routePath,
           builder: (context, params) => UploadADatbasePageWidget(),
+        ),
+        FFRoute(
+          name: SettingPageWidget.routeName,
+          path: SettingPageWidget.routePath,
+          builder: (context, params) => SettingPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

@@ -16,6 +16,13 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
   void updateTestAtIndex(int index, Function(String) updateFn) =>
       test[index] = updateFn(test[index]);
 
+  ///  State fields for stateful widgets in this page.
+
+  // Stores action output result for [Custom Action - syncSqliteToMysql] action in Container widget.
+  bool? syncstatus;
+  // Stores action output result for [Custom Action - clearSqliteTables] action in Container widget.
+  bool? clearandsyncstatus;
+
   @override
   void initState(BuildContext context) {}
 
