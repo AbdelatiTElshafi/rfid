@@ -719,6 +719,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     FlutterFlowTheme.of(context).secondary,
                               ),
                             );
+                            safeSetState(() {});
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
