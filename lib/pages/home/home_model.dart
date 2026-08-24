@@ -20,8 +20,6 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
 
   // Stores action output result for [Custom Action - syncSqliteToMysql] action in Container widget.
   bool? syncstatus;
-  // Stores action output result for [Custom Action - clearSqliteTables] action in Container widget.
-  bool? clearandsyncstatus;
 
   @override
   void initState(BuildContext context) {}
