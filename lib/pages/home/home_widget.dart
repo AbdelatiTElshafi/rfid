@@ -779,6 +779,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                         FlutterFlowTheme.of(context).secondary,
                                   ),
                                 );
+                                FFAppState().loadingvis = false;
+                                safeSetState(() {});
                               }
 
                               safeSetState(() {});
