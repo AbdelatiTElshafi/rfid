@@ -1,3 +1,4 @@
+import '/components/loading/loading_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
 import 'home_widget.dart' show HomeWidget;
@@ -20,10 +21,16 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
 
   // Stores action output result for [Custom Action - syncSqliteToMysql] action in Container widget.
   bool? syncstatus;
+  // Model for Loading component.
+  late LoadingModel loadingModel;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    loadingModel = createModel(context, () => LoadingModel());
+  }
 
   @override
-  void dispose() {}
+  void dispose() {
+    loadingModel.dispose();
+  }
 }

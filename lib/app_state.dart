@@ -121,6 +121,12 @@ class FFAppState extends ChangeNotifier {
     _port = value;
     prefs.setInt('ff_port', value);
   }
+
+  bool _loadingvis = false;
+  bool get loadingvis => _loadingvis;
+  set loadingvis(bool value) {
+    _loadingvis = value;
+  }
 }
 
 void _safeInit(Function() initializeField) {
