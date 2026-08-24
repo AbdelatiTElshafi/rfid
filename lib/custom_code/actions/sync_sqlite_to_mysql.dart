@@ -12,7 +12,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as p;
-import 'package:mysql1/mysql1.dart';
+import 'package:mysql_client/mysql_client.dart';
 
 Future<bool> syncSqliteToMysql(
   String host,
@@ -21,11 +21,11 @@ Future<bool> syncSqliteToMysql(
   String user,
   String password,
 ) async {
-  MySqlConnection? mysqlConn;
+  MySQLConnection? mysqlConn;
   Database? sqliteDb;
 
   try {
-    // 1. Locate existing SQLite local database dynamically
+    // 1. Locate SQLite database file dynamically
     final databasesPath = await getDatabasesPath();
     String path = p.join(databasesPath, 'rfiddb.db');
 
@@ -40,121 +40,105 @@ Future<bool> syncSqliteToMysql(
       }
     }
 
-    bool dbExists = await databaseExists(path);
-    if (!dbExists) {
+    if (!await databaseExists(path)) {
       print('Sync Error: Local database file not found at path: $path');
       return false;
     }
 
     sqliteDb = await openDatabase(path);
 
-    // 2. Fetch rows from all SQLite tables
-    final List<Map<String, dynamic>> products =
-        await sqliteDb.query('Products');
-    final List<Map<String, dynamic>> inventoryItems =
-        await sqliteDb.query('inventory_items');
-    final List<Map<String, dynamic>> inventoryOrders =
-        await sqliteDb.query('inventory_orders');
-    final List<Map<String, dynamic>> savedTags =
-        await sqliteDb.query('saved_tags');
+    // 2. Fetch rows from SQLite
+    final products = await sqliteDb.query('Products');
+    final inventoryItems = await sqliteDb.query('inventory_items');
+    final inventoryOrders = await sqliteDb.query('inventory_orders');
+    final savedTags = await sqliteDb.query('saved_tags');
 
-    // 3. Connect to MySQL server with extended timeout
-    final settings = ConnectionSettings(
+    // 3. Connect to MySQL server via mysql_client
+    mysqlConn = await MySQLConnection.createConnection(
       host: host,
       port: port,
-      user: user,
+      userName: user,
       password: password,
-      db: dbName,
-      timeout: const Duration(seconds: 30),
+      databaseName: dbName,
+      secure: false, // Set to true if server requires SSL
     );
-    mysqlConn = await MySqlConnection.connect(settings);
 
-    // 4. Batch Sync Products Table
-    if (products.isNotEmpty) {
-      final params = products
-          .map((row) => [
-                row['id'],
-                row['name_description'],
-                row['Brand'],
-                row['part_number'],
-              ])
-          .toList();
+    await mysqlConn.connect();
 
-      await mysqlConn.queryMulti(
-        'INSERT IGNORE INTO Products (id, name_description, Brand, part_number) VALUES (?, ?, ?, ?)',
-        params,
-      );
-    }
+    // 4. Batch sync within a transaction
+    await mysqlConn.transactional((conn) async {
+      if (products.isNotEmpty) {
+        final stmt = await conn.prepare(
+          'INSERT IGNORE INTO Products (id, name_description, Brand, part_number) VALUES (?, ?, ?, ?)',
+        );
+        for (var row in products) {
+          await stmt.execute([
+            row['id'],
+            row['name_description'],
+            row['Brand'],
+            row['part_number'],
+          ]);
+        }
+      }
 
-    // 5. Batch Sync inventory_items Table
-    if (inventoryItems.isNotEmpty) {
-      final params = inventoryItems
-          .map((row) => [
-                row['id'],
-                row['inventory_order_id'],
-                row['tag_id'],
-                row['scan_time'],
-                row['part_no'],
-                row['serial'],
-                row['name'],
-              ])
-          .toList();
+      if (inventoryItems.isNotEmpty) {
+        final stmt = await conn.prepare(
+          'INSERT IGNORE INTO inventory_items (id, inventory_order_id, tag_id, scan_time, part_no, serial, name) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        );
+        for (var row in inventoryItems) {
+          await stmt.execute([
+            row['id'],
+            row['inventory_order_id'],
+            row['tag_id'],
+            row['scan_time'],
+            row['part_no'],
+            row['serial'],
+            row['name'],
+          ]);
+        }
+      }
 
-      await mysqlConn.queryMulti(
-        'INSERT IGNORE INTO inventory_items (id, inventory_order_id, tag_id, scan_time, part_no, serial, name) VALUES (?, ?, ?, ?, ?, ?, ?)',
-        params,
-      );
-    }
+      if (inventoryOrders.isNotEmpty) {
+        final stmt = await conn.prepare(
+          'INSERT IGNORE INTO inventory_orders (id, inventory_no, start_time, end_time, status, total_scanned, notes) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        );
+        for (var row in inventoryOrders) {
+          await stmt.execute([
+            row['id'],
+            row['inventory_no'],
+            row['start_time'],
+            row['end_time'],
+            row['status'],
+            row['total_scanned'],
+            row['notes'],
+          ]);
+        }
+      }
 
-    // 6. Batch Sync inventory_orders Table
-    if (inventoryOrders.isNotEmpty) {
-      final params = inventoryOrders
-          .map((row) => [
-                row['id'],
-                row['inventory_no'],
-                row['start_time'],
-                row['end_time'],
-                row['status'],
-                row['total_scanned'],
-                row['notes'],
-              ])
-          .toList();
-
-      await mysqlConn.queryMulti(
-        'INSERT IGNORE INTO inventory_orders (id, inventory_no, start_time, end_time, status, total_scanned, notes) VALUES (?, ?, ?, ?, ?, ?, ?)',
-        params,
-      );
-    }
-
-    // 7. Batch Sync saved_tags Table
-    if (savedTags.isNotEmpty) {
-      final params = savedTags
-          .map((row) => [
-                row['id'],
-                row['name_description'],
-                row['serial_number'],
-                row['tag_id'],
-                row['part_number'],
-              ])
-          .toList();
-
-      await mysqlConn.queryMulti(
-        'INSERT IGNORE INTO saved_tags (id, name_description, serial_number, tag_id, part_number) VALUES (?, ?, ?, ?, ?)',
-        params,
-      );
-    }
+      if (savedTags.isNotEmpty) {
+        final stmt = await conn.prepare(
+          'INSERT IGNORE INTO saved_tags (id, name_description, serial_number, tag_id, part_number) VALUES (?, ?, ?, ?, ?)',
+        );
+        for (var row in savedTags) {
+          await stmt.execute([
+            row['id'],
+            row['name_description'],
+            row['serial_number'],
+            row['tag_id'],
+            row['part_number'],
+          ]);
+        }
+      }
+    });
 
     return true;
   } catch (e) {
     print('Sync Error: $e');
     return false;
   } finally {
-    // 8. Safely close database connections
     await sqliteDb?.close();
-    try {
-      await mysqlConn?.close();
-    } catch (_) {
-      // Ignore socket tear-down exceptions if already disconnected
+    if (mysqlConn != null && mysqlConn.connected) {
+      await mysqlConn.close();
     }
   }
 }

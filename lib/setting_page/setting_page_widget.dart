@@ -739,27 +739,10 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                           SnackBar(
                             content: Text(
                               'Configuration',
-                              style: FlutterFlowTheme.of(context)
-                                  .headlineLarge
-                                  .override(
-                                    font: GoogleFonts.plusJakartaSans(
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .headlineLarge
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .headlineLarge
-                                          .fontStyle,
-                                    ),
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .headlineLarge
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .headlineLarge
-                                        .fontStyle,
-                                  ),
+                              style: GoogleFonts.roboto(
+                                color: Color(0x00000000),
+                                fontSize: 0.0,
+                              ),
                             ),
                             duration: Duration(milliseconds: 4000),
                             backgroundColor:
