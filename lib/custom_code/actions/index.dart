@@ -8,3 +8,5 @@ export 'merge_uploaded_database.dart' show mergeUploadedDatabase;
 export 'sync_sqlite_to_mysql.dart' show syncSqliteToMysql;
 export 'fetch_saved_tags_from_mysql.dart' show fetchSavedTagsFromMysql;
 export 'clear_sqlite_tables.dart' show clearSqliteTables;
+export 'update_sqlite_products_from_mysql.dart'
+    show updateSqliteProductsFromMysql;

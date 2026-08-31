@@ -63,15 +63,34 @@ Future<bool> syncSqliteToMysql(
       secure: false, // Set to true if server requires SSL
     );
 
-    await mysqlConn.connect();
+    await mysqlConn.connect().timeout(
+      const Duration(seconds: 10),
+      onTimeout: () {
+        throw TimeoutException(
+            'Connection timed out while connecting to MySQL.');
+      },
+    );
 
-    // 4. Batch sync within a transaction
+    if (!mysqlConn.connected) {
+      print('Sync Error: Failed to connect to MySQL server.');
+      return false;
+    }
+
+    // 4. Upsert (Insert or Update on Duplicate Key) within a transaction
     await mysqlConn.transactional((conn) async {
+      // Sync Products
       if (products.isNotEmpty) {
         final stmt = await conn.prepare(
-          'INSERT IGNORE INTO Products (id, name_description, Brand, part_number) VALUES (?, ?, ?, ?)',
+          'INSERT INTO Products (id, name_description, Brand, part_number) '
+          'VALUES (?, ?, ?, ?) '
+          'ON DUPLICATE KEY UPDATE '
+          'name_description = VALUES(name_description), '
+          'Brand = VALUES(Brand), '
+          'part_number = VALUES(part_number)',
         );
         for (var row in products) {
+          if (!mysqlConn!.connected)
+            throw SocketException('Connection lost during sync.');
           await stmt.execute([
             row['id'],
             row['name_description'],
@@ -81,11 +100,22 @@ Future<bool> syncSqliteToMysql(
         }
       }
 
+      // Sync inventory_items
       if (inventoryItems.isNotEmpty) {
         final stmt = await conn.prepare(
-          'INSERT IGNORE INTO inventory_items (id, inventory_order_id, tag_id, scan_time, part_no, serial, name) VALUES (?, ?, ?, ?, ?, ?, ?)',
+          'INSERT INTO inventory_items (id, inventory_order_id, tag_id, scan_time, part_no, serial, name) '
+          'VALUES (?, ?, ?, ?, ?, ?, ?) '
+          'ON DUPLICATE KEY UPDATE '
+          'inventory_order_id = VALUES(inventory_order_id), '
+          'tag_id = VALUES(tag_id), '
+          'scan_time = VALUES(scan_time), '
+          'part_no = VALUES(part_no), '
+          'serial = VALUES(serial), '
+          'name = VALUES(name)',
         );
         for (var row in inventoryItems) {
+          if (!mysqlConn!.connected)
+            throw SocketException('Connection lost during sync.');
           await stmt.execute([
             row['id'],
             row['inventory_order_id'],
@@ -98,11 +128,22 @@ Future<bool> syncSqliteToMysql(
         }
       }
 
+      // Sync inventory_orders
       if (inventoryOrders.isNotEmpty) {
         final stmt = await conn.prepare(
-          'INSERT IGNORE INTO inventory_orders (id, inventory_no, start_time, end_time, status, total_scanned, notes) VALUES (?, ?, ?, ?, ?, ?, ?)',
+          'INSERT INTO inventory_orders (id, inventory_no, start_time, end_time, status, total_scanned, notes) '
+          'VALUES (?, ?, ?, ?, ?, ?, ?) '
+          'ON DUPLICATE KEY UPDATE '
+          'inventory_no = VALUES(inventory_no), '
+          'start_time = VALUES(start_time), '
+          'end_time = VALUES(end_time), '
+          'status = VALUES(status), '
+          'total_scanned = VALUES(total_scanned), '
+          'notes = VALUES(notes)',
         );
         for (var row in inventoryOrders) {
+          if (!mysqlConn!.connected)
+            throw SocketException('Connection lost during sync.');
           await stmt.execute([
             row['id'],
             row['inventory_no'],
@@ -115,11 +156,20 @@ Future<bool> syncSqliteToMysql(
         }
       }
 
+      // Sync saved_tags
       if (savedTags.isNotEmpty) {
         final stmt = await conn.prepare(
-          'INSERT IGNORE INTO saved_tags (id, name_description, serial_number, tag_id, part_number) VALUES (?, ?, ?, ?, ?)',
+          'INSERT INTO saved_tags (id, name_description, serial_number, tag_id, part_number) '
+          'VALUES (?, ?, ?, ?, ?) '
+          'ON DUPLICATE KEY UPDATE '
+          'name_description = VALUES(name_description), '
+          'serial_number = VALUES(serial_number), '
+          'tag_id = VALUES(tag_id), '
+          'part_number = VALUES(part_number)',
         );
         for (var row in savedTags) {
+          if (!mysqlConn!.connected)
+            throw SocketException('Connection lost during sync.');
           await stmt.execute([
             row['id'],
             row['name_description'],
@@ -136,10 +186,15 @@ Future<bool> syncSqliteToMysql(
     print('Sync Error: $e');
     return false;
   } finally {
-    await sqliteDb?.close();
-    if (mysqlConn != null && mysqlConn.connected) {
-      await mysqlConn.close();
-    }
+    try {
+      await sqliteDb?.close();
+    } catch (_) {}
+
+    try {
+      if (mysqlConn != null && mysqlConn.connected) {
+        await mysqlConn.close();
+      }
+    } catch (_) {}
   }
 }
 // Set your action name, define your arguments and return parameter,

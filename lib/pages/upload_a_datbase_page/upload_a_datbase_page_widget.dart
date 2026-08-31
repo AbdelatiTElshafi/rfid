@@ -338,7 +338,7 @@ class _UploadADatbasePageWidgetState extends State<UploadADatbasePageWidget> {
                                                         ),
                                                   ),
                                                   Text(
-                                                    '.db files supported ',
+                                                    'CSV files supported ',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodySmall
