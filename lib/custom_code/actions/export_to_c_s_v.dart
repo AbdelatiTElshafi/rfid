@@ -1,10 +1,11 @@
 // Automatic FlutterFlow imports
+import '/flutter_flow/ff_builtin_enums.dart';
 import '/backend/sqlite/sqlite_manager.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'index.dart'; // Imports other custom actions
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide RepeatMode;
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
@@ -34,13 +35,25 @@ Future<void> exportToCSV(
     'Serial_No',
   ]);
 
+  // Set to store unique normalized tag_ids
+  final seenTagIds = <String>{};
+
   for (int i = 0; i < tagIds.length; i++) {
-    rows.add([
-      tagIds[i],
-      names[i],
-      partNumbers[i],
-      serialNumbers[i],
-    ]);
+    final rawTagId = tagIds[i].trim();
+    final lookupKey = rawTagId.toLowerCase();
+
+    // Skip empty or white-space tag IDs
+    if (lookupKey.isEmpty) continue;
+
+    // Only add row if lookupKey hasn't been added yet
+    if (seenTagIds.add(lookupKey)) {
+      rows.add([
+        rawTagId,
+        names[i],
+        partNumbers[i],
+        serialNumbers[i],
+      ]);
+    }
   }
 
   final csvString = const ListToCsvConverter().convert(rows);
@@ -52,8 +65,8 @@ Future<void> exportToCSV(
   final file = File(path);
   await file.writeAsString(csvString);
 
-  await Share.shareFiles(
-    [path],
+  await Share.shareXFiles(
+    [XFile(path)],
     text: 'Exported CSV',
     subject: 'CSV Export',
   );

@@ -10,17 +10,21 @@ class SessionCardModel extends FlutterFlowModel<SessionCardWidget> {
   // Model for StatusBadge.
   late StatusBadgeModel statusBadgeModel;
   // Model for Button.
-  late ButtonModel buttonModel;
+  late ButtonModel buttonModel1;
+  // Model for Button.
+  late ButtonModel buttonModel2;
 
   @override
   void initState(BuildContext context) {
     statusBadgeModel = createModel(context, () => StatusBadgeModel());
-    buttonModel = createModel(context, () => ButtonModel());
+    buttonModel1 = createModel(context, () => ButtonModel());
+    buttonModel2 = createModel(context, () => ButtonModel());
   }
 
   @override
   void dispose() {
     statusBadgeModel.dispose();
-    buttonModel.dispose();
+    buttonModel1.dispose();
+    buttonModel2.dispose();
   }
 }

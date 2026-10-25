@@ -1,6 +1,7 @@
 import '/components/button/button_widget.dart';
 import '/components/inventoryactions_widget.dart';
 import '/components/status_badge/status_badge_widget.dart';
+import '/flutter_flow/ff_builtin_enums.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
@@ -200,45 +201,92 @@ class _SessionCardWidgetState extends State<SessionCardWidget> {
                     endIndent: 0.0,
                     color: FlutterFlowTheme.of(context).alternate,
                   ),
-                  InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      FFAppState().scannedTagList = [];
-                      safeSetState(() {});
-                      if (widget.status == 'in_progress') {
-                        context.pushNamed(
-                          RFIDScanningWidget.routeName,
-                          queryParameters: {
-                            'inventoryOrder': serializeParam(
-                              widget.session_id,
-                              ParamType.String,
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment:
+                        (FFMainAxisAlignment.center).flutterValue,
+                    children: [
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          FFAppState().scannedTagList = [];
+                          safeSetState(() {});
+                          if (widget.status == 'in_progress') {
+                            context.pushNamed(
+                              RFIDScanningWidget.routeName,
+                              queryParameters: {
+                                'inventoryOrder': serializeParam(
+                                  widget.session_id,
+                                  ParamType.String,
+                                ),
+                              }.withoutNulls,
+                            );
+                          }
+                        },
+                        child: wrapWithModel(
+                          model: _model.buttonModel1,
+                          updateCallback: () => safeSetState(() {}),
+                          child: ButtonWidget(
+                            content: 'Start Scan',
+                            icon: Icon(
+                              Icons.arrow_forward_rounded,
+                              color: FlutterFlowTheme.of(context).primary,
+                              size: 16.0,
                             ),
-                          }.withoutNulls,
-                        );
-                      }
-                    },
-                    child: wrapWithModel(
-                      model: _model.buttonModel,
-                      updateCallback: () => safeSetState(() {}),
-                      child: ButtonWidget(
-                        content: 'Start Scan',
-                        icon: Icon(
-                          Icons.arrow_forward_rounded,
-                          color: FlutterFlowTheme.of(context).primary,
-                          size: 16.0,
+                            icon_present: true,
+                            icon_end_present: false,
+                            variant: 'ghost',
+                            size: 'small',
+                            full_width: false,
+                            loading: false,
+                            disabled: false,
+                          ),
                         ),
-                        icon_present: true,
-                        icon_end_present: false,
-                        variant: 'ghost',
-                        size: 'small',
-                        full_width: false,
-                        loading: false,
-                        disabled: false,
                       ),
-                    ),
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          FFAppState().scannedTagList = [];
+                          safeSetState(() {});
+                          if (widget.status == 'in_progress') {
+                            context.pushNamed(
+                              RFIDcheckWidget.routeName,
+                              queryParameters: {
+                                'inventoryOrder': serializeParam(
+                                  '',
+                                  ParamType.String,
+                                ),
+                              }.withoutNulls,
+                            );
+                          }
+                        },
+                        child: wrapWithModel(
+                          model: _model.buttonModel2,
+                          updateCallback: () => safeSetState(() {}),
+                          child: ButtonWidget(
+                            content: 'Start Check',
+                            icon: Icon(
+                              Icons.check,
+                              color: FlutterFlowTheme.of(context).primary,
+                              size: 16.0,
+                            ),
+                            icon_present: true,
+                            icon_end_present: false,
+                            variant: 'ghost',
+                            size: 'small',
+                            full_width: false,
+                            loading: false,
+                            disabled: false,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ].divide(SizedBox(height: 16.0)),
               ),

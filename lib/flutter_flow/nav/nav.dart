@@ -112,6 +112,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: LoadingPageWidget.routeName,
           path: LoadingPageWidget.routePath,
           builder: (context, params) => LoadingPageWidget(),
+        ),
+        FFRoute(
+          name: RFIDcheckWidget.routeName,
+          path: RFIDcheckWidget.routePath,
+          builder: (context, params) => RFIDcheckWidget(
+            inventoryOrder: params.getParam(
+              'inventoryOrder',
+              ParamType.String,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -249,6 +259,10 @@ class FFRoute {
                     duration: transitionInfo.duration,
                     reverseDuration: transitionInfo.duration,
                     alignment: transitionInfo.alignment,
+                    curve: transitionInfo.transitionType ==
+                            PageTransitionType.scale
+                        ? const Interval(0.0, 0.5)
+                        : Curves.linear,
                     child: child,
                   ).buildTransitions(
                     context,

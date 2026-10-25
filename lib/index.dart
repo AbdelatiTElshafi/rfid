@@ -12,3 +12,4 @@ export '/pages/upload_a_datbase_page/upload_a_datbase_page_widget.dart'
     show UploadADatbasePageWidget;
 export '/setting_page/setting_page_widget.dart' show SettingPageWidget;
 export '/loading_page/loading_page_widget.dart' show LoadingPageWidget;
+export '/r_f_i_dcheck/r_f_i_dcheck_widget.dart' show RFIDcheckWidget;

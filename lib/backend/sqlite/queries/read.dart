@@ -155,8 +155,10 @@ Future<List<GetInventoryItemsRow>> performGetInventoryItems(
   String? inventoryorderid,
 }) {
   final query = '''
-SELECT * FROM inventory_items
-WHERE inventory_order_id = '${inventoryorderid}';
+SELECT * 
+FROM inventory_items
+WHERE inventory_order_id = '${inventoryorderid}'
+GROUP BY tag_id;
 ''';
   return _readQuery(database, query, (d) => GetInventoryItemsRow(d));
 }
