@@ -16,6 +16,10 @@ class InventoryactionsModel extends FlutterFlowModel<InventoryactionsWidget> {
   late ExportOptionCardModel exportOptionCardModel3;
   // Stores action output result for [Backend Call - SQLite (GetInventoryItems)] action in ExportOptionCard widget.
   List<GetInventoryItemsRow>? inventoryItemsData;
+  // Model for ExportOptionCard.
+  late ExportOptionCardModel exportOptionCardModel4;
+  // Stores action output result for [Backend Call - SQLite (Getnoninventoryitems)] action in ExportOptionCard widget.
+  List<GetnoninventoryitemsRow>? nonInventoryItemsData;
   // Model for Button.
   late Button3Model buttonModel;
 
@@ -27,6 +31,8 @@ class InventoryactionsModel extends FlutterFlowModel<InventoryactionsWidget> {
         createModel(context, () => ExportOptionCardModel());
     exportOptionCardModel3 =
         createModel(context, () => ExportOptionCardModel());
+    exportOptionCardModel4 =
+        createModel(context, () => ExportOptionCardModel());
     buttonModel = createModel(context, () => Button3Model());
   }
 
@@ -35,6 +41,7 @@ class InventoryactionsModel extends FlutterFlowModel<InventoryactionsWidget> {
     exportOptionCardModel1.dispose();
     exportOptionCardModel2.dispose();
     exportOptionCardModel3.dispose();
+    exportOptionCardModel4.dispose();
     buttonModel.dispose();
   }
 }

@@ -285,6 +285,39 @@ class _InventoryactionsWidgetState extends State<InventoryactionsWidget> {
                     ),
                   ),
                 ),
+                InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    _model.nonInventoryItemsData =
+                        await SQLiteManager.instance.getnoninventoryitems(
+                      inventoryorderid: widget.inventoryID,
+                    );
+                    await actions.exportnonToCSV(
+                      _model.nonInventoryItemsData!
+                          .map((e) => e.tagId)
+                          .withoutNulls
+                          .toList(),
+                    );
+
+                    safeSetState(() {});
+                  },
+                  child: wrapWithModel(
+                    model: _model.exportOptionCardModel4,
+                    updateCallback: () => safeSetState(() {}),
+                    child: ExportOptionCardWidget(
+                      icon: Icon(
+                        Icons.table_view_rounded,
+                        color: FlutterFlowTheme.of(context).primary,
+                        size: 24.0,
+                      ),
+                      subtitle: 'Best for Excel or database imports',
+                      title: 'Export Non-Coded as CSV',
+                    ),
+                  ),
+                ),
                 Container(
                   height: 16.0,
                 ),

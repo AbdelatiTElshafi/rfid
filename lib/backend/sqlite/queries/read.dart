@@ -173,3 +173,25 @@ class GetInventoryItemsRow extends SqliteRow {
 }
 
 /// END GETINVENTORYITEMS
+
+/// BEGIN GETNONINVENTORYITEMS
+Future<List<GetnoninventoryitemsRow>> performGetnoninventoryitems(
+  Database database, {
+  String? inventoryorderid,
+}) {
+  final query = '''
+SELECT * 
+FROM non_inventory_items
+WHERE inventory_order_id = '${inventoryorderid}'
+GROUP BY tag_id;
+''';
+  return _readQuery(database, query, (d) => GetnoninventoryitemsRow(d));
+}
+
+class GetnoninventoryitemsRow extends SqliteRow {
+  GetnoninventoryitemsRow(Map<String, dynamic> data) : super(data);
+
+  String? get tagId => data['tag_id'] as String?;
+}
+
+/// END GETNONINVENTORYITEMS

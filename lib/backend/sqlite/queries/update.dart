@@ -116,3 +116,20 @@ WHERE inventory_no = '${inventoryno}';
 }
 
 /// END UPDATEINEVENTORYORDER
+
+/// BEGIN SAVETONONINVENTORY
+Future performSavetononinventory(
+  Database database, {
+  String? inventoryorderid,
+  String? tagid,
+}) {
+  final query = '''
+INSERT INTO non_inventory_items 
+(inventory_order_id, tag_id)
+VALUES 
+('${inventoryorderid}', '${tagid}');
+''';
+  return database.rawQuery(query);
+}
+
+/// END SAVETONONINVENTORY

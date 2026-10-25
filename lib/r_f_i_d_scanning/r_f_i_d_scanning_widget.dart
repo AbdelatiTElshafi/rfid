@@ -541,6 +541,14 @@ class _RFIDScanningWidgetState extends State<RFIDScanningWidget> {
                                                     ?.nameDescription,
                                               );
                                             } else {
+                                              await SQLiteManager.instance
+                                                  .savetononinventory(
+                                                inventoryorderid:
+                                                    widget.inventoryOrder,
+                                                tagid: _model.newScannedRFIDTags
+                                                    .elementAtOrNull(
+                                                        loop1Index),
+                                              );
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(
                                                 SnackBar(

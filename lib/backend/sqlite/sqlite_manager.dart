@@ -78,6 +78,14 @@ class SQLiteManager {
         inventoryorderid: inventoryorderid,
       );
 
+  Future<List<GetnoninventoryitemsRow>> getnoninventoryitems({
+    String? inventoryorderid,
+  }) =>
+      performGetnoninventoryitems(
+        _database,
+        inventoryorderid: inventoryorderid,
+      );
+
   /// END READ QUERY CALLS
 
   /// START UPDATE QUERY CALLS
@@ -154,6 +162,16 @@ class SQLiteManager {
         _database,
         status: status,
         inventoryno: inventoryno,
+      );
+
+  Future savetononinventory({
+    String? inventoryorderid,
+    String? tagid,
+  }) =>
+      performSavetononinventory(
+        _database,
+        inventoryorderid: inventoryorderid,
+        tagid: tagid,
       );
 
   /// END UPDATE QUERY CALLS
